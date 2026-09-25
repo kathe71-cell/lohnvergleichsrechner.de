@@ -16,7 +16,7 @@ export default function StateComparisonTable() {
             Gehaltsvergleich nach allen 16 Bundesländern
           </h3>
           <p className="text-xs sm:text-sm text-slate-600 mt-1">
-            Abweichung zum Bundesdurchschnitt (100 %) basierend auf der amtlichen Destatis-Verdienststrukturerhebung.
+            Abweichung zum Bundesmedian (100 % = 3.796 €/Monat bzw. 45.552 € p.a.) basierend auf der amtlichen Statistik der Bundesagentur für Arbeit (Entgeltstatistik Vollzeit-Kerngruppe, Stichtag 31.12.2023; BT-Drs. 20/12571).
           </p>
         </div>
       </div>
@@ -27,15 +27,16 @@ export default function StateComparisonTable() {
             <tr className="border-b border-slate-200 text-xs font-mono uppercase tracking-wider text-slate-500 bg-slate-50">
               <th className="py-3 px-4 rounded-l-lg">Rang</th>
               <th className="py-3 px-4">Bundesland</th>
-              <th className="py-3 px-4">Abweichung zum Bundesschnitt</th>
-              <th className="py-3 px-4 font-mono">Gesamtmedian p.a.</th>
+              <th className="py-3 px-4">Abweichung zum Bundesmedian</th>
+              <th className="py-3 px-4 font-mono">Monatsmedian</th>
+              <th className="py-3 px-4 font-mono">Jahresmedian</th>
               <th className="py-3 px-4 text-right rounded-r-lg">Aktion</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
             {sortedStates.map((state, idx) => {
-              const diffPercent = Math.round((state.factor - 1) * 100);
-              const isPositive = diffPercent >= 0;
+              const diffPercent = ((state.factor - 1) * 100).toFixed(1).replace('.', ',');
+              const isPositive = state.factor >= 1.0;
               return (
                 <tr key={state.code} className="hover:bg-slate-50 transition-colors">
                   <td className="py-3.5 px-4 font-mono font-bold text-slate-400">
@@ -52,7 +53,10 @@ export default function StateComparisonTable() {
                       {isPositive ? `+${diffPercent} %` : `${diffPercent} %`}
                     </span>
                   </td>
-                  <td className="py-3.5 px-4 font-mono font-bold text-slate-800">
+                  <td className="py-3.5 px-4 font-mono font-bold text-slate-900">
+                    {state.medianMonthAll.toLocaleString('de-DE')} €
+                  </td>
+                  <td className="py-3.5 px-4 font-mono text-slate-600">
                     {state.medianYearAll.toLocaleString('de-DE')} €
                   </td>
                   <td className="py-3.5 px-4 text-right">

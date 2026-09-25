@@ -6,7 +6,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const toAbsolute = (p) => path.resolve(__dirname, p);
 
 const template = fs.readFileSync(toAbsolute("dist/index.html"), "utf-8");
-const { render, SALARY_DATABASE, STATE_FACTORS } = await import("./dist-ssr/entry-server.js");
+const { render, SALARY_DATABASE, STATE_FACTORS, DATA_METADATA } = await import("./dist-ssr/entry-server.js");
 
 // 1. Core pages
 const coreRoutes = [
@@ -139,7 +139,7 @@ for (const route of allRoutes) {
 }
 
 // Generate updated sitemap.xml with all canonical routes
-const today = "2026-09-25";
+const sitemapLastmod = DATA_METADATA.contentModifiedAt;
 const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${allRoutes.map(r => {
@@ -152,7 +152,7 @@ ${allRoutes.map(r => {
   
   return `  <url>
     <loc>https://lohnvergleichsrechner.de${r.url === "/" ? "" : r.url}</loc>
-    <lastmod>${today}</lastmod>
+    <lastmod>${sitemapLastmod}</lastmod>
     <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>
   </url>`;
@@ -162,6 +162,6 @@ ${allRoutes.map(r => {
 
 fs.writeFileSync(toAbsolute("dist/sitemap.xml"), sitemapXml);
 fs.writeFileSync(toAbsolute("public/sitemap.xml"), sitemapXml);
-console.log(`✓ Updated sitemap.xml with ${allRoutes.length} canonical URLs and lastmod ${today}`);
+console.log(`✓ Updated sitemap.xml with ${allRoutes.length} canonical URLs and lastmod ${sitemapLastmod}`);
 
 console.log("Prerendering complete!");

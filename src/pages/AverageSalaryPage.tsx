@@ -85,7 +85,7 @@ export default function AverageSalaryPage() {
             Hamburg
           </div>
           <span className="text-xs text-slate-500 block mt-1">
-            +9,5 % über dem Bundesschnitt (ca. 4.490 €/Mo.)
+            4.304 € / Mo. (+13,4 % über Bundesmedian)
           </span>
         </div>
 
@@ -94,10 +94,10 @@ export default function AverageSalaryPage() {
             Verdienstabstand Ost/West
           </span>
           <div className="text-3xl font-black text-slate-900 font-mono tracking-tight">
-            ca. 600 €
+            ca. 729 €
           </div>
           <span className="text-xs text-slate-500 block mt-1">
-            monatliche Differenz der Mediane
+            monatliche Differenz (West 3.896 € vs. Ost 3.167 €)
           </span>
         </div>
 
@@ -116,16 +116,16 @@ export default function AverageSalaryPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-700 leading-relaxed">
           <div className="p-4 bg-emerald-50/50 rounded-xl border border-emerald-200/80 space-y-2">
-            <h3 className="font-extrabold text-emerald-950 text-base">Der Median (4.100 € / Monat): Das reale Normalgehalt</h3>
+            <h3 className="font-extrabold text-emerald-950 text-base">Der Median: Das reale Normalgehalt (50. Perzentil)</h3>
             <p className="text-emerald-900/90 text-xs sm:text-sm">
-              Ordnet man alle 21 Millionen sozialversicherungspflichtig Vollzeitbeschäftigten in Deutschland der Reihe nach nach ihrem Gehalt, so verdient die Person genau in der Mitte <strong>4.100 Euro brutto im Monat</strong>. Der Median ist unempfindlich gegenüber extremen Ausreißern und ist im <strong>Entgelttransparenzgesetz (§ 11 Abs. 3 EntgTranspG)</strong> der gesetzlich vorgeschriebene Vergleichswert.
+              Ordnet man alle Vollzeitbeschäftigten der Reihe nach nach ihrem Gehalt, so verdient die Person genau in der Mitte den Median. In der amtlichen <strong>Verdienststrukturerhebung (Destatis VSE)</strong> liegt dieser bei <strong>4.100 Euro brutto im Monat</strong>; in der <strong>Entgeltstatistik der Bundesagentur für Arbeit (BA)</strong> für die 22 Mio. sozialversicherungspflichtigen Vollzeitbeschäftigten der Kerngruppe bei <strong>3.796 Euro brutto im Monat</strong> (BT-Drs. 20/12571). Der Median ist unempfindlich gegenüber Ausreißern und im <strong>Entgelttransparenzgesetz (§ 11 Abs. 3 EntgTranspG)</strong> der gesetzliche Vergleichswert.
             </p>
           </div>
 
           <div className="p-4 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
             <h3 className="font-extrabold text-slate-900 text-base">Der Durchschnitt (4.479 € / Monat): Mathematisches Mittel</h3>
             <p className="text-slate-600 text-xs sm:text-sm">
-              Das arithmetische Mittel dividiert die gesamte Lohnsumme durch alle Erwerbstätigen. Da Spitzenverdiener, Chefärzte, Partner und Vorstände Millionenbeträge beziehen, nach unten hin aber durch den Mindestlohn eine Grenze existiert, liegt der Durchschnitt in Deutschland stets rund <strong>350 bis 400 Euro über dem Median</strong>.
+              Das arithmetische Mittel (Destatis VSE: 4.479 € im Monat) dividiert die gesamte Lohnsumme durch alle Beschäftigten. Da Spitzenverdiener, Partner und Vorstände Millionenbeträge beziehen, nach unten hin aber durch den gesetzlichen Mindestlohn eine Grenze existiert, liegt der arithmetische Durchschnitt in Deutschland stets rund <strong>350 bis 400 Euro über dem Median</strong>.
             </p>
           </div>
         </div>

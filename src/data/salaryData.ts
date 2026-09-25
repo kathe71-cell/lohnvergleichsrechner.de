@@ -19,35 +19,45 @@ export interface StateFactor {
   code: string;
   slug: string;
   name: string;
-  factor: number; // 1.0 = Bundesschnitt
+  factor: number; // 1.0 = Bundesschnitt (3.796 € / Monat gem. BA Entgeltstatistik)
   medianYearAll: number;
+  medianMonthAll: number;
   capital: string;
 }
 
 export const DATA_METADATA = {
   version: "2024/2025",
   dataReferencePeriod: "2023 / 2024",
-  dataPublishedAt: "Juni 2024 (BA Entgeltatlas) / Oktober 2024 (Destatis VSE)",
+  dataPublishedAt: "Juni 2024 (BA Entgeltatlas) / August 2024 (BT-Drs. 20/12571) / Oktober 2024 (Destatis VSE)",
   dataImportedAt: "2026-09-25",
   contentModifiedAt: "2026-09-25",
   contentYear: "2026",
   lastUpdated: "September 2026",
   destatisSurvey: "Statistisches Bundesamt (Destatis) - Verdienststrukturerhebung (VSE) nach § 12 VStatG",
-  baStats: "Bundesagentur für Arbeit - Statistik der sozialversicherungspflichtig Vollzeitbeschäftigten (KldB 2010 5-Steller)",
+  baStats: "Bundesagentur für Arbeit - Statistik der sozialversicherungspflichtig Vollzeitbeschäftigten (KldB 2010 5-Steller, Stichtag 31.12.2023; BT-Drs. 20/12571)",
   bmasRef: "BMAS - Entgelttransparenzgesetz (§ 10 EntgTranspG) & Richtlinie (EU) 2023/970",
+  // BA Entgeltstatistik (Kerngruppe Vollzeit, Stichtag 31.12.2023, 21.989.270 Beschäftigte, BT-Drs. 20/12571)
+  baMedianFullTimeMonthly: 3796,
+  baMedianFullTimeYearly: 45552,
+  // Destatis VSE (Verdienststrukturerhebung, Wirtschaftsabschnitte B bis S, alle Betriebe)
+  destatisMedianFullTimeMonthly: 4100,
+  destatisMedianFullTimeYearly: 49200,
+  destatisAverageFullTimeMonthly: 4479, // Destatis arithmetisches Mittel Vollzeit
+  destatisAverageFullTimeYearly: 53748,
+  // Bundesreferenz für Rechner & allgemeine Vergleiche
   federalMedianFullTimeMonthly: 4100,
   federalMedianFullTimeYearly: 49200,
-  federalAverageFullTimeMonthly: 4479, // Destatis arithmetisches Mittel Vollzeit (ca. 9,2 % über Bundesmedian)
+  federalAverageFullTimeMonthly: 4479,
   federalAverageFullTimeYearly: 53748,
   primarySources: [
     {
       name: "Statistisches Bundesamt (Destatis)",
-      title: "Verdienste und Arbeitskosten in Deutschland",
+      title: "Verdienste und Arbeitskosten in Deutschland (VSE nach § 12 VStatG)",
       url: "https://www.destatis.de/DE/Themen/Arbeit/Verdienste/_inhalt.html"
     },
     {
       name: "Bundesagentur für Arbeit (BA)",
-      title: "Entgeltatlas nach KldB 2010",
+      title: "Entgeltatlas nach KldB 2010 & Entgeltstatistik (Stichtag 31.12.2023, BT-Drs. 20/12571)",
       url: "https://entgeltatlas.arbeitsagentur.de/"
     },
     {
@@ -59,22 +69,24 @@ export const DATA_METADATA = {
 };
 
 export const STATE_FACTORS: StateFactor[] = [
-  { code: "BW", slug: "baden-wuerttemberg", name: "Baden-Württemberg", factor: 1.075, medianYearAll: 47800, capital: "Stuttgart" },
-  { code: "BY", slug: "bayern", name: "Bayern", factor: 1.065, medianYearAll: 47200, capital: "München" },
-  { code: "BE", slug: "berlin", name: "Berlin", factor: 0.985, medianYearAll: 43800, capital: "Berlin" },
-  { code: "BB", slug: "brandenburg", name: "Brandenburg", factor: 0.835, medianYearAll: 37100, capital: "Potsdam" },
-  { code: "HB", slug: "bremen", name: "Bremen", factor: 0.995, medianYearAll: 44200, capital: "Bremen" },
-  { code: "HH", slug: "hamburg", name: "Hamburg", factor: 1.095, medianYearAll: 48600, capital: "Hamburg" },
-  { code: "HE", slug: "hessen", name: "Hessen", factor: 1.080, medianYearAll: 48000, capital: "Wiesbaden" },
-  { code: "MV", slug: "mecklenburg-vorpommern", name: "Mecklenburg-Vorpommern", factor: 0.795, medianYearAll: 35400, capital: "Schwerin" },
-  { code: "NI", slug: "niedersachsen", name: "Niedersachsen", factor: 0.955, medianYearAll: 42500, capital: "Hannover" },
-  { code: "NW", slug: "nordrhein-westfalen", name: "Nordrhein-Westfalen", factor: 1.025, medianYearAll: 45600, capital: "Düsseldorf" },
-  { code: "RP", slug: "rheinland-pfalz", name: "Rheinland-Pfalz", factor: 0.975, medianYearAll: 43400, capital: "Mainz" },
-  { code: "SL", slug: "saarland", name: "Saarland", factor: 0.940, medianYearAll: 41800, capital: "Saarbrücken" },
-  { code: "SN", slug: "sachsen", name: "Sachsen", factor: 0.825, medianYearAll: 36700, capital: "Dresden" },
-  { code: "ST", slug: "sachsen-anhalt", name: "Sachsen-Anhalt", factor: 0.815, medianYearAll: 36200, capital: "Magdeburg" },
-  { code: "SH", slug: "schleswig-holstein", name: "Schleswig-Holstein", factor: 0.945, medianYearAll: 42000, capital: "Kiel" },
-  { code: "TH", slug: "thueringen", name: "Thüringen", factor: 0.810, medianYearAll: 36000, capital: "Erfurt" }
+  // Datenbasis: Statistik der Bundesagentur für Arbeit, Stichtag 31.12.2023, BT-Drs. 20/12571 Tabelle 8
+  // Bundesschnitt Vollzeit-Kerngruppe = 3.796 €/Monat (45.552 €/Jahr). Faktor = Median Land / Median Bund
+  { code: "HH", slug: "hamburg", name: "Hamburg", factor: 1.134, medianMonthAll: 4304, medianYearAll: 51648, capital: "Hamburg" },
+  { code: "BW", slug: "baden-wuerttemberg", name: "Baden-Württemberg", factor: 1.089, medianMonthAll: 4134, medianYearAll: 49608, capital: "Stuttgart" },
+  { code: "HE", slug: "hessen", name: "Hessen", factor: 1.077, medianMonthAll: 4087, medianYearAll: 49044, capital: "Wiesbaden" },
+  { code: "BE", slug: "berlin", name: "Berlin", factor: 1.049, medianMonthAll: 3982, medianYearAll: 47784, capital: "Berlin" },
+  { code: "BY", slug: "bayern", name: "Bayern", factor: 1.040, medianMonthAll: 3948, medianYearAll: 47376, capital: "München" },
+  { code: "HB", slug: "bremen", name: "Bremen", factor: 1.038, medianMonthAll: 3942, medianYearAll: 47304, capital: "Bremen" },
+  { code: "NW", slug: "nordrhein-westfalen", name: "Nordrhein-Westfalen", factor: 1.007, medianMonthAll: 3821, medianYearAll: 45852, capital: "Düsseldorf" },
+  { code: "SL", slug: "saarland", name: "Saarland", factor: 0.993, medianMonthAll: 3770, medianYearAll: 45240, capital: "Saarbrücken" },
+  { code: "RP", slug: "rheinland-pfalz", name: "Rheinland-Pfalz", factor: 0.977, medianMonthAll: 3707, medianYearAll: 44484, capital: "Mainz" },
+  { code: "NI", slug: "niedersachsen", name: "Niedersachsen", factor: 0.956, medianMonthAll: 3627, medianYearAll: 43524, capital: "Hannover" },
+  { code: "SH", slug: "schleswig-holstein", name: "Schleswig-Holstein", factor: 0.929, medianMonthAll: 3526, medianYearAll: 42312, capital: "Kiel" },
+  { code: "SN", slug: "sachsen", name: "Sachsen", factor: 0.838, medianMonthAll: 3182, medianYearAll: 38184, capital: "Dresden" },
+  { code: "BB", slug: "brandenburg", name: "Brandenburg", factor: 0.836, medianMonthAll: 3173, medianYearAll: 38076, capital: "Potsdam" },
+  { code: "ST", slug: "sachsen-anhalt", name: "Sachsen-Anhalt", factor: 0.831, medianMonthAll: 3152, medianYearAll: 37824, capital: "Magdeburg" },
+  { code: "TH", slug: "thueringen", name: "Thüringen", factor: 0.819, medianMonthAll: 3109, medianYearAll: 37308, capital: "Erfurt" },
+  { code: "MV", slug: "mecklenburg-vorpommern", name: "Mecklenburg-Vorpommern", factor: 0.816, medianMonthAll: 3098, medianYearAll: 37176, capital: "Schwerin" }
 ];
 
 export const EXPERIENCE_FACTORS: Record<string, { label: string; factor: number; desc: string }> = {

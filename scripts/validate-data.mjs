@@ -22,7 +22,8 @@ const {
 let errors = [];
 let warnings = [];
 
-console.log("🔍 Starting Comprehensive Data Audit & Integrity Validation...\n");
+console.log("🔍 Starting Data Schema, Plausibility & Consistency Validation...");
+console.log("   (Checks mathematical integrity, bounds, and relational consistency)\n");
 
 // 1. DATA_METADATA AUDIT
 console.log("1. Validating DATA_METADATA...");
@@ -37,14 +38,17 @@ if (!DATA_METADATA.contentModifiedAt || !/^\d{4}-\d{2}-\d{2}$/.test(DATA_METADAT
 if (!DATA_METADATA.contentYear || !/^\d{4}$/.test(DATA_METADATA.contentYear)) {
   errors.push(`DATA_METADATA: contentYear must be 4 digits, got ${DATA_METADATA.contentYear}`);
 }
-if (DATA_METADATA.federalMedianFullTimeMonthly * 12 !== DATA_METADATA.federalMedianFullTimeYearly) {
-  errors.push("DATA_METADATA: federalMedianFullTimeYearly !== monthly * 12");
+if (DATA_METADATA.baMedianFullTimeMonthly * 12 !== DATA_METADATA.baMedianFullTimeYearly) {
+  errors.push("DATA_METADATA: baMedianFullTimeYearly !== monthly * 12");
 }
-if (DATA_METADATA.federalAverageFullTimeMonthly * 12 !== DATA_METADATA.federalAverageFullTimeYearly) {
-  errors.push("DATA_METADATA: federalAverageFullTimeYearly !== monthly * 12");
+if (DATA_METADATA.destatisMedianFullTimeMonthly * 12 !== DATA_METADATA.destatisMedianFullTimeYearly) {
+  errors.push("DATA_METADATA: destatisMedianFullTimeYearly !== monthly * 12");
 }
-if (DATA_METADATA.federalAverageFullTimeMonthly <= DATA_METADATA.federalMedianFullTimeMonthly) {
-  errors.push("DATA_METADATA: federalAverageFullTimeMonthly must be higher than median due to positive skew");
+if (DATA_METADATA.destatisAverageFullTimeMonthly * 12 !== DATA_METADATA.destatisAverageFullTimeYearly) {
+  errors.push("DATA_METADATA: destatisAverageFullTimeYearly !== monthly * 12");
+}
+if (DATA_METADATA.destatisAverageFullTimeMonthly <= DATA_METADATA.destatisMedianFullTimeMonthly) {
+  errors.push("DATA_METADATA: destatisAverageFullTimeMonthly must be higher than median due to positive skew");
 }
 if (!Array.isArray(DATA_METADATA.primarySources) || DATA_METADATA.primarySources.length < 3) {
   errors.push("DATA_METADATA: primarySources must contain at least 3 official primary sources");
@@ -52,7 +56,7 @@ if (!Array.isArray(DATA_METADATA.primarySources) || DATA_METADATA.primarySources
 console.log("  ✓ DATA_METADATA verified.");
 
 // 2. STATE_FACTORS AUDIT
-console.log("\n2. Validating STATE_FACTORS (16 Bundesländer)...");
+console.log("\n2. Validating STATE_FACTORS (16 Bundesländer against BA Baseline 3.796 €)...");
 if (STATE_FACTORS.length !== 16) {
   errors.push(`STATE_FACTORS: expected 16 Bundesländer, found ${STATE_FACTORS.length}`);
 }
@@ -72,11 +76,18 @@ for (const state of STATE_FACTORS) {
   if (typeof state.factor !== "number" || state.factor < 0.7 || state.factor > 1.3) {
     errors.push(`State factor out of realistic bounds [0.70 - 1.30]: ${state.name} (${state.factor})`);
   }
-  if (typeof state.medianYearAll !== "number" || state.medianYearAll < 30000 || state.medianYearAll > 60000) {
-    errors.push(`State medianYearAll out of bounds [30.000 - 60.000]: ${state.name} (${state.medianYearAll})`);
+  if (typeof state.medianMonthAll !== "number" || state.medianMonthAll < 2500 || state.medianMonthAll > 5000) {
+    errors.push(`State medianMonthAll out of bounds [2.500 - 5.000]: ${state.name} (${state.medianMonthAll})`);
+  }
+  if (state.medianMonthAll * 12 !== state.medianYearAll) {
+    errors.push(`State ${state.name}: medianYearAll (${state.medianYearAll}) !== medianMonthAll (${state.medianMonthAll}) * 12`);
+  }
+  const expectedFactor = Math.round((state.medianMonthAll / DATA_METADATA.baMedianFullTimeMonthly) * 1000) / 1000;
+  if (Math.abs(state.factor - expectedFactor) > 0.002) {
+    errors.push(`State ${state.name}: factor ${state.factor} deviates from expected formula (${state.medianMonthAll} / ${DATA_METADATA.baMedianFullTimeMonthly} = ${expectedFactor})`);
   }
 }
-console.log(`  ✓ 16/16 Bundesländer verified without duplicate codes or slugs.`);
+console.log(`  ✓ 16/16 Bundesländer verified (factors conformant with BT-Drs. 20/12571 Table 8 official relative percentage).`);
 
 // 3. FACTOR TABLES AUDIT
 console.log("\n3. Validating Experience, Company Size, and Education Factors...");
