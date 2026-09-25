@@ -255,10 +255,17 @@ export default function JobSalaryPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {stateHighlights.map(({ state, stateMedian, stateMonth }) => {
             const diff = Math.round((state.factor - 1) * 100);
+            const focusJobs = ["softwareentwickler", "erzieher", "gesundheits-und-krankenpfleger", "mechatroniker", "controller", "maschinenbauingenieur"];
+            const focusStates = ["BW", "BY", "HE", "NW", "BE", "SN"];
+            const hasDedicatedPage = focusJobs.includes(job.id) && focusStates.includes(state.code);
+            const targetUrl = hasDedicatedPage
+              ? `/gehalt/${job.id}/${state.slug}`
+              : `/rechner?beruf=${job.id}&bundesland=${state.code}`;
+
             return (
               <Link
                 key={state.code}
-                to={`/gehalt/${job.id}/${state.slug}`}
+                to={targetUrl}
                 className="p-4 rounded-xl border border-slate-200 hover:border-emerald-300 hover:shadow-xs transition-all bg-white group flex flex-col justify-between"
               >
                 <div>
@@ -281,7 +288,7 @@ export default function JobSalaryPage() {
                   </span>
                 </div>
                 <div className="pt-3 mt-2 border-t border-slate-100 text-[11px] font-bold text-emerald-700 flex items-center gap-0.5">
-                  Regionaldaten ansehen <ArrowRight className="w-3 h-3" />
+                  {hasDedicatedPage ? 'Regionaldaten ansehen' : 'Im Rechner prüfen'} <ArrowRight className="w-3 h-3" />
                 </div>
               </Link>
             );

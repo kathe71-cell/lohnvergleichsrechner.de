@@ -32,8 +32,9 @@ export default function JobStateSalaryPage() {
   const regionalHourly = (regionalMedianYear / (40 * 52)).toFixed(2);
   const diffToBund = Math.round((state.factor - 1) * 100);
 
-  // Other states for cross-linking
-  const otherStates = STATE_FACTORS.filter(s => s.code !== state.code).slice(0, 8);
+  // Other states that actually have dedicated landing pages for this job
+  const focusStates = ["BW", "BY", "HE", "NW", "BE", "SN"];
+  const otherDedicatedStates = STATE_FACTORS.filter(s => focusStates.includes(s.code) && s.code !== state.code);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-14 space-y-12">
@@ -229,7 +230,7 @@ export default function JobStateSalaryPage() {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          {otherStates.map((other) => {
+          {otherDedicatedStates.map((other) => {
             const otherMedian = Math.round(job.medianYear * other.factor);
             return (
               <Link

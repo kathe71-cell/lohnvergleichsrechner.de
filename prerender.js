@@ -17,8 +17,8 @@ const coreRoutes = [
   },
   {
     url: "/rechner",
-    title: "Lohnvergleichsrechner: Interaktiver Gehaltsvergleich & Marktwert-Benchmark",
-    desc: "Ermitteln Sie Ihren Marktwert im statistischen Median nach Beruf, Bundesland, Qualifikation und Unternehmensgröße auf Basis amtlicher Primärquellen."
+    title: "Lohnvergleichsrechner: Gehalt statistisch vergleichen",
+    desc: "Vergleichen Sie Ihr Gehalt nach Beruf, Bundesland, Erfahrung und weiteren Faktoren. Mit amtlichen Ausgangsdaten und transparentem statistischem Modell."
   },
   {
     url: "/durchschnittsgehalt",

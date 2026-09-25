@@ -161,7 +161,7 @@ export default function GuidePage() {
                 to="/rechner"
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-sm transition-all"
               >
-                Marktwert jetzt im Rechner bestimmen <ArrowRight className="w-4 h-4" />
+                Gehalt jetzt im Rechner statistisch vergleichen <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>

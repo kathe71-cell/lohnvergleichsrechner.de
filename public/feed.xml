@@ -9,9 +9,9 @@
     <atom:link href="https://lohnvergleichsrechner.de/feed.xml" rel="self" type="application/rss+xml"/>
     
     <item>
-      <title>Lohnvergleichsrechner: Interaktives Markt-Benchmark nach Bundesland und Beruf</title>
+      <title>Lohnvergleichsrechner: Statistischer Gehalts-Benchmark nach Bundesland und Beruf</title>
       <link>https://lohnvergleichsrechner.de/rechner</link>
-      <description>Ermitteln Sie Ihren Marktwert im statistischen Median und vergleichen Sie Ihr Gehalt mit dem interquartilen Korridor.</description>
+      <description>Ermitteln Sie Ihren statistischen Gehalts-Benchmark im Median und vergleichen Sie Ihr Gehalt mit dem interquartilen Korridor.</description>
       <pubDate>Fri, 25 Sep 2026 10:00:00 +0200</pubDate>
       <guid>https://lohnvergleichsrechner.de/rechner</guid>
     </item>

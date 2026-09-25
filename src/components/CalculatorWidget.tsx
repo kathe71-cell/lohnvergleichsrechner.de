@@ -136,7 +136,7 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
   const userPercent = userYearlyGross ? getMarkerPercent(userYearlyGross) : null;
 
   return (
-    <div className={`bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden ${isEmbed ? 'p-4 sm:p-6' : 'p-6 sm:p-8'}`}>
+    <div className={`bg-white rounded-2xl border border-slate-200 shadow-sm ${isEmbed ? 'p-4 sm:p-6' : 'p-6 sm:p-8'}`}>
       
       {/* Header bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-200 gap-4">
@@ -221,7 +221,7 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
           <select
             value={jobId}
             onChange={(e) => setJobId(e.target.value)}
-            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 font-medium text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all shadow-sm"
+            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 font-medium text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all shadow-sm cursor-pointer"
           >
             {SALARY_DATABASE.map((job) => (
               <option key={job.id} value={job.id}>
@@ -243,7 +243,7 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
           <select
             value={stateCode}
             onChange={(e) => setStateCode(e.target.value)}
-            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 font-medium text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all shadow-sm"
+            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 font-medium text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all shadow-sm cursor-pointer"
           >
             {STATE_FACTORS.map((s) => (
               <option key={s.code} value={s.code}>
@@ -265,7 +265,7 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
           <select
             value={experienceKey}
             onChange={(e) => setExperienceKey(e.target.value)}
-            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 font-medium text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all shadow-sm"
+            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 font-medium text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all shadow-sm cursor-pointer"
           >
             {Object.entries(EXPERIENCE_FACTORS).map(([key, item]) => (
               <option key={key} value={key}>
@@ -287,7 +287,7 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
           <select
             value={companySizeKey}
             onChange={(e) => setCompanySizeKey(e.target.value)}
-            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 font-medium text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all shadow-sm"
+            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 font-medium text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all shadow-sm cursor-pointer"
           >
             {Object.entries(COMPANY_SIZE_FACTORS).map(([key, item]) => (
               <option key={key} value={key}>
@@ -309,7 +309,7 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
           <select
             value={educationKey}
             onChange={(e) => setEducationKey(e.target.value)}
-            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 font-medium text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all shadow-sm"
+            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 font-medium text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all shadow-sm cursor-pointer"
           >
             {Object.entries(EDUCATION_FACTORS).map(([key, item]) => (
               <option key={key} value={key}>

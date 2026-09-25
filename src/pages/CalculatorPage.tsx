@@ -14,10 +14,10 @@ export default function CalculatorPage() {
           INTERAKTIVES BERECHNUNGSWERKZEUG
         </div>
         <h1 className="text-3xl sm:text-5xl font-black text-slate-950 tracking-tight">
-          Lohnvergleichsrechner: Ihr Gehalt im Marktvergleich
+          Lohnvergleichsrechner: Ihr Gehalt im statistischen Vergleich
         </h1>
         <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-          Berechnen Sie auf Basis empirischer Erhebungen des Statistischen Bundesamtes und der Bundesagentur für Arbeit den fairen Marktwert Ihrer beruflichen Qualifikation.
+          Berechnen Sie auf Basis empirischer Erhebungen des Statistischen Bundesamtes und der Bundesagentur für Arbeit Ihren statistischen Gehalts-Benchmark.
         </p>
       </div>
 
@@ -83,7 +83,7 @@ export default function CalculatorPage() {
       {/* Zitation */}
       <section>
         <CitationBox
-          title="Lohnvergleichsrechner: Interaktives Marktwert-Benchmark nach Bundesland, Beruf und Erfahrung"
+          title="Lohnvergleichsrechner: Statistischer Gehalts-Benchmark nach Bundesland, Beruf und Erfahrung"
           url="https://lohnvergleichsrechner.de/rechner"
         />
       </section>

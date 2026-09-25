@@ -269,7 +269,7 @@ export default function Home() {
                 Gehaltsverhandlung: Argumentieren mit objektiven Daten
               </h4>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Wie Sie statistische Mediane, Marktwerte und den wirtschaftlichen Mehrwert Ihrer Leistung strukturiert einsetzen, um 8 bis 15 % Gehaltssteigerung zu realisieren.
+                Wie Sie statistische Mediane, Gehalts-Benchmarks und den wirtschaftlichen Mehrwert Ihrer Leistung strukturiert einsetzen, um 8 bis 15 % Gehaltssteigerung zu realisieren.
               </p>
               <div className="pt-2 text-xs font-bold text-emerald-700 flex items-center gap-1">
                 Leitfaden lesen <ArrowRight className="w-3.5 h-3.5" />
