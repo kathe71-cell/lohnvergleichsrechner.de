@@ -6,6 +6,7 @@ import { SALARY_DATABASE } from '../data/salaryData';
 interface JobAutocompleteProps {
   value?: string; // Aktuelle jobId (für Calculator)
   onSelect: (jobId: string) => void;
+  onQueryChange?: (query: string) => void;
   placeholder?: string;
   className?: string;
   mode?: 'navigate' | 'select'; 
@@ -13,12 +14,21 @@ interface JobAutocompleteProps {
 
 export default function JobAutocomplete({ 
   value, 
-  onSelect, 
+  onSelect,
+  onQueryChange,
   placeholder = "Beruf suchen, z. B. Softwareentwickler...",
   className = "",
   mode = 'select' 
 }: JobAutocompleteProps) {
   const [query, setQuery] = useState('');
+  
+  // Update parent when query changes
+  useEffect(() => {
+    if (onQueryChange) {
+      onQueryChange(query);
+    }
+  }, [query, onQueryChange]);
+
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const wrapperRef = useRef<HTMLDivElement>(null);

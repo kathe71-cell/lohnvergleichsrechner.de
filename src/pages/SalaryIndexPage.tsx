@@ -10,16 +10,45 @@ import { ArrowRight, TrendingUp } from 'lucide-react';
 export default function SalaryIndexPage() {
   const navigate = useNavigate();
   const [selectedCat, setSelectedCat] = useState('Alle');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [sortOption, setSortOption] = useState<'az' | 'desc' | 'asc'>('az');
 
   const categories = useMemo(() => {
     return ['Alle', ...Array.from(new Set(SALARY_DATABASE.map(j => j.category)))];
   }, []);
 
   const filteredJobs = useMemo(() => {
-    return SALARY_DATABASE.filter(j => {
-      return selectedCat === 'Alle' || j.category === selectedCat;
+    // 1. Gesamtdatenbestand -> 2. Suchfilter -> 3. Kategorie-Filter
+    let result = SALARY_DATABASE.filter(job => {
+      const matchCat = selectedCat === 'Alle' || job.category === selectedCat;
+      if (!matchCat) return false;
+      
+      if (searchTerm.trim() !== '') {
+        const searchLower = searchTerm.toLowerCase().trim();
+        const titleMatch = job.title.toLowerCase().includes(searchLower);
+        const aliasMatch = job.aliases ? job.aliases.some(a => a.toLowerCase().includes(searchLower)) : false;
+        const kldbMatch = job.officialKldbLabel ? job.officialKldbLabel.toLowerCase().includes(searchLower) : false;
+        const descMatch = job.shortDesc.toLowerCase().includes(searchLower);
+        const taskMatch = job.tasks ? job.tasks.some(t => t.toLowerCase().includes(searchLower)) : false;
+        const skillMatch = job.skills ? job.skills.some(s => s.toLowerCase().includes(searchLower)) : false;
+        
+        return titleMatch || aliasMatch || kldbMatch || descMatch || taskMatch || skillMatch;
+      }
+      return true;
     });
-  }, [selectedCat]);
+
+    // 4. Sortierung
+    return result.sort((a, b) => {
+      if (sortOption === 'desc') {
+        return b.medianYear - a.medianYear;
+      } else if (sortOption === 'asc') {
+        return a.medianYear - b.medianYear;
+      } else {
+        // az
+        return a.title.localeCompare(b.title, "de-DE");
+      }
+    });
+  }, [selectedCat, searchTerm, sortOption]);
 
   return (
     <div className="space-y-16 sm:space-y-24 pb-16">
@@ -52,11 +81,13 @@ export default function SalaryIndexPage() {
             <JobAutocomplete 
               mode="navigate" 
               onSelect={(id) => navigate(`/gehalt/${id}`)}
+              onQueryChange={(query) => setSearchTerm(query)}
               placeholder="Beruf suchen, z. B. Softwareentwickler..."
             />
           </div>
 
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex flex-wrap items-center gap-2">
             {categories.map((cat) => (
               <button
                 key={cat}
@@ -70,6 +101,23 @@ export default function SalaryIndexPage() {
                 {cat}
               </button>
             ))}
+            </div>
+            
+            <div className="flex-shrink-0 flex items-center gap-2">
+              <label htmlFor="sort" className="text-xs font-bold text-slate-500 uppercase tracking-wide">
+                Sortieren:
+              </label>
+              <select
+                id="sort"
+                value={sortOption}
+                onChange={(e) => setSortOption(e.target.value as any)}
+                className="bg-slate-50 border border-slate-200 text-slate-700 text-sm font-medium rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-emerald-500 outline-none cursor-pointer"
+              >
+                <option value="az">Alphabetisch A–Z</option>
+                <option value="desc">Gehalt: hoch → niedrig</option>
+                <option value="asc">Gehalt: niedrig → hoch</option>
+              </select>
+            </div>
           </div>
         </div>
 
