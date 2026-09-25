@@ -85,7 +85,18 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
 
   // Update URL params without full page reload
   useEffect(() => {
-    if (!isEmbed) {
+    const isDefault = 
+      jobId === 'softwareentwickler' &&
+      stateCode === 'BW' &&
+      experienceKey === 'mid' &&
+      companySizeKey === 'medium' &&
+      educationKey === 'bachelor' &&
+      weeklyHours === 40 &&
+      userYearlyGross === 65000;
+
+    const hasExistingParams = searchParams.toString().length > 0;
+
+    if (!isEmbed && (!isDefault || hasExistingParams)) {
       const params = new URLSearchParams();
       params.set('beruf', jobId);
       params.set('bundesland', stateCode);
@@ -96,7 +107,7 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
       if (userYearlyGross) params.set('gehalt', userYearlyGross.toString());
       setSearchParams(params, { replace: true });
     }
-  }, [jobId, stateCode, experienceKey, companySizeKey, educationKey, weeklyHours, userYearlyGross, isEmbed, setSearchParams]);
+  }, [jobId, stateCode, experienceKey, companySizeKey, educationKey, weeklyHours, userYearlyGross, isEmbed, searchParams, setSearchParams]);
 
   // Copy share URL
   const copyShareUrl = () => {
