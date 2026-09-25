@@ -18,20 +18,20 @@ export default function Navbar() {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 no-print">
+    <header className="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-xs no-print">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 sm:h-20">
+        <div className="flex items-center justify-between h-16">
           {/* Logo / Brand */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center text-white font-mono font-bold text-lg shadow-sm group-hover:bg-emerald-600 transition-colors">
+          <Link to="/" className="flex items-center gap-2.5 group">
+            <div className="w-9 h-9 rounded-lg bg-slate-900 flex items-center justify-center text-white font-mono font-bold text-base shadow-xs group-hover:bg-emerald-600 transition-colors">
               €
             </div>
             <div>
-              <span className="font-extrabold text-slate-900 text-lg sm:text-xl tracking-tight block">
-                lohnvergleichsrechner<span className="text-emerald-600">.de</span>
+              <span className="font-extrabold text-slate-950 text-base sm:text-lg tracking-tight block leading-tight">
+                lohnvergleichsrechner<span className="text-emerald-700">.de</span>
               </span>
-              <span className="text-xs text-slate-500 font-medium tracking-wide block">
-                Destatis &amp; BA-Entgeltatlas Benchmark
+              <span className="text-[11px] text-slate-500 font-mono tracking-normal block leading-tight">
+                Destatis &amp; BA Benchmark
               </span>
             </div>
           </Link>
