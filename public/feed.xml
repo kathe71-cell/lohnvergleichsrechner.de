@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>lohnvergleichsrechner.de | Lohn- und Gehaltsvergleich Deutschland</title>
+    <link>https://lohnvergleichsrechner.de/</link>
+    <description>Aktuelle Entgelt-Benchmarks, Verdienststrukturen und Arbeitsrechts-Ratgeber nach Destatis und Bundesagentur für Arbeit.</description>
+    <language>de-de</language>
+    <lastBuildDate>Fri, 25 Sep 2026 12:00:00 +0200</lastBuildDate>
+    <atom:link href="https://lohnvergleichsrechner.de/feed.xml" rel="self" type="application/rss+xml"/>
+    
+    <item>
+      <title>Lohnvergleichsrechner: Interaktives Markt-Benchmark nach Bundesland und Beruf</title>
+      <link>https://lohnvergleichsrechner.de/rechner</link>
+      <description>Ermitteln Sie Ihren Marktwert im statistischen Median und vergleichen Sie Ihr Gehalt mit dem interquartilen Korridor.</description>
+      <pubDate>Fri, 25 Sep 2026 10:00:00 +0200</pubDate>
+      <guid>https://lohnvergleichsrechner.de/rechner</guid>
+    </item>
+
+    <item>
+      <title>Entgeltatlas Deutschland: Amtliche KldB-Gehaltsstrukturen</title>
+      <link>https://lohnvergleichsrechner.de/entgeltatlas</link>
+      <description>Verdienste nach Berufsfeldern, Qualifikationsstufen und den 16 Bundesländern im Überblick.</description>
+      <pubDate>Fri, 25 Sep 2026 09:00:00 +0200</pubDate>
+      <guid>https://lohnvergleichsrechner.de/entgeltatlas</guid>
+    </item>
+
+    <item>
+      <title>Auskunftsanspruch nach § 10 EntgTranspG &amp; EU-Entgelttransparenzrichtlinie</title>
+      <link>https://lohnvergleichsrechner.de/ratgeber</link>
+      <description>Rechtliche Leitfäden zum Auskunftsanspruch über Kollegengehälter und dem BAG-Urteil zur Entgeltgleichheit.</description>
+      <pubDate>Thu, 24 Sep 2026 14:00:00 +0200</pubDate>
+      <guid>https://lohnvergleichsrechner.de/ratgeber</guid>
+    </item>
+  </channel>
+</rss>

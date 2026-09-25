@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lohnvergleichsrechner: Gehälter &amp; Löhne vergleichen</title>
+    <meta name="description" content="Unabhängiges Vergleichsportal für Gehälter und Löhne in Deutschland. Interaktiver Rechner nach Destatis-Verdienststatistik &amp; BA-Entgeltatlas." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://lohnvergleichsrechner.de/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title="lohnvergleichsrechner.de RSS Feed" href="/feed.xml" />
+    <meta name="google-site-verification" content="GOOGLE_SITE_VERIFICATION_PLACEHOLDER" />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://lohnvergleichsrechner.de/" />
+    <meta property="og:title" content="Lohnvergleichsrechner: Gehälter &amp; Löhne vergleichen" />
+    <meta property="og:description" content="Unabhängiges Vergleichsportal für Gehälter und Löhne in Deutschland. Interaktiver Rechner nach Destatis-Verdienststatistik &amp; BA-Entgeltatlas." />
+    <meta property="og:image" content="https://lohnvergleichsrechner.de/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Lohnvergleichsrechner Deutschland 2026" />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:site_name" content="lohnvergleichsrechner.de" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Lohnvergleichsrechner: Gehälter &amp; Löhne vergleichen" />
+    <meta name="twitter:description" content="Unabhängiges Vergleichsportal für Gehälter und Löhne in Deutschland. Interaktiver Rechner nach Destatis-Verdienststatistik &amp; BA-Entgeltatlas." />
+    <meta name="twitter:image" content="https://lohnvergleichsrechner.de/og-image.png" />
+
+    <!-- Speculation Rules API (Zero-Latency Navigation) -->
+    <script type="speculationrules">
+    {
+      "prefetch": [
+        {
+          "source": "document",
+          "where": {
+            "and": [
+              { "href_matches": "/*" },
+              { "not": { "href_matches": ["/api/*", "/*\\?(.+)"] } },
+              { "not": { "selector_matches": "a[rel~=\"nofollow\"]" } }
+            ]
+          },
+          "eagerness": "conservative"
+        }
+      ]
+    }
+    </script>
+
+    <!-- Schema.org JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://lohnvergleichsrechner.de/#org",
+          "name": "lohnvergleichsrechner.de",
+          "url": "https://lohnvergleichsrechner.de/",
+          "logo": "https://lohnvergleichsrechner.de/favicon.svg"
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://lohnvergleichsrechner.de/#website",
+          "url": "https://lohnvergleichsrechner.de/",
+          "name": "lohnvergleichsrechner.de",
+          "description": "Unabhängiges deutsches Vergleichs- und Informationsportal für Gehälter, Stundenlöhne und Entgelttransparenz.",
+          "inLanguage": "de-DE",
+          "publisher": { "@id": "https://lohnvergleichsrechner.de/#org" },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": {
+              "@type": "EntryPoint",
+              "urlTemplate": "https://lohnvergleichsrechner.de/entgeltatlas?q={search_term_string}"
+            },
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "WebApplication",
+          "@id": "https://lohnvergleichsrechner.de/#app",
+          "name": "Lohnvergleichsrechner",
+          "applicationCategory": "BusinessApplication",
+          "operatingSystem": "All",
+          "url": "https://lohnvergleichsrechner.de/rechner",
+          "description": "Interaktiver Gehalts- und Lohnvergleichsrechner nach Beruf, Bundesland, Qualifikation und Unternehmensgröße auf Basis amtlicher Destatis- und BA-Daten."
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://lohnvergleichsrechner.de/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Warum verwendet der Lohnvergleichsrechner den Median statt des Durchschnitts?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Das arithmetische Mittel wird durch extrem hohe Vorstands- und Spitzengehälter verzerrt. Der Median (50. Perzentil) teilt alle Gehälter exakt in zwei Hälften: Genau 50 % verdienen mehr, 50 % verdienen weniger. Er spiegelt das reale mittlere Einkommen einer Berufsgruppe wissenschaftlich unverfälscht wider."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Woher stammen die Gehaltsdaten von lohnvergleichsrechner.de?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Die Daten basieren auf den amtlichen Erhebungen der Bundesagentur für Arbeit (Entgeltatlas nach KldB 2010) und der Verdienststrukturerhebung des Statistischen Bundesamtes (Destatis VSE)."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Habe ich einen gesetzlichen Anspruch auf gleichen Lohn?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Ja, nach dem Entgelttransparenzgesetz (§ 1 EntgTranspG) und Art. 157 AEUV gilt das Gebot gleichen Entgelts für gleiche oder gleichwertige Arbeit bei Männern und Frauen. Das BAG (8 AZR 450/21) verbietet Gehaltsunterschiede, die allein auf individuellem Verhandlungsgeschick beruhen."
+              }
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+
+    <!-- Vercel Web Analytics (DSGVO-konform, cookielos) -->
+    <script>
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

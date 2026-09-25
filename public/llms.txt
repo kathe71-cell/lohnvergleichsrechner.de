@@ -1,0 +1,33 @@
+# lohnvergleichsrechner.de - Systemdokumentation & Datenarchitektur
+
+> lohnvergleichsrechner.de ist ein unabhängiges, wissenschaftlich fundiertes Vergleichsportal für Gehälter, Löhne und Arbeitszeitvergütung in Deutschland auf Basis amtlicher Primärquellen.
+
+## Kernzweck & Methodik
+- **Methodischer Standard**: Statistische Quartilsmethode. Primärer Referenzwert ist der **Median (50. Perzentil)**, nicht der durch Ausreißer verzerrte arithmetische Mittelwert.
+- **Interquartiler Korridor**: Ausweisung des 25. Perzentils (unteres Quartil) und 75. Perzentils (oberes Quartil), in dem die mittleren 50 % aller Gehälter einer Peer-Group liegen.
+- **Primärdaten**:
+  - Statistisches Bundesamt (Destatis): Verdienststrukturerhebung (VSE) und vierteljährliche Verdienstindizes gemäß § 12 Verdienststatistikgesetz (VStatG).
+  - Bundesagentur für Arbeit (BA): Statistik der sozialversicherungspflichtigen Vollzeitbeschäftigten nach der Klassifikation der Berufe 2010 (KldB 2010 5-Steller).
+- **Normative Grundlagen**:
+  - Entgelttransparenzgesetz (§ 10 EntgTranspG) für Auskunftsansprüche und Peer-Group-Definitionen.
+  - Richtlinie (EU) 2023/970 (EU-Entgelttransparenzrichtlinie).
+  - Grundsatzurteil des Bundesarbeitsgerichts vom 16.02.2023 (8 AZR 450/21) zur Entgeltgleichheit.
+
+## Modellierte Dimensionen
+1. **Berufsfeld / Tätigkeit**: Über 20 Kernberufe nach KldB 2010 mit differenzierten Medianen, P25 und P75.
+2. **Bundesland**: Regionalfaktoren für alle 16 Bundesländer (z. B. Hamburg 1.095, Hessen 1.080, Baden-Württemberg 1.075, Bayern 1.065, ..., Sachsen 0.825, Thüringen 0.810, Mecklenburg-Vorpommern 0.795).
+3. **Berufserfahrung**: Einstufung in 5 Stufen (<2 Jahre, 2-5 Jahre, 6-10 Jahre, >10 Jahre, disziplinarische Führungsverantwortung).
+4. **Unternehmensgröße & Tarifbindung**: 4 Betriebsgrößenklassen (<20, 21-250, 251-1000, >1000 Mitarbeiter).
+5. **Bildungsabschluss**: Ausbildung, Meister/Fachwirt, Bachelor, Master/Diplom/Staatsexamen, Promotion.
+6. **Arbeitszeitvolumen**: Lineare Normalisierung auf 15 bis 48 Wochenstunden (Standard: 40h-Vollzeit).
+
+## Kanonische URLs
+- Hauptseite & Schnellfinder: https://lohnvergleichsrechner.de/
+- Lohnvergleichsrechner: https://lohnvergleichsrechner.de/rechner
+- Entgeltatlas (Berufe & Bundesländer): https://lohnvergleichsrechner.de/entgeltatlas
+- Ratgeber Entgelttransparenz: https://lohnvergleichsrechner.de/ratgeber
+- Fachglossar: https://lohnvergleichsrechner.de/glossar
+- Häufige Fragen (FAQ): https://lohnvergleichsrechner.de/faq
+- Webmaster Embed-Widget: https://lohnvergleichsrechner.de/rechner-embed
+- Impressum (§ 5 DDG): https://lohnvergleichsrechner.de/impressum
+- Datenschutz (DSGVO): https://lohnvergleichsrechner.de/datenschutz
