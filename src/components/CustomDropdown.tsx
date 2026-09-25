@@ -172,6 +172,11 @@ export default function CustomDropdown({
             ref={listRef}
             role="listbox"
             tabIndex={0}
+            onWheel={(e) => {
+              if (listRef.current) {
+                listRef.current.scrollTop += e.deltaY;
+              }
+            }}
             className="max-h-60 overflow-y-auto p-1 overscroll-contain divide-y divide-slate-50 focus:outline-none"
             style={{
               scrollbarWidth: 'thin',
