@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { SALARY_DATABASE } from '../data/salaryData';
 import {
   Sparkles,
   TrendingUp,
@@ -43,7 +44,7 @@ export default function Home() {
             <span className="text-slate-300">·</span>
             <span>Destatis Verdienststatistik</span>
             <span className="text-slate-300">·</span>
-            <span>30 Berufe (KldB 2010)</span>
+            <span>{SALARY_DATABASE.length} Berufe (KldB 2010)</span>
             <span className="text-slate-300">·</span>
             <span>16 Bundesländer</span>
             <span className="text-slate-300">·</span>
@@ -145,7 +146,7 @@ export default function Home() {
                 Betriebsgröße &amp; Tarifbindung
               </h4>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Unternehmen mit mehr als 1.000 Mitarbeitern zahlen im Mittel <strong>20 bis 35 % höhere Entgelte</strong> als Betriebe mit weniger als 20 Beschäftigten. Grund hierfür sind höhere Tarifbindungsquoten (z. B. IG Metall, IGBCE) und strukturierte Eingruppierungssysteme.
+                Die Unternehmensgröße hat oft einen signifikanten Einfluss auf das Gehalt. Größere Unternehmen bieten häufiger eine höhere Tarifbindung (z. B. IG Metall, IGBCE) sowie strukturierte Eingruppierungssysteme, was tendenziell zu höheren Entgelten führt.
               </p>
             </div>
 
@@ -163,7 +164,7 @@ export default function Home() {
                 Bildungsabschluss &amp; Spezialisierung
               </h4>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Akademiker (Master / Diplom) erzielen über das gesamte Erwerbsleben hinweg durchschnittlich <strong>30 bis 45 % höhere Gehälter</strong> als Personen mit dualer Berufsausbildung, wobei Meister- und Fachwirtabschlüsse diesen Abstand in technischen Branchen stark verringern.
+                Ein höherer formaler Bildungsabschluss (z. B. Master / Diplom) geht statistisch oft mit einem höheren Lebenserwerbseinkommen einher. In technischen und handwerklichen Branchen können jedoch Aufstiegsfortbildungen (Meister, Techniker, Fachwirt) zu vergleichbaren Gehaltsniveaus führen.
               </p>
             </div>
 
@@ -181,7 +182,7 @@ export default function Home() {
                 Erfahrungsstufen &amp; disziplinarische Personalverantwortung
               </h4>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Der Gehaltszuwachs verläuft in den ersten 5 Berufsjahren am steilsten (ca. 5–8 % p.a.). Mit Übernahme disziplinarischer Personal- und Budgetverantwortung steigt das Entgelt typischerweise um weitere <strong>20 bis 40 %</strong> über das Niveau erfahrener Fachkräfte ohne Führungsfunktion.
+                Berufserfahrung, Qualifikation und insbesondere die Übernahme disziplinarischer Personal- und Budgetverantwortung können das Gehalt deutlich positiv beeinflussen. Der stärkste relative Gehaltszuwachs findet erfahrungsgemäß oft in den ersten Berufsjahren statt.
               </p>
               <div className="pt-2">
                 <Link

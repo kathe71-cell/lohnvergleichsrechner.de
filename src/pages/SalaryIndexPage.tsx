@@ -82,7 +82,6 @@ export default function SalaryIndexPage() {
       {/* Directory Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {filteredJobs.map((job) => {
-          const avgYear = Math.round(job.medianYear * 1.11);
           return (
             <div
               key={job.id}
@@ -114,12 +113,7 @@ export default function SalaryIndexPage() {
                       {job.medianYear.toLocaleString('de-DE')} € p.a.
                     </span>
                   </div>
-                  <div className="flex justify-between items-center text-xs text-slate-500">
-                    <span>Durchschnitt (ca.):</span>
-                    <span className="font-mono font-medium text-slate-700">
-                      {avgYear.toLocaleString('de-DE')} € p.a.
-                    </span>
-                  </div>
+                  
                   <div className="flex justify-between items-center text-xs text-slate-500">
                     <span>Korridor (P25 - P75):</span>
                     <span className="font-mono font-medium text-slate-700">
