@@ -32,15 +32,56 @@ export default function AverageSalaryPage() {
       <div className="space-y-4 max-w-4xl">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100/80 text-emerald-900 text-xs font-mono font-bold">
           <BarChart3 className="w-3.5 h-3.5 text-emerald-700" />
-          DESTATIS VERDIENSTSTATISTIK · STAND {DATA_METADATA.lastUpdated.toUpperCase()}
+          AMTLICHE VERDIENSTSTATISTIKEN · STAND {DATA_METADATA.lastUpdated.toUpperCase()}
         </div>
 
         <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-950 tracking-tight leading-[1.1]">
-          Durchschnittsgehalt in Deutschland: <span className="text-emerald-700">Zahlen, Fakten &amp; Median</span>
+          Durchschnittsgehalt und Mediangehalt in Deutschland
         </h1>
 
         <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-          Wie hoch ist das Durchschnittsgehalt und das Mediangehalt in Deutschland? Alle offiziellen Daten des Statistischen Bundesamtes (Destatis) nach Bundesland, Branche, Bildungsabschluss und Unternehmensgröße im Überblick.
+          Wie hoch ist das Durchschnittsgehalt und das Mediangehalt in Deutschland? Alle offiziellen Daten der Bundesagentur für Arbeit (BA) und des Statistischen Bundesamtes (Destatis) nach Bundesland, Branche und Erhebungsmethode im Überblick.
+        </p>
+      </div>
+
+      {/* Answer-First Box: BA vs. Destatis Vergleich */}
+      <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-7 space-y-4">
+        <h2 className="text-lg sm:text-xl font-black text-slate-900 tracking-tight">
+          Auf einen Blick: Die beiden offiziellen Gehaltsbenchmarks für Deutschland
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="bg-white p-5 rounded-xl border border-slate-200 space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                Bundesagentur für Arbeit (BA)
+              </span>
+              <span className="text-xs text-slate-500 font-mono">31.12.2023</span>
+            </div>
+            <div className="text-2xl sm:text-3xl font-black text-slate-950 font-mono">
+              3.796 € <span className="text-sm font-sans font-normal text-slate-500">/ Monat brutto</span>
+            </div>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              <strong>Mediangehalt</strong> für die rund 22 Millionen sozialversicherungspflichtigen Vollzeitbeschäftigten der Kerngruppe (ohne Auszubildende, Beamte und Selbstständige; Quelle: BA-Entgeltstatistik, BT-Drs. 20/12571).
+            </p>
+          </div>
+
+          <div className="bg-white p-5 rounded-xl border border-slate-200 space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-800 bg-slate-100 px-2 py-0.5 rounded border border-slate-200">
+                Statistisches Bundesamt (Destatis)
+              </span>
+              <span className="text-xs text-slate-500 font-mono">April 2023 (VSE)</span>
+            </div>
+            <div className="text-2xl sm:text-3xl font-black text-slate-950 font-mono">
+              4.100 € <span className="text-sm font-sans font-normal text-slate-500">Median (4.479 € Ø)</span>
+            </div>
+            <p className="text-xs text-slate-600 leading-relaxed">
+              <strong>Verdienststrukturerhebung (VSE)</strong> für alle Vollzeitbeschäftigten im Produzierenden Gewerbe und Dienstleistungsbereich inklusive Beamter und leitender Angestellter. Arithmetischer Durchschnitt: 4.479 € / Monat.
+            </p>
+          </div>
+        </div>
+        <p className="text-xs text-slate-500 leading-relaxed">
+          <strong>Warum zwei Zahlen?</strong> Die Bundesagentur für Arbeit erfasst die Pflichtmeldungen der Sozialversicherung (rein SV-Pflichtige, Kerngruppe), während das Statistische Bundesamt in der VSE auch Beamte und außertarifliche Führungskräfte einbezieht, wodurch der Destatis-Median rund 300 Euro höher ausfällt.
         </p>
       </div>
 
@@ -118,7 +159,7 @@ export default function AverageSalaryPage() {
           <div className="p-4 bg-emerald-50/50 rounded-xl border border-emerald-200/80 space-y-2">
             <h3 className="font-extrabold text-emerald-950 text-base">Der Median: Das reale Normalgehalt (50. Perzentil)</h3>
             <p className="text-emerald-900/90 text-xs sm:text-sm">
-              Ordnet man alle Vollzeitbeschäftigten der Reihe nach nach ihrem Gehalt, so verdient die Person genau in der Mitte den Median. In der amtlichen <strong>Verdienststrukturerhebung (Destatis VSE)</strong> liegt dieser bei <strong>4.100 Euro brutto im Monat</strong>; in der <strong>Entgeltstatistik der Bundesagentur für Arbeit (BA)</strong> für die 22 Mio. sozialversicherungspflichtigen Vollzeitbeschäftigten der Kerngruppe bei <strong>3.796 Euro brutto im Monat</strong> (BT-Drs. 20/12571). Der Median ist unempfindlich gegenüber Ausreißern und im <strong>Entgelttransparenzgesetz (§ 11 Abs. 3 EntgTranspG)</strong> der gesetzliche Vergleichswert.
+              Ordnet man alle Vollzeitbeschäftigten der Reihe nach nach ihrem Gehalt, so verdient die Person genau in der Mitte den Median. In der amtlichen <strong>Verdienststrukturerhebung (Destatis VSE)</strong> liegt dieser bei <strong>4.100 Euro brutto im Monat</strong>; in der <strong>Entgeltstatistik der Bundesagentur für Arbeit (BA)</strong> für die 22 Mio. sozialversicherungspflichtigen Vollzeitbeschäftigten der Kerngruppe bei <strong>3.796 Euro brutto im Monat</strong> (BT-Drs. 20/12571). Der Median ist aus statistischen Gründen der verlässlichste Lageparameter, weil er unempfindlich gegenüber extremen Ausreißern ist – weshalb auch das <strong>Entgelttransparenzgesetz (§ 11 Abs. 3 EntgTranspG)</strong> ihn als Vergleichswert heranzieht.
             </p>
           </div>
 

@@ -14,7 +14,8 @@ import {
   Calculator,
   ArrowRight,
   CheckCircle2,
-  GraduationCap
+  GraduationCap,
+  HelpCircle
 } from 'lucide-react';
 
 export default function JobSalaryPage() {
@@ -25,6 +26,7 @@ export default function JobSalaryPage() {
     return <Navigate to="/gehalt" replace />;
   }
 
+  const shortTitle = job.title.split(' / ')[0];
   const relatedJobs = getRelatedJobs(job.id, 4);
   const medianMonth = Math.round(job.medianYear / 12);
   const p25Month = Math.round(job.p25Year / 12);
@@ -48,7 +50,7 @@ export default function JobSalaryPage() {
       <Breadcrumbs
         items={[
           { name: 'Gehalt nach Beruf', url: '/gehalt' },
-          { name: job.title.split(' / ')[0], url: `/gehalt/${job.id}` }
+          { name: shortTitle, url: `/gehalt/${job.id}` }
         ]}
       />
 
@@ -60,11 +62,22 @@ export default function JobSalaryPage() {
         </div>
         
         <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-950 tracking-tight leading-[1.1]">
-          Was verdient ein/e <span className="text-emerald-700">{job.title.split(' / ')[0]}</span>?
+          <span className="text-emerald-700">{shortTitle}</span> Gehalt: Was verdient man in Deutschland?
         </h1>
         
         <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-          {job.shortDesc} Aktuelle Gehaltsdaten, Einstiegsgehälter, regionale Unterschiede und statistische Quartile nach der Verdiensterhebung des Statistischen Bundesamtes und der Bundesagentur für Arbeit.
+          {job.shortDesc} Aktuelle Gehaltsdaten, regionale Unterschiede und statistische Quartile nach der Entgeltstatistik der Bundesagentur für Arbeit.
+        </p>
+      </div>
+
+      {/* Answer-First Lead Box */}
+      <div className="bg-emerald-50/70 border border-emerald-200 rounded-2xl p-5 sm:p-6 space-y-2 text-slate-800">
+        <div className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-900 flex items-center gap-1.5">
+          <CheckCircle2 className="w-4 h-4 text-emerald-700" />
+          Amtlicher Gehaltsüberblick (Kurzantwort)
+        </div>
+        <p className="text-base sm:text-lg text-slate-900 font-medium leading-relaxed">
+          Der bundesweite Median für <strong>{shortTitle}</strong> beträgt <strong>{medianMonth.toLocaleString('de-DE')} €</strong> brutto im Monat bzw. <strong>{job.medianYear.toLocaleString('de-DE')} €</strong> im Jahr (Basis: amtliche Entgeltstatistik der Bundesagentur für Arbeit, Vollzeitbeschäftigte). Das mittlere 50-%-Intervall (25. bis 75. Perzentil) reicht von <strong>{p25Month.toLocaleString('de-DE')} €</strong> bis <strong>{p75Month.toLocaleString('de-DE')} €</strong> monatlich.
         </p>
       </div>
 
@@ -74,7 +87,7 @@ export default function JobSalaryPage() {
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
           <div className="flex items-center justify-between gap-1 mb-1">
             <span className="text-xs font-mono uppercase tracking-wider text-emerald-800 font-bold block">
-              Bundesmedian (50 %)
+              Median (P50)
             </span>
             <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200">
               Kategorie A
@@ -94,7 +107,7 @@ export default function JobSalaryPage() {
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
           <div className="flex items-center justify-between gap-1 mb-1">
             <span className="text-xs font-mono uppercase tracking-wider text-slate-600 font-bold block">
-              Unteres Quartil (P25)
+              25. Perzentil (P25)
             </span>
             <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
               Kategorie A
@@ -104,7 +117,7 @@ export default function JobSalaryPage() {
             {job.p25Year.toLocaleString('de-DE')} €
           </div>
           <span className="text-xs text-slate-500 block mt-1">
-            ≈ <strong>{p25Month.toLocaleString('de-DE')} €</strong> / Monat (Basis)
+            ≈ <strong>{p25Month.toLocaleString('de-DE')} €</strong> / Monat brutto
           </span>
           <span className="text-[10px] text-slate-500 block mt-2">
             25 % der Beschäftigten verdienen weniger
@@ -114,7 +127,7 @@ export default function JobSalaryPage() {
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
           <div className="flex items-center justify-between gap-1 mb-1">
             <span className="text-xs font-mono uppercase tracking-wider text-slate-600 font-bold block">
-              Oberes Quartil (P75)
+              75. Perzentil (P75)
             </span>
             <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
               Kategorie A
@@ -124,7 +137,7 @@ export default function JobSalaryPage() {
             {job.p75Year.toLocaleString('de-DE')} €
           </div>
           <span className="text-xs text-slate-500 block mt-1">
-            ≈ <strong>{p75Month.toLocaleString('de-DE')} €</strong> / Monat (Senior)
+            ≈ <strong>{p75Month.toLocaleString('de-DE')} €</strong> / Monat brutto
           </span>
           <span className="text-[10px] text-slate-500 block mt-2">
             25 % der Beschäftigten verdienen mehr
@@ -182,10 +195,10 @@ export default function JobSalaryPage() {
             Karriereprogression
           </span>
           <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mt-1.5">
-            Gehalt nach Berufserfahrung für {job.title.split(' / ')[0]}
+            Gehalt nach Berufserfahrung für {shortTitle}
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 mt-1">
-            Empirische Progression vom Berufseinstieg bis zur Senior- bzw. Führungsebene.
+            Modellierte Orientierungswerte (Kategorie C) basierend auf empirischen Senioritätsfaktoren bezogen auf den Berufsmedian ({job.medianYear.toLocaleString('de-DE')} €). Die amtliche BA-Entgeltstatistik weist keine Auswertungen nach Berufsjahren für Einzelberufe aus.
           </p>
         </div>
 
@@ -232,10 +245,10 @@ export default function JobSalaryPage() {
             Regionale Gehaltsspanne
           </span>
           <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mt-1.5">
-            Gehalt nach Bundesland: {job.title.split(' / ')[0]}
+            Gehalt nach Bundesland: {shortTitle}
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 mt-1">
-            Überblick aller 16 Bundesländer mit direktem Link zu detaillierten Regional-Landingpages.
+            Modellierte Orientierungswerte (Kategorie C): Berechnet durch Verknüpfung des bundesweiten Berufsmedians (Kategorie A) mit dem allgemeinen regionalen Lohnniveau des jeweiligen Bundeslandes.
           </p>
         </div>
 
@@ -351,6 +364,61 @@ export default function JobSalaryPage() {
               </span>
             </Link>
           ))}
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 space-y-6 shadow-xs">
+        <div className="flex items-center gap-2">
+          <span className="p-2 rounded-lg bg-emerald-100 text-emerald-800">
+            <HelpCircle className="w-5 h-5" />
+          </span>
+          <div>
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+              Häufige Fragen zum Gehalt als {shortTitle}
+            </h2>
+            <p className="text-xs sm:text-sm text-slate-500">
+              Antworten auf Basis amtlicher Verdienststatistiken und transparenter Modellrechnungen.
+            </p>
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <details className="group border border-slate-200 rounded-xl p-4 [&_summary::-webkit-details-marker]:hidden bg-slate-50/50 hover:bg-slate-50 transition-colors" open>
+            <summary className="flex items-center justify-between cursor-pointer font-bold text-slate-900 text-sm sm:text-base">
+              <span>Wie hoch ist das Mediangehalt als {shortTitle} in Deutschland?</span>
+              <span className="text-xs font-mono font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 group-open:rotate-180 transition-transform">
+                ↓
+              </span>
+            </summary>
+            <div className="mt-3 pt-3 border-t border-slate-200 text-xs sm:text-sm text-slate-700 leading-relaxed">
+              Der bundesweite Median für vollzeitbeschäftigte {shortTitle} liegt bei <strong>{medianMonth.toLocaleString('de-DE')} €</strong> brutto im Monat ({job.medianYear.toLocaleString('de-DE')} € im Jahr). Genau 50 % der Beschäftigten in diesem Beruf verdienen mehr und 50 % weniger (amtliche Entgeltstatistik der Bundesagentur für Arbeit, KldB-Code {job.kldbCode}).
+            </div>
+          </details>
+
+          <details className="group border border-slate-200 rounded-xl p-4 [&_summary::-webkit-details-marker]:hidden bg-slate-50/50 hover:bg-slate-50 transition-colors">
+            <summary className="flex items-center justify-between cursor-pointer font-bold text-slate-900 text-sm sm:text-base">
+              <span>Wie viel verdient man als {shortTitle} beim Berufseinstieg?</span>
+              <span className="text-xs font-mono font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 group-open:rotate-180 transition-transform">
+                ↓
+              </span>
+            </summary>
+            <div className="mt-3 pt-3 border-t border-slate-200 text-xs sm:text-sm text-slate-700 leading-relaxed">
+              Beim Berufseinstieg (unter 3 Jahre Erfahrung) liegt das modellierte Orientierungsgehalt (Kategorie C) bei ca. <strong>{Math.round((job.medianYear * 0.82) / 12).toLocaleString('de-DE')} €</strong> brutto monatlich ({Math.round(job.medianYear * 0.82).toLocaleString('de-DE')} € jährlich). Das statistische 25. Perzentil (P25) aller Beschäftigten dieser Berufsgruppe beträgt <strong>{p25Month.toLocaleString('de-DE')} €</strong> im Monat.
+            </div>
+          </details>
+
+          <details className="group border border-slate-200 rounded-xl p-4 [&_summary::-webkit-details-marker]:hidden bg-slate-50/50 hover:bg-slate-50 transition-colors">
+            <summary className="flex items-center justify-between cursor-pointer font-bold text-slate-900 text-sm sm:text-base">
+              <span>In welchem Bundesland verdient man als {shortTitle} am meisten?</span>
+              <span className="text-xs font-mono font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 group-open:rotate-180 transition-transform">
+                ↓
+              </span>
+            </summary>
+            <div className="mt-3 pt-3 border-t border-slate-200 text-xs sm:text-sm text-slate-700 leading-relaxed">
+              Auf Basis der allgemeinen regionalen Lohnniveaus der Bundesländer erzielen Beschäftigte in <strong>Hamburg</strong> (ca. {Math.round((job.medianYear * 1.134) / 12).toLocaleString('de-DE')} € / Monat), <strong>Hessen</strong> (ca. {Math.round((job.medianYear * 1.095) / 12).toLocaleString('de-DE')} € / Monat) und <strong>Baden-Württemberg</strong> (ca. {Math.round((job.medianYear * 1.094) / 12).toLocaleString('de-DE')} € / Monat) rechnerisch die höchsten Gehälter. Hinweis: Hierbei handelt es sich um modellierte Orientierungswerte (Kategorie C), die aus dem Bundesmedian und den amtlichen Landesfaktoren abgeleitet werden.
+            </div>
+          </details>
         </div>
       </section>
 

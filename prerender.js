@@ -12,8 +12,8 @@ const { render, SALARY_DATABASE, STATE_FACTORS, DATA_METADATA } = await import("
 const coreRoutes = [
   {
     url: "/",
-    title: "Lohnvergleichsrechner: Gehälter & Löhne in Deutschland vergleichen",
-    desc: "Unabhängiges Vergleichsportal für Gehälter und Löhne in Deutschland. Interaktiver Rechner nach Destatis-Verdienststatistik & BA-Entgeltatlas."
+    title: "Gehaltsvergleich & Lohnvergleich – Gehalt kostenlos vergleichen",
+    desc: "Vergleichen Sie Ihr Gehalt nach Beruf, Bundesland und Erfahrung. Mit amtlichen Ausgangsdaten von Bundesagentur für Arbeit und Destatis."
   },
   {
     url: "/rechner",
@@ -22,13 +22,13 @@ const coreRoutes = [
   },
   {
     url: "/durchschnittsgehalt",
-    title: "Durchschnittsgehalt Deutschland: Zahlen, Fakten & Median (Destatis)",
-    desc: "Wie hoch ist das Durchschnittsgehalt in Deutschland? Alle amtlichen Destatis-Zahlen nach Bundesland, Branche, Bildungsabschluss und Median vs. Durchschnitt."
+    title: "Durchschnittsgehalt Deutschland: Median & Durchschnitt | lohnvergleichsrechner.de",
+    desc: "Wie hoch ist das Durchschnittsgehalt und das Mediangehalt in Deutschland? Alle amtlichen Zahlen nach Bundesland, Branche und Unterschied zwischen Median und Durchschnitt."
   },
   {
     url: "/gehalt",
     title: "Gehalt nach Beruf: Amtliche KldB-Entgelttabellen in Deutschland",
-    desc: "Wie viel verdient man in welchem Beruf? Entdecken Sie verlässliche Mediane, Einstiegsgehälter und KldB-Aufgabenprofile auf Basis amtlicher Verdienststatistiken."
+    desc: "Wie viel verdient man in welchem Beruf? Entdecken Sie verlässliche Mediane, Quartile P25/P75 und KldB-Aufgabenprofile auf Basis amtlicher Verdienststatistiken."
   },
   {
     url: "/entgeltatlas",
@@ -37,8 +37,8 @@ const coreRoutes = [
   },
   {
     url: "/methodik",
-    title: "Methodik & Datenquellen: Lohn- und Gehaltsvergleich nach Destatis",
-    desc: "Transparenzbericht von lohnvergleichsrechner.de: Datenbasis (Destatis VSE & BA-Entgeltatlas), statistische Quartilsmethode und Grenzen der Modellrechnung."
+    title: "Methodik & Datenquellen: Lohn- und Gehaltsvergleich nach Destatis & BA",
+    desc: "Transparenzbericht von lohnvergleichsrechner.de: Datenbasis (BA-Entgeltstatistik & Destatis VSE), statistische Quartilsmethode und Grenzen der Modellrechnung."
   },
   {
     url: "/ratgeber",
@@ -75,10 +75,11 @@ const coreRoutes = [
 // 2. Curated Profession Pages
 const professionRoutes = SALARY_DATABASE.map(job => {
   const shortTitle = job.title.split(' / ')[0];
+  const monthlyMedian = Math.round(job.medianYear / 12);
   return {
     url: `/gehalt/${job.id}`,
-    title: `Was verdient ein/e ${shortTitle}? Gehalt & Median (KldB ${job.kldbCode})`,
-    desc: `Aktueller Gehaltsreport für ${shortTitle}: Bundesweiter Median bei ${job.medianYear.toLocaleString('de-DE')} € p.a. Einstiegsgehalt, Erfahrungsstufen & Bundesland-Vergleich.`
+    title: `${shortTitle} Gehalt: Was verdient man in Deutschland?`,
+    desc: `Aktuelle Gehaltsdaten für ${shortTitle}: Bundesweiter Median bei ${job.medianYear.toLocaleString('de-DE')} € p.a. (${monthlyMedian.toLocaleString('de-DE')} € / Monat), Quartile P25–P75 und Bundesland-Vergleich.`
   };
 });
 
@@ -98,12 +99,11 @@ for (const jobId of topFocusJobs) {
     if (!state) continue;
 
     const regionalMedian = Math.round(job.medianYear * state.factor);
-    const diff = Math.round((state.factor - 1) * 100);
 
     regionalRoutes.push({
       url: `/gehalt/${job.id}/${state.slug}`,
-      title: `Gehalt als ${shortTitle} in ${state.name}: Regionaler Median & Auswertung`,
-      desc: `Gehaltsvergleich für ${shortTitle} in ${state.name}: Regionaler Median liegt bei ${regionalMedian.toLocaleString('de-DE')} € p.a. (${diff >= 0 ? `+${diff} %` : `${diff} %`} im Vergleich zum Bundesschnitt).`
+      title: `Gehalt als ${shortTitle} in ${state.name}: Regionaler Lohnvergleich`,
+      desc: `Regionaler Lohnvergleich für ${shortTitle} in ${state.name}: Modellierter Orientierungswert von ca. ${regionalMedian.toLocaleString('de-DE')} € p.a. basierend auf amtlichem Berufsmedian und Landesfaktor.`
     });
   }
 }

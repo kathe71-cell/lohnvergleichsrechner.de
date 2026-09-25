@@ -24,6 +24,8 @@ export default function JobStateSalaryPage() {
     return <Navigate to="/gehalt" replace />;
   }
 
+  const shortTitle = job.title.split(' / ')[0];
+
   // Modellierter regionaler Median: Auf volle 100 € gerundet zur Vermeidung von Scheingenauigkeit (Kategorie C)
   const regionalMedianYear = Math.round((job.medianYear * state.factor) / 100) * 100;
   const regionalMedianMonth = Math.round(regionalMedianYear / 12);
@@ -39,7 +41,7 @@ export default function JobStateSalaryPage() {
       <Breadcrumbs
         items={[
           { name: 'Gehalt nach Beruf', url: '/gehalt' },
-          { name: job.title.split(' / ')[0], url: `/gehalt/${job.id}` },
+          { name: shortTitle, url: `/gehalt/${job.id}` },
           { name: state.name, url: `/gehalt/${job.id}/${state.slug}` }
         ]}
       />
@@ -52,11 +54,11 @@ export default function JobStateSalaryPage() {
         </div>
 
         <h1 className="text-3xl sm:text-5xl font-black text-slate-950 tracking-tight leading-[1.1]">
-          Gehalt als <span className="text-emerald-700">{job.title.split(' / ')[0]}</span> in {state.name}
+          Gehalt als <span className="text-emerald-700">{shortTitle}</span> in {state.name}: Regionaler Lohnvergleich
         </h1>
 
         <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-          Wie hoch ist das Gehalt als {job.title.split(' / ')[0]} in {state.name}? In {state.name} liegt das Entgeltniveau bei <strong>{diffToBund >= 0 ? `+${diffToBund} %` : `${diffToBund} %`}</strong> im Vergleich zum bundesweiten Durchschnitt.
+          Wie hoch ist das Gehalt als {shortTitle} in {state.name}? Für {state.name} ergibt sich ein modellierter Orientierungswert (Kategorie C) von rund <strong>{regionalMedianYear.toLocaleString('de-DE')} €</strong> brutto im Jahr (ca. <strong>{regionalMedianMonth.toLocaleString('de-DE')} €</strong> im Monat). Dies entspricht einer Abweichung von <strong>{diffToBund >= 0 ? `+${diffToBund} %` : `${diffToBund} %`}</strong> gegenüber dem bundesweiten Berufsmedian ({job.medianYear.toLocaleString('de-DE')} €), basierend auf dem allgemeinen regionalen Lohnniveau nach der Entgeltstatistik der Bundesagentur für Arbeit.
         </p>
       </div>
 
@@ -255,7 +257,7 @@ export default function JobStateSalaryPage() {
       {/* Citation Box */}
       <section>
         <CitationBox
-          title={`Gehalt ${job.title} in ${state.name}: Regionale Destatis-Auswertung`}
+          title={`Gehalt als ${shortTitle} in ${state.name}: Regionaler Lohnvergleich und Modellierung`}
           url={`https://lohnvergleichsrechner.de/gehalt/${job.id}/${state.slug}`}
         />
       </section>

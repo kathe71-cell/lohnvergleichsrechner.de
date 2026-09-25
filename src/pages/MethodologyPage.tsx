@@ -74,7 +74,7 @@ export default function MethodologyPage() {
             </h2>
           </div>
           <p>
-            Im Gegensatz zu kommerziellen Gehaltsportalen, die häufig auf unüberprüften Selbstangaben einzelner Internetnutzer basieren, stützt sich <strong>lohnvergleichsrechner.de</strong> ausschließlich auf amtliche und repräsentative Vollerhebungen:
+            Die Berechnungen und Benchmarks auf <strong>lohnvergleichsrechner.de</strong> stützen sich auf amtliche und repräsentative Erhebungen der deutschen Arbeitsmarkt- und Verdienststatistik:
           </p>
           <div className="space-y-3 pt-2">
             <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
