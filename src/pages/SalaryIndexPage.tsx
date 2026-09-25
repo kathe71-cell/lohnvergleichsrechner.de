@@ -86,8 +86,7 @@ export default function SalaryIndexPage() {
             />
           </div>
 
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             {categories.map((cat) => (
               <button
                 key={cat}
@@ -101,29 +100,30 @@ export default function SalaryIndexPage() {
                 {cat}
               </button>
             ))}
-            </div>
-            
-            <div className="flex-shrink-0 flex items-center gap-2">
-              <label htmlFor="sort" className="text-xs font-bold text-slate-500 uppercase tracking-wide">
-                Sortieren:
-              </label>
-              <select
-                id="sort"
-                value={sortOption}
-                onChange={(e) => setSortOption(e.target.value as any)}
-                className="bg-slate-50 border border-slate-200 text-slate-700 text-sm font-medium rounded-lg px-3 py-1.5 focus:ring-2 focus:ring-emerald-500 outline-none cursor-pointer"
-              >
-                <option value="az">Alphabetisch A–Z</option>
-                <option value="desc">Gehalt: hoch → niedrig</option>
-                <option value="asc">Gehalt: niedrig → hoch</option>
-              </select>
-            </div>
           </div>
         </div>
 
-        <div className="pt-4 border-t border-slate-100 text-xs text-slate-500 font-mono flex items-center justify-between">
-          <span>{filteredJobs.length} Berufs-Landingpages verfügbar</span>
-          <span>Vollzeit (40h/Woche) Bundesmedian</span>
+        <div className="pt-5 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="text-xs text-slate-500 font-mono flex flex-col gap-1">
+            <span className="font-bold text-slate-700">{filteredJobs.length} Berufs-Landingpages verfügbar</span>
+            <span>Vollzeit (40h/Woche) Bundesmedian</span>
+          </div>
+
+          <div className="flex-shrink-0 flex items-center gap-2 bg-slate-50 p-1.5 rounded-lg border border-slate-200">
+            <label htmlFor="sort" className="text-xs font-bold text-slate-500 uppercase tracking-wide pl-2">
+              Sortieren:
+            </label>
+            <select
+              id="sort"
+              value={sortOption}
+              onChange={(e) => setSortOption(e.target.value as any)}
+              className="bg-white border border-slate-200 text-slate-800 text-sm font-bold rounded-md px-3 py-1.5 focus:ring-2 focus:ring-emerald-500 outline-none cursor-pointer hover:border-emerald-300 transition-colors"
+            >
+              <option value="az">Alphabetisch A–Z</option>
+              <option value="desc">Gehalt: hoch → niedrig</option>
+              <option value="asc">Gehalt: niedrig → hoch</option>
+            </select>
+          </div>
         </div>
       </div>
 
