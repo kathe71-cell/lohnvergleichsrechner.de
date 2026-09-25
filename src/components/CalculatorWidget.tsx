@@ -535,10 +535,18 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
 
         {/* Visual Corridor Boxplot Bar */}
         <div className="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
-          <div className="flex justify-between items-center text-xs font-bold text-slate-700">
-            <span>Unteres Quartil (25 %: {result.benchmarkP25Year.toLocaleString('de-DE')} €)</span>
-            <span className="font-extrabold text-slate-900 font-mono">Median: {result.benchmarkMedianYear.toLocaleString('de-DE')} €</span>
-            <span>Oberes Quartil (75 %: {result.benchmarkP75Year.toLocaleString('de-DE')} €)</span>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0 text-xs font-bold text-slate-700">
+            <span className="text-slate-500">
+              <span className="hidden sm:inline">Unteres Quartil (25 %):</span>
+              <span className="sm:hidden">P25:</span> {result.benchmarkP25Year.toLocaleString('de-DE')} €
+            </span>
+            <span className="font-extrabold text-slate-900 font-mono bg-slate-100 px-2 py-0.5 rounded-md self-center">
+              Median: {result.benchmarkMedianYear.toLocaleString('de-DE')} €
+            </span>
+            <span className="text-slate-500 self-end sm:self-auto">
+              <span className="hidden sm:inline">Oberes Quartil (75 %):</span>
+              <span className="sm:hidden">P75:</span> {result.benchmarkP75Year.toLocaleString('de-DE')} €
+            </span>
           </div>
 
           {/* Visual Track */}
@@ -569,25 +577,25 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
             )}
           </div>
 
-          <div className="flex flex-wrap items-center justify-between text-[11px] text-slate-500 pt-1">
-            <div className="flex items-center gap-3">
-              <span className="inline-flex items-center gap-1">
-                <span className="w-2.5 h-2.5 bg-emerald-200 border border-emerald-500 rounded-xs" />
-                Interquartilsbereich (50 % der Beschäftigten)
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-[11px] text-slate-500 pt-2">
+            <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+              <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
+                <span className="w-2.5 h-2.5 bg-emerald-200 border border-emerald-500 rounded-sm flex-shrink-0" />
+                Interquartilsbereich (50 %)
               </span>
-              <span className="inline-flex items-center gap-1">
-                <span className="w-2 h-2 bg-slate-900 rounded-full" />
+              <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
+                <span className="w-2 h-2 bg-slate-900 rounded-full flex-shrink-0" />
                 Regionaler Median
               </span>
               {userPercent !== null && (
-                <span className="inline-flex items-center gap-1 font-bold text-amber-800">
-                  <span className="w-2.5 h-2.5 bg-amber-500 rounded-full ring-1 ring-amber-300" />
+                <span className="inline-flex items-center gap-1.5 font-bold text-amber-800 whitespace-nowrap">
+                  <span className="w-2.5 h-2.5 bg-amber-500 rounded-full ring-1 ring-amber-300 flex-shrink-0" />
                   Ihr Gehalt ({result.userYearlyGross?.toLocaleString('de-DE')} €)
                 </span>
               )}
             </div>
-            <span className="font-mono text-slate-400">
-              Amtliche Quelle: BA &amp; Destatis VSE
+            <span className="font-mono text-[10px] text-slate-400 mt-2 sm:mt-0 flex-shrink-0">
+              Quelle: BA / Destatis
             </span>
           </div>
         </div>
