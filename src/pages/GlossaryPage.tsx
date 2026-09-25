@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Layers, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 import EditorialTrustBox from '../components/EditorialTrustBox';
 import CitationBox from '../components/CitationBox';
 
@@ -99,11 +99,10 @@ export default function GlossaryPage() {
       
       {/* Header */}
       <div className="space-y-3">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100/80 text-emerald-900 text-xs font-mono font-bold">
-          <Layers className="w-3.5 h-3.5 text-emerald-700" />
-          FACHBEGRIFFE &amp; DEFINITIONEN
-        </div>
-        <h1 className="text-3xl sm:text-5xl font-black text-slate-950 tracking-tight">
+        <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block">
+              FACHBEGRIFFE &amp; DEFINITIONEN
+            </span>
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-950 tracking-tight leading-tight">
           Glossar: Lohn, Gehalt &amp; Entgeltrecht
         </h1>
         <p className="text-base sm:text-lg text-slate-600 leading-relaxed">

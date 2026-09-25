@@ -5,7 +5,6 @@ import StateComparisonTable from '../components/StateComparisonTable';
 import EditorialTrustBox from '../components/EditorialTrustBox';
 import CitationBox from '../components/CitationBox';
 import {
-  BarChart3,
   Scale,
   Calculator,
   ArrowRight
@@ -29,11 +28,10 @@ export default function AverageSalaryPage() {
       <Breadcrumbs items={[{ name: 'Durchschnittsgehalt Deutschland', url: '/durchschnittsgehalt' }]} />
 
       {/* Header */}
-      <div className="space-y-4 max-w-4xl">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100/80 text-emerald-900 text-xs font-mono font-bold">
-          <BarChart3 className="w-3.5 h-3.5 text-emerald-700" />
-          AMTLICHE VERDIENSTSTATISTIKEN · STAND {DATA_METADATA.lastUpdated.toUpperCase()}
-        </div>
+      <div className="max-w-3xl space-y-2">
+        <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block">
+              AMTLICHE VERDIENSTSTATISTIKEN · STAND {DATA_METADATA.lastUpdated.toUpperCase()}
+            </span>
 
         <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-950 tracking-tight leading-[1.1]">
           Durchschnittsgehalt und Mediangehalt in Deutschland

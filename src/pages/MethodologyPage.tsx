@@ -3,7 +3,6 @@ import { DATA_METADATA } from '../data/salaryData';
 import Breadcrumbs from '../components/Breadcrumbs';
 import CitationBox from '../components/CitationBox';
 import {
-  ShieldCheck,
   ExternalLink,
   Calculator
 } from 'lucide-react';
@@ -16,10 +15,9 @@ export default function MethodologyPage() {
 
       {/* Header */}
       <div className="space-y-4 max-w-3xl">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100/80 text-emerald-900 text-xs font-mono font-bold">
-          <ShieldCheck className="w-3.5 h-3.5 text-emerald-700" />
-          TRANSPARENZBERICHT &amp; WISSENSCHAFTLICHE GRUNDLAGEN
-        </div>
+        <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block">
+              TRANSPARENZBERICHT &amp; WISSENSCHAFTLICHE GRUNDLAGEN
+            </span>
 
         <h1 className="text-3xl sm:text-5xl font-black text-slate-950 tracking-tight leading-[1.1]">
           Methodik, Datenquellen &amp; Berechnungsverfahren

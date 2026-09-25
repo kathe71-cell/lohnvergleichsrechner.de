@@ -1,4 +1,4 @@
-import { BookOpen, Scale, FileText, CheckCircle2, AlertCircle, ArrowRight } from 'lucide-react';
+import { Scale, FileText, CheckCircle2, AlertCircle, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import EditorialTrustBox from '../components/EditorialTrustBox';
 import CitationBox from '../components/CitationBox';
@@ -9,10 +9,9 @@ export default function GuidePage() {
       
       {/* Header */}
       <div className="space-y-3">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100/80 text-emerald-900 text-xs font-mono font-bold">
-          <BookOpen className="w-3.5 h-3.5 text-emerald-700" />
-          ARBEITSRECHT &amp; GEHALTSVERHANDLUNG
-        </div>
+        <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block">
+              ARBEITSRECHT &amp; GEHALTSVERHANDLUNG
+            </span>
         <h1 className="text-3xl sm:text-5xl font-black text-slate-950 tracking-tight leading-tight">
           Ratgeber: Entgelttransparenz, Auskunftsanspruch &amp; Verhandlung
         </h1>

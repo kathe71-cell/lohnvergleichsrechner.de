@@ -9,7 +9,6 @@ import Breadcrumbs from '../components/Breadcrumbs';
 import EditorialTrustBox from '../components/EditorialTrustBox';
 import CitationBox from '../components/CitationBox';
 import {
-  Briefcase,
   MapPin,
   Calculator,
   ArrowRight,
@@ -55,11 +54,10 @@ export default function JobSalaryPage() {
       />
 
       {/* Hero Header */}
-      <div className="space-y-4 max-w-4xl">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100/80 text-emerald-900 text-xs font-mono font-bold">
-          <Briefcase className="w-3.5 h-3.5 text-emerald-700" />
-          KLDB-SCHLÜSSEL {job.kldbCode} · {job.category.toUpperCase()}
-        </div>
+      <div className="max-w-3xl space-y-2">
+        <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block">
+              KLDB-SCHLÜSSEL {job.kldbCode} · {job.category.toUpperCase()}
+            </span>
         
         <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-950 tracking-tight leading-[1.1]">
           <span className="text-emerald-700">{shortTitle}</span> Gehalt: Was verdient man in Deutschland?
@@ -169,9 +167,9 @@ export default function JobSalaryPage() {
       {/* CTA To Calculator */}
       <div className="bg-gradient-to-r from-emerald-700 to-teal-800 rounded-2xl p-6 sm:p-8 text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-md">
         <div className="space-y-2 max-w-2xl">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded bg-emerald-800/80 text-emerald-200 text-xs font-mono font-bold">
-            <Calculator className="w-3.5 h-3.5" /> INTERAKTIVER VERGLEICH
-          </div>
+          <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block">
+              INTERAKTIVER VERGLEICH
+            </span>
           <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
             Eigenen Lohn als {job.title.split(' / ')[0]} berechnen
           </h2>

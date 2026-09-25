@@ -4,7 +4,7 @@ import { SALARY_DATABASE } from '../data/salaryData';
 import StateComparisonTable from '../components/StateComparisonTable';
 import CitationBox from '../components/CitationBox';
 import EditorialTrustBox from '../components/EditorialTrustBox';
-import { Search, Filter, BarChart3, ArrowRight, TrendingUp } from 'lucide-react';
+import { Search, Filter, ArrowRight, TrendingUp } from 'lucide-react';
 
 export default function AtlasPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -32,12 +32,11 @@ export default function AtlasPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-12">
       
       {/* Header */}
-      <div className="max-w-3xl space-y-3">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100/80 text-emerald-900 text-xs font-mono font-bold">
-          <BarChart3 className="w-3.5 h-3.5 text-emerald-700" />
-          OFFIZIELLER DATENKATALOG · KLASSIFIKATION DER BERUFE (KLDB 2010)
-        </div>
-        <h1 className="text-3xl sm:text-5xl font-black text-slate-950 tracking-tight">
+      <div className="max-w-3xl space-y-2">
+        <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block">
+              OFFIZIELLER DATENKATALOG · KLASSIFIKATION DER BERUFE (KLDB 2010)
+            </span>
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-950 tracking-tight leading-tight">
           Entgeltatlas: Berufe &amp; Gehälter in Deutschland
         </h1>
         <p className="text-base sm:text-lg text-slate-600 leading-relaxed">

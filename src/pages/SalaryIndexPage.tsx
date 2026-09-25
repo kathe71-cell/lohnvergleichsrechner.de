@@ -4,7 +4,7 @@ import { SALARY_DATABASE } from '../data/salaryData';
 import Breadcrumbs from '../components/Breadcrumbs';
 import EditorialTrustBox from '../components/EditorialTrustBox';
 import CitationBox from '../components/CitationBox';
-import { Search, Filter, Briefcase, ArrowRight, TrendingUp } from 'lucide-react';
+import { Search, Filter, ArrowRight, TrendingUp } from 'lucide-react';
 
 export default function SalaryIndexPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -30,11 +30,10 @@ export default function SalaryIndexPage() {
       <Breadcrumbs items={[{ name: 'Gehalt nach Beruf', url: '/gehalt' }]} />
 
       {/* Header */}
-      <div className="max-w-3xl space-y-3">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100/80 text-emerald-900 text-xs font-mono font-bold">
-          <Briefcase className="w-3.5 h-3.5 text-emerald-700" />
-          BERUFSGEHÄLTER &amp; ENTGELTSTRUKTUREN
-        </div>
+      <div className="max-w-3xl space-y-2">
+        <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block">
+              BERUFSGEHÄLTER &amp; ENTGELTSTRUKTUREN
+            </span>
         <h1 className="text-3xl sm:text-5xl font-black text-slate-950 tracking-tight leading-tight">
           Gehalt nach Beruf: Amtliche Gehälter in Deutschland
         </h1>

@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import {
-  SALARY_DATABASE,
   STATE_FACTORS,
   EXPERIENCE_FACTORS,
   COMPANY_SIZE_FACTORS,
@@ -10,6 +9,7 @@ import {
   type CalculationResult
 } from '../data/salaryData';
 import CustomDropdown from './CustomDropdown';
+import JobAutocomplete from './JobAutocomplete';
 import {
   Calculator,
   Share2,
@@ -219,15 +219,10 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
             <Briefcase className="w-4 h-4 text-emerald-600" />
             Beruf / Tätigkeit (KldB 2010)
           </label>
-          <CustomDropdown
+          <JobAutocomplete
             value={jobId}
-            onChange={setJobId}
-            searchable={true}
-            options={SALARY_DATABASE.map((job) => ({
-              value: job.id,
-              label: job.title,
-              sublabel: `${job.category} · KldB ${job.kldbCode}`
-            }))}
+            onSelect={setJobId}
+            mode="select"
           />
           <span className="text-xs text-slate-500 block truncate">
             {result.job.shortDesc}
