@@ -7,11 +7,12 @@ export default function Navbar() {
   const location = useLocation();
 
   const navLinks = [
-    { to: '/rechner', label: 'Gehaltsrechner', icon: Calculator },
+    { to: '/rechner', label: 'Lohnrechner', icon: Calculator },
+    { to: '/gehalt', label: 'Gehalt nach Beruf', icon: BarChart3 },
+    { to: '/durchschnittsgehalt', label: 'Durchschnittsgehalt', icon: Layers },
     { to: '/entgeltatlas', label: 'Entgeltatlas', icon: BarChart3 },
     { to: '/ratgeber', label: 'Ratgeber', icon: BookOpen },
-    { to: '/glossar', label: 'Glossar', icon: Layers },
-    { to: '/faq', label: 'FAQ', icon: HelpCircle },
+    { to: '/methodik', label: 'Methodik', icon: HelpCircle },
   ];
 
   const isActive = (path: string) => location.pathname === path;

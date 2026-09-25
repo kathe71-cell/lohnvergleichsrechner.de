@@ -11,33 +11,65 @@ export interface JobSalary {
   trendPercent: number;
   typicalEducation: string;
   shortDesc: string;
+  tasks?: string[];
+  skills?: string[];
 }
 
 export interface StateFactor {
   code: string;
+  slug: string;
   name: string;
   factor: number; // 1.0 = Bundesschnitt
   medianYearAll: number;
   capital: string;
 }
 
+export const DATA_METADATA = {
+  version: "2024/2025",
+  lastUpdated: "September 2026",
+  destatisSurvey: "Statistisches Bundesamt (Destatis) - Verdienststrukturerhebung (VSE) nach § 12 VStatG",
+  baStats: "Bundesagentur für Arbeit - Statistik der sozialversicherungspflichtig Vollzeitbeschäftigten (KldB 2010 5-Steller)",
+  bmasRef: "BMAS - Entgelttransparenzgesetz (§ 10 EntgTranspG) & Richtlinie (EU) 2023/970",
+  federalMedianFullTimeMonthly: 4100,
+  federalMedianFullTimeYearly: 49200,
+  federalAverageFullTimeMonthly: 4479, // Destatis arithmetisches Mittel Vollzeit (ca. 11 % über Median)
+  federalAverageFullTimeYearly: 53748,
+  primarySources: [
+    {
+      name: "Statistisches Bundesamt (Destatis)",
+      title: "Verdienste und Arbeitskosten in Deutschland",
+      url: "https://www.destatis.de/DE/Themen/Arbeit/Verdienste/_inhalt.html"
+    },
+    {
+      name: "Bundesagentur für Arbeit (BA)",
+      title: "Entgeltatlas nach KldB 2010",
+      url: "https://entgeltatlas.arbeitsagentur.de/"
+    },
+    {
+      name: "Bundesministerium für Arbeit und Soziales (BMAS)",
+      title: "Entgelttransparenz und gleiches Entgelt für gleiche Arbeit",
+      url: "https://www.bmas.de/DE/Arbeit/Arbeitsrecht/Entgelttransparenz/entgelttransparenz.html"
+    }
+  ]
+};
+
 export const STATE_FACTORS: StateFactor[] = [
-  { code: "BW", name: "Baden-Württemberg", factor: 1.075, medianYearAll: 47800, capital: "Stuttgart" },
-  { code: "BY", name: "Bayern", factor: 1.065, medianYearAll: 47200, capital: "München" },
-  { code: "BE", name: "Berlin", factor: 0.985, medianYearAll: 43800, capital: "Berlin" },
-  { code: "BB", name: "Brandenburg", factor: 0.835, medianYearAll: 37100, capital: "Potsdam" },
-  { code: "HB", name: "Bremen", factor: 0.995, medianYearAll: 44200, capital: "Bremen" },
-  { code: "HH", name: "Hamburg", factor: 1.095, medianYearAll: 48600, capital: "Hamburg" },
-  { code: "HE", name: "Hessen", factor: 1.080, medianYearAll: 48000, capital: "Wiesbaden" },
-  { code: "MV", name: "Mecklenburg-Vorpommern", factor: 0.795, medianYearAll: 35400, capital: "Schwerin" },
-  { code: "NI", name: "Niedersachsen", factor: 0.955, medianYearAll: 42500, capital: "Hannover" },
-  { code: "NW", name: "Nordrhein-Westfalen", factor: 1.025, medianYearAll: 45600, capital: "Düsseldorf" },
-  { code: "RP", name: "Rheinland-Pfalz", factor: 0.975, medianYearAll: 43400, capital: "Mainz" },
-  { code: "SL", name: "Saarland", factor: 0.940, medianYearAll: 41800, capital: "Saarbrücken" },
-  { code: "SN", name: "Sachsen", factor: 0.825, medianYearAll: 36700, capital: "Dresden" },
-  { code: "ST", name: "Sachsen-Anhalt", factor: 0.815, medianYearAll: 36200, capital: "Magdeburg" },
-  { code: "SH", name: "Schleswig-Holstein", factor: 0.945, medianYearAll: 42000, capital: "Kiel" },
-  { code: "TH", name: "Thüringen", factor: 0.810, medianYearAll: 36000, capital: "Erfurt" }
+  { code: "BW", slug: "baden-wuerttemberg", name: "Baden-Württemberg", factor: 1.075, medianYearAll: 47800, capital: "Stuttgart" },
+  { code: "BY", slug: "bayern", name: "Bayern", factor: 1.065, medianYearAll: 47200, capital: "München" },
+  { code: "BE", slug: "berlin", name: "Berlin", factor: 0.985, medianYearAll: 43800, capital: "Berlin" },
+  { code: "BB", slug: "brandenburg", name: "Brandenburg", factor: 0.835, medianYearAll: 37100, capital: "Potsdam" },
+  { code: "HB", slug: "bremen", name: "Bremen", factor: 0.995, medianYearAll: 44200, capital: "Bremen" },
+  { code: "HH", slug: "hamburg", name: "Hamburg", factor: 1.095, medianYearAll: 48600, capital: "Hamburg" },
+  { code: "HE", slug: "hessen", name: "Hessen", factor: 1.080, medianYearAll: 48000, capital: "Wiesbaden" },
+  { code: "MV", slug: "mecklenburg-vorpommern", name: "Mecklenburg-Vorpommern", factor: 0.795, medianYearAll: 35400, capital: "Schwerin" },
+  { code: "NI", slug: "niedersachsen", name: "Niedersachsen", factor: 0.955, medianYearAll: 42500, capital: "Hannover" },
+  { code: "NW", slug: "nordrhein-westfalen", name: "Nordrhein-Westfalen", factor: 1.025, medianYearAll: 45600, capital: "Düsseldorf" },
+  { code: "RP", slug: "rheinland-pfalz", name: "Rheinland-Pfalz", factor: 0.975, medianYearAll: 43400, capital: "Mainz" },
+  { code: "SL", slug: "saarland", name: "Saarland", factor: 0.940, medianYearAll: 41800, capital: "Saarbrücken" },
+  { code: "SN", slug: "sachsen", name: "Sachsen", factor: 0.825, medianYearAll: 36700, capital: "Dresden" },
+  { code: "ST", slug: "sachsen-anhalt", name: "Sachsen-Anhalt", factor: 0.815, medianYearAll: 36200, capital: "Magdeburg" },
+  { code: "SH", slug: "schleswig-holstein", name: "Schleswig-Holstein", factor: 0.945, medianYearAll: 42000, capital: "Kiel" },
+  { code: "TH", slug: "thueringen", name: "Thüringen", factor: 0.810, medianYearAll: 36000, capital: "Erfurt" }
 ];
 
 export const EXPERIENCE_FACTORS: Record<string, { label: string; factor: number; desc: string }> = {
@@ -77,7 +109,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 98000,
     trendPercent: 4.8,
     typicalEducation: "Informatik-Studium oder Fachinformatiker AE",
-    shortDesc: "Konzeption, Entwicklung und Wartung von Softwareanwendungen, Cloud-Architekturen und Schnittstellen."
+    shortDesc: "Konzeption, Entwicklung und Wartung von Softwareanwendungen, Cloud-Architekturen und Schnittstellen.",
+    tasks: [
+      "Architekturdesign und Programmierung moderner Web-, Backend- und Cloud-Anwendungen",
+      "Erstellung automatisierter Unit-, Integrations- und End-to-End-Tests",
+      "Code Reviews und Mitwirkung an CI/CD-Deployment-Pipelines",
+      "Refactoring von Legacy-Systemen und Optimierung von Datenbankabfragen"
+    ],
+    skills: ["TypeScript / JavaScript", "Python / Java / Go", "Docker & Kubernetes", "Cloud (AWS / Azure)", "SQL / NoSQL"]
   },
   {
     id: "data-scientist",
@@ -91,7 +130,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 105000,
     trendPercent: 6.2,
     typicalEducation: "Master/Promotion Informatik, Mathematik oder Data Science",
-    shortDesc: "Modellierung statistischer Algorithmen, Predictive Analytics und Training neuronaler Netze."
+    shortDesc: "Modellierung statistischer Algorithmen, Predictive Analytics und Training neuronaler Netze.",
+    tasks: [
+      "Bereinigung und statistische Aufbereitung strukturierter und unstrukturierter Massendaten",
+      "Entwicklung prädiktiver Machine-Learning- und Deep-Learning-Modelle",
+      "Deployment von ML-Pipelines in Produktionsumgebungen (MLOps)",
+      "Übersetzung komplexer Datenanalysen in handlungsorientierte Business-Insights"
+    ],
+    skills: ["Python (pandas, scikit-learn)", "PyTorch / TensorFlow", "SQL & Big Data", "Statistik", "Data Warehousing"]
   },
   {
     id: "it-systemadministrator",
@@ -105,7 +151,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 82000,
     trendPercent: 3.9,
     typicalEducation: "Fachinformatiker Systemintegration oder Wirtschaftsinformatik",
-    shortDesc: "Administration hybrider IT-Infrastrukturen, CI/CD-Pipelines, Monitoring und Netzwerksicherheit."
+    shortDesc: "Administration hybrider IT-Infrastrukturen, CI/CD-Pipelines, Monitoring und Netzwerksicherheit.",
+    tasks: [
+      "Betrieb und Überwachung von Server-Infrastrukturen (Linux & Windows Server)",
+      "Netzwerkadministration (VLAN, VPN, Firewall, DNS, DHCP)",
+      "Automatisierung von Infrastrukturen mittels Ansible, Terraform oder Scripts",
+      "Incident Management und 2nd/3rd-Level-Support bei Ausfällen"
+    ],
+    skills: ["Linux / Windows Server", "Netzwerktechnik", "Terraform / Ansible", "Active Directory", "Monitoring (Prometheus/Grafana)"]
   },
   {
     id: "cyber-security-analyst",
@@ -119,7 +172,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 112000,
     trendPercent: 7.1,
     typicalEducation: "IT-Sicherheit / Informatik Studium",
-    shortDesc: "Identifikation von IT-Schwachstellen, Vorfallreaktion (SOC), Pen-Testing und ISO 27001-Audits."
+    shortDesc: "Identifikation von IT-Schwachstellen, Vorfallreaktion (SOC), Pen-Testing und ISO 27001-Audits.",
+    tasks: [
+      "Analyse verdächtiger Netzwerkaktivitäten und Abwehr von Cyberangriffen im SOC",
+      "Durchführung von Schwachstellen-Scans und Penetration Tests",
+      "Erstellung von Sicherheitsrichtlinien und Notfallplänen nach BSI IT-Grundschutz",
+      "Begleitung externer Audits und Zertifizierungen (ISO/IEC 27001)"
+    ],
+    skills: ["SIEM (Splunk, Elastic)", "Incident Response", "Penetration Testing", "BSI Grundschutz / ISO 27001", "Kryptographie"]
   },
   {
     id: "product-owner",
@@ -133,7 +193,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 99000,
     trendPercent: 4.5,
     typicalEducation: "Wirtschaftswissenschaften oder Wirtschaftsinformatik",
-    shortDesc: "Verantwortung für Produkt-Backlog, Sprint-Priorisierung und Stakeholder-Alignment in agilen Teams."
+    shortDesc: "Verantwortung für Produkt-Backlog, Sprint-Priorisierung und Stakeholder-Alignment in agilen Teams.",
+    tasks: [
+      "Definition der Produktvision, Roadmap und Priorisierung des Product Backlogs",
+      "Erstellung präziser User Stories mit klaren Akzeptanzkriterien",
+      "Enge Abstimmung mit Entwicklerteams, UI/UX-Designern und dem Management",
+      "Erfolgsmessung anhand von KPIs (Retention, Conversion, Churn, ROI)"
+    ],
+    skills: ["Scrum / Kanban / Agile", "Backlog Management (Jira)", "User Research", "Datenanalyse", "Stakeholder Management"]
   },
 
   // Ingenieurwesen & Technik
@@ -149,7 +216,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 96000,
     trendPercent: 3.4,
     typicalEducation: "B.Sc. / M.Sc. Maschinenbau",
-    shortDesc: "Auslegung, Konstruktion und Simulation von mechanischen Baugruppen, Antrieben und Fertigungsanlagen."
+    shortDesc: "Auslegung, Konstruktion und Simulation von mechanischen Baugruppen, Antrieben und Fertigungsanlagen.",
+    tasks: [
+      "3D-CAD-Konstruktion von Bauteilen und komplexen Maschinenbaugruppen",
+      "Durchführung von FEM-Festigkeitsberechnungen und Strömungssimulationen",
+      "Begleitung von Prototypenbau, Prüfstandsversuchen und Serienanlauf",
+      "Erstellung technischer Dokumentationen nach Maschinenrichtlinie / CE-Norm"
+    ],
+    skills: ["CAD (SolidWorks, CATIA, Siemens NX)", "FEM-Simulation", "Werkstoffkunde", "Maschinendynamik", "Fertigungsverfahren"]
   },
   {
     id: "elektroingenieur",
@@ -163,7 +237,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 99000,
     trendPercent: 4.1,
     typicalEducation: "B.Sc. / M.Sc. Elektrotechnik",
-    shortDesc: "Entwicklung elektronischer Schaltungen, Leiterplatten-Design, EMV-Prüfung und Leistungselektronik."
+    shortDesc: "Entwicklung elektronischer Schaltungen, Leiterplatten-Design, EMV-Prüfung und Leistungselektronik.",
+    tasks: [
+      "Entwicklung analoger und digitaler Schaltungen für Steuergeräte und Leistungselektronik",
+      "Layout-Erstellung für mehrlagige Leiterplatten (PCB Design)",
+      "EMV-Messungen und Durchführung von Typ- und Umweltprüfungen",
+      "Inbetriebnahme und Fehlersuche an Prüfständen mit Oszilloskopen und Logikanalysatoren"
+    ],
+    skills: ["Schaltungsentwurf (Altium Designer, Eagle)", "EMV-Prüfung", "Mikrocontroller (ARM, STM32)", "Messtechnik", "Leistungselektronik"]
   },
   {
     id: "wirtschaftsingenieur",
@@ -177,7 +258,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 98000,
     trendPercent: 3.8,
     typicalEducation: "Wirtschaftsingenieurwesen Studium",
-    shortDesc: "Optimierung technischer und betriebswirtschaftlicher Schnittstellen in Produktion, Logistik und Einkauf."
+    shortDesc: "Optimierung technischer und betriebswirtschaftlicher Schnittstellen in Produktion, Logistik und Einkauf.",
+    tasks: [
+      "Wirtschaftlichkeitsberechnungen für Produktionserweiterungen und Neuinvestitionen",
+      "Prozessanalyse und Wertstromoptimierung in Fertigung und Supply Chain",
+      "Technisches Lieferantenmanagement und Vertragsverhandlungen im Einkauf",
+      "Leitung interdisziplinärer Projekte an der Schnittstelle von Technik und Finanzen"
+    ],
+    skills: ["Supply Chain Management", "Projektmanagement", "Produktionsplanung", "Kosten- und Leistungsrechnung", "Lean Manufacturing"]
   },
   {
     id: "qualitaetsingenieur",
@@ -191,7 +279,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 88000,
     trendPercent: 3.2,
     typicalEducation: "Ingenieurstudium oder Techniker mit QM-Zertifikat",
-    shortDesc: "Sicherung von Qualitätsstandards nach ISO 9001 / IATF 16949, FMEA-Analysen und Reklamationsmanagement."
+    shortDesc: "Sicherung von Qualitätsstandards nach ISO 9001 / IATF 16949, FMEA-Analysen und Reklamationsmanagement.",
+    tasks: [
+      "Planung und Durchführung interner und externer Qualitätsaudits",
+      "Erstellung von Risikoanalysen mittels Design- und Prozess-FMEA",
+      "Bearbeitung von Kunden- und Lieferantenreklamationen (8D-Reports, Ishikawa)",
+      "Statistische Prozessregelung (SPC) und kontinuierliche Fehlerminimierung"
+    ],
+    skills: ["ISO 9001 / IATF 16949", "FMEA", "8D-Report", "Auditierung", "Statistische Prozesslenkung (SPC)"]
   },
 
   // Finanzen, Recht & Controlling
@@ -207,7 +302,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 94000,
     trendPercent: 3.7,
     typicalEducation: "Betriebswirtschaftslehre (Schwerpunkt Controlling/Finanzen)",
-    shortDesc: "Budgetplanung, Soll-Ist-Vergleiche, Liquiditätssteuerung und Erstellung von Management-Berichten."
+    shortDesc: "Budgetplanung, Soll-Ist-Vergleiche, Liquiditätssteuerung und Erstellung von Management-Berichten.",
+    tasks: [
+      "Erstellung monatlicher Soll-Ist-Vergleiche und Abweichungsanalysen",
+      "Koordination des jährlichen Budgetierungs- und Forecast-Prozesses",
+      "Berechnung von Deckungsbeiträgen, Produktkalkulationen und Investitionsrechnungen",
+      "Aufbereitung aussagekräftiger Dashboards für Geschäftsführung und Abteilungsleiter"
+    ],
+    skills: ["Financial Modeling", "SAP CO / FI", "Kostenrechnung", "Power BI / Tableau", "IFRS & HGB"]
   },
   {
     id: "buchhalter",
@@ -221,7 +323,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 74000,
     trendPercent: 3.5,
     typicalEducation: "Kaufmännische Ausbildung mit IHK-Bilanzbuchhalter",
-    shortDesc: "Hauptbuchhaltung, Monats- und Jahresabschlüsse nach HGB/IFRS sowie Umsatzsteuervoranmeldungen."
+    shortDesc: "Hauptbuchhaltung, Monats- und Jahresabschlüsse nach HGB/IFRS sowie Umsatzsteuervoranmeldungen.",
+    tasks: [
+      "Prüfung, Kontierung und Verbuchung laufender Geschäftsvorfälle",
+      "Vorbereitung und Erstellung von Monats-, Quartals- und Jahresabschlüssen nach HGB",
+      "Abwicklung des Zahlungsverkehrs, Mahnwesen und Kontenabstimmung",
+      "Erstellung von Umsatzsteuervoranmeldungen und statistischen Meldungen"
+    ],
+    skills: ["DATEV / SAP FI", "HGB Rechnungslegung", "Steuerrecht", "Umsatzsteuer", "Bilanzierung"]
   },
   {
     id: "wirtschaftspruefer",
@@ -235,7 +344,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 145000,
     trendPercent: 4.2,
     typicalEducation: "Wirtschaftsprüfer-Examen (WP-Examen)",
-    shortDesc: "Gesetzliche Jahresabschlussprüfungen von Kapitalgesellschaften, Sonderprüfungen und Gutachten."
+    shortDesc: "Gesetzliche Jahresabschlussprüfungen von Kapitalgesellschaften, Sonderprüfungen und Gutachten.",
+    tasks: [
+      "Leitung gesetzlicher und freiwilliger Jahresabschlussprüfungen",
+      "Prüfung interner Kontrollsysteme (IKS) und Risikomanagementstrukturen",
+      "Erstellung von Prüfungsberichten und Erteilung des Bestätigungsvermerks",
+      "Fachliche Beratung bei Unternehmensbewertungen und Due-Diligence-Prozessen"
+    ],
+    skills: ["HGB & IFRS Prüfungsstandards", "IDW Prüfungsstandards", "Konzernrechnungslegung", "Due Diligence", "Compliance"]
   },
   {
     id: "unternehmensjurist",
@@ -249,7 +365,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 140000,
     trendPercent: 3.9,
     typicalEducation: "1. & 2. Juristisches Staatsexamen",
-    shortDesc: "Vertragsgestaltung, gesellschaftsrechtliche Beratung, Compliance und Vertretung in Rechtsstreitigkeiten."
+    shortDesc: "Vertragsgestaltung, gesellschaftsrechtliche Beratung, Compliance und Vertretung in Rechtsstreitigkeiten.",
+    tasks: [
+      "Prüfung und Verhandlung nationaler und internationaler Wirtschaftsverträge",
+      "Juristische Begleitung von Unternehmenstransaktionen und Umstrukturierungen",
+      "Beratung der Fachbereiche in arbeitsrechtlichen, datenschutzrechtlichen und haftungsrechtlichen Fragen",
+      "Koordination und Steuerung extern beauftragter Kanzleien bei Gerichtsprozessen"
+    ],
+    skills: ["Wirtschaftsrecht (BGB, HGB)", "Vertragsgestaltung", "Arbeitsrecht", "DSGVO / Compliance", "Verhandlungsführung"]
   },
 
   // Medizin, Pflege & Gesundheit
@@ -265,7 +388,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 98000,
     trendPercent: 4.4,
     typicalEducation: "Medizinstudium & Approbation",
-    shortDesc: "Stationäre Patientenversorgung, Stationsarbeit und Nachtdienste im Rahmen der Facharztweiterbildung (TV-Ärzte)."
+    shortDesc: "Stationäre Patientenversorgung, Stationsarbeit und Nachtdienste im Rahmen der Facharztweiterbildung (TV-Ärzte).",
+    tasks: [
+      "Aufnahme, Diagnostik und Therapie stationärer Patienten unter fachärztlicher Supervision",
+      "Durchführung medizinischer Interventionen, Punktionen und Wundversorgungen",
+      "Teilnahme an Bereitschafts- und Schichtdiensten in der Notaufnahme",
+      "Führung der digitalen Patientenakte, Medikationspläne und Entlassbriefe"
+    ],
+    skills: ["Klinische Diagnostik", "Notfallmedizin", "TV-Ärzte Tarifrecht", "Pharmakotherapie", "Patientenkommunikation"]
   },
   {
     id: "oberarzt",
@@ -279,7 +409,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 195000,
     trendPercent: 3.6,
     typicalEducation: "Facharztanerkennung & langjährige Klinikerfahrung",
-    shortDesc: "Fachliche Leitung eines Teilbereichs im Krankenhaus, Durchführung komplexer Eingriffe und Rufbereitschaften."
+    shortDesc: "Fachliche Leitung eines Teilbereichs im Krankenhaus, Durchführung komplexer Eingriffe und Rufbereitschaften.",
+    tasks: [
+      "Fachliche und organisatorische Leitung einer Station oder Abteilung",
+      "Durchführung anspruchsvoller operativer und diagnostischer Eingriffe",
+      "Anleitung und Weiterbildung der Assistenzärzte zum Facharzt",
+      "Wirtschaftliche Steuerung des Bereichs nach DRG-Fallpauschalen"
+    ],
+    skills: ["Facharztkompetenz", "Operationsleitung", "Führungserfahrung", "Klinisches Risikomanagement", "DRG-Kodierung"]
   },
   {
     id: "gesundheits-und-krankenpfleger",
@@ -293,7 +430,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 62000,
     trendPercent: 5.1,
     typicalEducation: "3-jährige Ausbildung zur Pflegefachfrau / zum Pflegefachmann",
-    shortDesc: "Grund- und Behandlungspflege, Medikamentengabe, Wundversorgung und Dokumentation im Schichtdienst (TVöD-P)."
+    shortDesc: "Grund- und Behandlungspflege, Medikamentengabe, Wundversorgung und Dokumentation im Schichtdienst (TVöD-P).",
+    tasks: [
+      "Ganzheitliche Grund- und Behandlungspflege von Patienten",
+      "Fachgerechte Verabreichung von Medikamenten und Infusionen nach ärztlicher Anordnung",
+      "Versorgung akuter und chronischer Wunden nach modernen Pflegestandards",
+      "Digitale Pflegedokumentation und Kommunikation mit Angehörigen und Ärzten"
+    ],
+    skills: ["Behandlungspflege", "TVöD-P / TV-L", "Wundmanagement", "Schichtdienstorganisation", "Notfallmaßnahmen"]
   },
   {
     id: "physiotherapeut",
@@ -307,7 +451,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 52000,
     trendPercent: 4.2,
     typicalEducation: "Ausbildung oder Bachelor Physiotherapie",
-    shortDesc: "Rehabilitative Bewegungstherapie, manuelle Lymphdrainage und Präventionsbehandlung."
+    shortDesc: "Rehabilitative Bewegungstherapie, manuelle Lymphdrainage und Präventionsbehandlung.",
+    tasks: [
+      "Befunderhebung und Erstellung individueller Therapiepläne",
+      "Durchführung manueller Therapien, Krankengymnastik und Lymphdrainage",
+      "Anleitung von Patienten zu eigenständigen Präventions- und Reha-Übungen",
+      "Dokumentation von Behandlungsverläufen und Abrechnung nach Heilmittelkatalog"
+    ],
+    skills: ["Manuelle Therapie", "Krankengymnastik", "Heilmittel-Richtlinien", "Anatomie & Physiologie", "Rehabilitation"]
   },
 
   // Handwerk, Industrie & Bau
@@ -323,7 +474,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 61000,
     trendPercent: 4.6,
     typicalEducation: "Ausbildung Elektroniker Gebäude- & Energietechnik",
-    shortDesc: "Installation elektrischer Anlagen, Schaltschrankbau, PV-Systeme und Wallboxen in Gewerbe und Wohnbau."
+    shortDesc: "Installation elektrischer Anlagen, Schaltschrankbau, PV-Systeme und Wallboxen in Gewerbe und Wohnbau.",
+    tasks: [
+      "Verlegung von Leitungen und Installation elektrischer Verteiler",
+      "Montage und Inbetriebnahme von PV-Anlagen, Speichern und Wärmepumpen-Stromversorgungen",
+      "Prüfung elektrischer Anlagen nach DGUV Vorschrift 3 (DIN VDE 0100)",
+      "Fehlersuche und Instandsetzung bei Stromausfällen und Störungen"
+    ],
+    skills: ["VDE-Vorschriften", "Gebäudeautomation (KNX)", "DGUV V3 Prüfung", "Schaltschrankbau", "Photovoltaik"]
   },
   {
     id: "anlagenmechaniker-shk",
@@ -337,7 +495,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 63000,
     trendPercent: 5.4,
     typicalEducation: "Ausbildung Anlagenmechaniker SHK",
-    shortDesc: "Installation moderner Wärmepumpen, Gas- und Pelletheizungen sowie Sanitärsysteme nach GEG-Standard."
+    shortDesc: "Installation moderner Wärmepumpen, Gas- und Pelletheizungen sowie Sanitärsysteme nach GEG-Standard.",
+    tasks: [
+      "Installation und hydraulischer Abgleich von Wärmepumpen und modernen Heizsystemen",
+      "Montage hochwertiger Sanitärinstallationen im Neubau und bei Altbausanierungen",
+      "Wartung und Instandhaltung von Lüftungs- und Klimageräten",
+      "Kundenberatung zur energetischen Sanierung und Fördermitteln nach dem GEG"
+    ],
+    skills: ["Wärmepumpentechnik", "Gebäudeenergiegesetz (GEG)", "Hydraulischer Abgleich", "Rohrleitungsbau", "Trinkwasserhygiene (VDI 6023)"]
   },
   {
     id: "mechatroniker",
@@ -351,7 +516,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 66000,
     trendPercent: 3.8,
     typicalEducation: "Ausbildung Mechatroniker",
-    shortDesc: "Instandhaltung, Programmierung und Reparatur komplexer Produktionsstraßen und Roboteranlagen."
+    shortDesc: "Instandhaltung, Programmierung und Reparatur komplexer Produktionsstraßen und Roboteranlagen.",
+    tasks: [
+      "Aufbau, Verdrahtung und Justierung mechatronischer Baugruppen",
+      "Wartung und präventive Instandhaltung automatisierter Fertigungsstraßen",
+      "Fehlersuche an SPS-Steuerungen (Siemens S7 / TIA Portal) und Pneumatiksystemen",
+      "Optimierung von Taktzeiten und Minimierung von Stillstandszeiten in der Industrie"
+    ],
+    skills: ["SPS-Programmierung (TIA Portal)", "Pneumatik & Hydraulik", "Sensorik & Aktorik", "Robotertechnik", "IG-Metall-Tarif"]
   },
   {
     id: "bauingenieur",
@@ -365,7 +537,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 92000,
     trendPercent: 3.9,
     typicalEducation: "B.Eng. / M.Eng. Bauingenieurwesen",
-    shortDesc: "Koordination von Hoch- und Tiefbauprojekten, statische Berechnungen, Abrechnung und Bauüberwachung nach VOB."
+    shortDesc: "Koordination von Hoch- und Tiefbauprojekten, statische Berechnungen, Abrechnung und Bauüberwachung nach VOB.",
+    tasks: [
+      "Bauüberwachung hinsichtlich Terminen, Qualität und Arbeitssicherheit vor Ort",
+      "Kostenkontrolle, Nachtragsmanagement und Rechnungsprüfung nach VOB/B",
+      "Koordination von Nachunternehmern, Handwerkern und Fachingenieuren",
+      "Erstellung von Ausschreibungen und Leistungsverzeichnissen"
+    ],
+    skills: ["VOB/B und HOAI", "Bauleitung", "Termin- & Kostenplanung", "Statik & Konstruktion", "BIM (Building Information Modeling)"]
   },
 
   // Marketing, Vertrieb & Vertriebsmanagement
@@ -381,7 +560,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 125000,
     trendPercent: 4.0,
     typicalEducation: "Kaufmännische Ausbildung oder Studium mit Vertriebsfokus",
-    shortDesc: "Betreuung von Großkunden, Verhandlung mehrjähriger Rahmenverträge inklusive Provisions- und Bonusanteilen."
+    shortDesc: "Betreuung von Großkunden, Verhandlung mehrjähriger Rahmenverträge inklusive Provisions- und Bonusanteilen.",
+    tasks: [
+      "Strategische Betreuung und Weiterentwicklung von Top-Kunden (Bestandskunden)",
+      "Verhandlung von Rahmenverträgen, Preiskonditionen und SLAs auf C-Level",
+      "Markt- und Wettbewerbsanalysen zur Identifikation neuer Vertriebspotenziale",
+      "Erstellung präziser Umsatz-Forecasts und Pipeline-Management im CRM"
+    ],
+    skills: ["B2B-Vertrieb", "Key Account Betreuung", "Verhandlungsführung", "CRM (Salesforce / HubSpot)", "Pipeline Management"]
   },
   {
     id: "marketing-manager",
@@ -395,7 +581,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 78000,
     trendPercent: 3.5,
     typicalEducation: "Studium Marketing / Medienwissenschaften oder Ausbildung",
-    shortDesc: "Steuerung von Performance-Marketing-Kampagnen (SEA/SEO), Social Media, Branding und Budgetallokation."
+    shortDesc: "Steuerung von Performance-Marketing-Kampagnen (SEA/SEO), Social Media, Branding und Budgetallokation.",
+    tasks: [
+      "Konzeption und Optimierung digitaler Werbekampagnen (Google Ads, Meta, LinkedIn)",
+      "Suchmaschinenoptimierung (SEO) und Erstellung reichweitenstarker Inhalte",
+      "Performance-Tracking, Conversion-Rate-Optimierung (CRO) und ROI-Monitoring",
+      "Steuerung externer Agenturen, Freelancer und Budgetallokation"
+    ],
+    skills: ["Performance Marketing (SEA/SMA)", "SEO & Content Marketing", "Google Analytics 4", "Conversion Optimierung", "Brand Management"]
   },
   {
     id: "vertriebsleiter",
@@ -409,7 +602,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 175000,
     trendPercent: 4.3,
     typicalEducation: "Wirtschaftsstudium mit langjähriger Führungserfahrung",
-    shortDesc: "Disziplinarische Leitung der Vertriebsorganisation, Go-to-Market-Strategien und Umsatzverantwortung."
+    shortDesc: "Disziplinarische Leitung der Vertriebsorganisation, Go-to-Market-Strategien und Umsatzverantwortung.",
+    tasks: [
+      "Disziplinarische Führung, Motivation und Coaching des gesamten Vertriebsteams",
+      "Entwicklung und Umsetzung von Go-to-Market- und Expansionsstrategien",
+      "Definition von Vertriebszielen, Provisionsmodellen und KPIs",
+      "Direktes Sponsoring von strategischen Großabschlüssen"
+    ],
+    skills: ["Vertriebsstrategie", "Mitarbeiterführung", "Provisionssysteme", "Umsatzverantwortung", "Executive Reporting"]
   },
 
   // Bildung, Pädagogik & Soziales
@@ -425,7 +625,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 78000,
     trendPercent: 3.1,
     typicalEducation: "Lehramtsstudium & 2. Staatsexamen (Referendariat)",
-    shortDesc: "Unterricht in der Sekundarstufe I & II, Vorbereitung auf das Abitur nach Landesbesoldungsgesetzen (A13)."
+    shortDesc: "Unterricht in der Sekundarstufe I & II, Vorbereitung auf das Abitur nach Landesbesoldungsgesetzen (A13).",
+    tasks: [
+      "Fachdidaktische Vorbereitung und Durchführung des Fachunterrichts",
+      "Konzeption, Durchführung und Korrektur von Klausuren und Prüfungen",
+      "Pädagogische Beratung von Schülern und Erziehungsberechtigten",
+      "Mitwirkung an Konferenzen, Schulentwicklung und Studienfahrten"
+    ],
+    skills: ["Fachdidaktik", "Landesbesoldungsgesetz (A13)", "Pädagogik", "Klassenführung", "Konfliktmanagement"]
   },
   {
     id: "erzieher",
@@ -439,7 +646,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 56000,
     trendPercent: 4.9,
     typicalEducation: "Fachschulausbildung zum staatlich anerkannten Erzieher",
-    shortDesc: "Frühkindliche Bildung, Entwicklungsdokumentation und Elternarbeit in Kindertagesstätten (TVöD SuE S 8a)."
+    shortDesc: "Frühkindliche Bildung, Entwicklungsdokumentation und Elternarbeit in Kindertagesstätten (TVöD SuE S 8a).",
+    tasks: [
+      "Pädagogische Betreuung und Förderung von Kindern im Elementarbereich",
+      "Erstellung strukturierter Beobachtungs- und Entwicklungsdokumentationen",
+      "Planung und Durchführung von Bildungsangeboten und Projekten",
+      "Regelmäßige Entwicklungsgespräche mit Eltern nach dem Orientierungsplan"
+    ],
+    skills: ["Frühkindliche Bildung", "TVöD SuE (S 8a)", "Entwicklungsbeobachtung", "Elternarbeit", "Inklusion"]
   },
   {
     id: "sozialarbeiter",
@@ -453,7 +667,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 64000,
     trendPercent: 4.1,
     typicalEducation: "B.A. Soziale Arbeit & staatliche Anerkennung",
-    shortDesc: "Beratung von Hilfebedürftigen, Jugendhilfe, Bewährungshilfe und Eingliederungsmanagement (TVöD SuE S 11b/S 12)."
+    shortDesc: "Beratung von Hilfebedürftigen, Jugendhilfe, Bewährungshilfe und Eingliederungsmanagement (TVöD SuE S 11b/S 12).",
+    tasks: [
+      "Einzelfallhilfe und psychosoziale Beratung von Klienten in Krisensituationen",
+      "Erstellung von Hilfe- und Förderplänen in Kooperation mit Kostenträgern",
+      "Vermittlung von behördlichen Sozialleistungen nach SGB II, VIII und XII",
+      "Interdisziplinäre Zusammenarbeit mit Jugendämtern, Gerichten und Kliniken"
+    ],
+    skills: ["Sozialrecht (SGB VIII / XII)", "Krisenintervention", "Hilfeplanung", "TVöD SuE", "Netzwerkarbeit"]
   },
 
   // Logistik, Transport & Einkauf
@@ -469,7 +690,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 51000,
     trendPercent: 4.7,
     typicalEducation: "Ausbildung Berufskraftfahrer oder Führerschein CE mit BKrFQG",
-    shortDesc: "Warentransport im Nah- und Fernverkehr, Ladungssicherung, Lenk- und Ruhezeiten sowie Spesenabrechnung."
+    shortDesc: "Warentransport im Nah- und Fernverkehr, Ladungssicherung, Lenk- und Ruhezeiten sowie Spesenabrechnung.",
+    tasks: [
+      "Sicherer Warentransport mit schweren Nutzfahrzeugen (Sattelzüge, Hängerzüge)",
+      "Fachgerechte Ladungssicherung nach VDI 2700",
+      "Einhaltung gesetzlicher Sozialvorschriften (Lenk- und Ruhezeiten nach VO (EG) 561/2006)",
+      "Fahrzeugabfahrtkontrolle und Pflege des zugeteilten LKWs"
+    ],
+    skills: ["Führerscheinklasse CE", "Fahrerkarte & BKrFQG", "Ladungssicherung", "Tourenplanung", "Digitaler Tachograph"]
   },
   {
     id: "einkaufsleiter",
@@ -483,7 +711,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 110000,
     trendPercent: 3.6,
     typicalEducation: "Betriebswirtschaftslehre oder Wirtschaftsingenieurwesen",
-    shortDesc: "Lieferantenmanagement, globale Ausschreibungen, Preisverhandlungen und Risikomanagement in Lieferketten."
+    shortDesc: "Lieferantenmanagement, globale Ausschreibungen, Preisverhandlungen und Risikomanagement in Lieferketten.",
+    tasks: [
+      "Globale Beschaffungsmarktanalyse und Durchführung strategischer Ausschreibungen",
+      "Verhandlung von Rahmenverträgen, Staffelpreisen und Lieferkonditionen",
+      "Bewertung von Lieferantenrisiken und Einhaltung des Lieferkettensorgfaltspflichtengesetzes (LkSG)",
+      "Ermittlung von Einsparpotenzialen durch Total-Cost-of-Ownership-Analysen (TCO)"
+    ],
+    skills: ["Strategischer Einkauf", "Lieferantenmanagement", "LkSG Compliance", "TCO-Analyse", "SAP MM"]
   },
   {
     id: "fachkraft-lagerlogistik",
@@ -497,7 +732,14 @@ export const SALARY_DATABASE: JobSalary[] = [
     maxYear: 51000,
     trendPercent: 3.9,
     typicalEducation: "Duale Ausbildung Fachkraft für Lagerlogistik",
-    shortDesc: "Wareneingangsprüfung, Kommissionierung, Inventur und Steuerung automatisierter Hochregallager."
+    shortDesc: "Wareneingangsprüfung, Kommissionierung, Inventur und Steuerung automatisierter Hochregallager.",
+    tasks: [
+      "Fachgerechte Warenannahme und Prüfung auf Beschädigungen und Vollständigkeit",
+      "Einlagerung und Kommissionierung mittels Flurförderzeugen und Pick-by-Voice",
+      "Verpackung und Versandvorbereitung von Gütern unter Beachtung von Gefahrgutvorschriften (ADR)",
+      "Buchung aller Warenbewegungen im Warenwirtschaftssystem (WMS / ERP)"
+    ],
+    skills: ["Gabelstaplerschein", "Warenwirtschaftssysteme", "Kommissionierung", "Ladungssicherung", "Inventur"]
   }
 ];
 
@@ -510,9 +752,11 @@ export interface CalculationResult {
   weeklyHours: number;
   userYearlyGross?: number;
   benchmarkMedianYear: number;
+  benchmarkAverageYear: number; // Arithmetisches Mittel
   benchmarkP25Year: number;
   benchmarkP75Year: number;
   benchmarkMedianMonth: number;
+  benchmarkAverageMonth: number;
   benchmarkHourly: number;
   differenceToMedian?: number;
   differencePercent?: number;
@@ -542,9 +786,12 @@ export function calculateSalaryBenchmark(params: {
   const hoursRatio = weeklyHours / 40;
 
   const benchmarkMedianYear = Math.round(job.medianYear * combinedFactor * hoursRatio);
+  // Empirisches arithmetisches Mittel liegt lt. Destatis VSE ca. 11 % über dem Median
+  const benchmarkAverageYear = Math.round(benchmarkMedianYear * 1.11);
   const benchmarkP25Year = Math.round(job.p25Year * combinedFactor * hoursRatio);
   const benchmarkP75Year = Math.round(job.p75Year * combinedFactor * hoursRatio);
   const benchmarkMedianMonth = Math.round(benchmarkMedianYear / 12);
+  const benchmarkAverageMonth = Math.round(benchmarkAverageYear / 12);
   const benchmarkHourly = Number((benchmarkMedianYear / (weeklyHours * 52)).toFixed(2));
 
   let differenceToMedian: number | undefined;
@@ -572,12 +819,11 @@ export function calculateSalaryBenchmark(params: {
   }
 
   // Realistic simplified German tax & social contributions estimation for reference
-  // Standard social insurance is ~20% employee share (RV 9.3%, KV 7.3% + 0.85% Zusatz, PV 2.3%, AV 1.3%)
   const grossMonthly = params.userYearlyGross ? Math.round(params.userYearlyGross / 12) : benchmarkMedianMonth;
   const socialContribution = grossMonthly * 0.205;
   
   // Tax Class 1 estimate (Single, without church tax)
-  const taxableIncome1 = Math.max(0, grossMonthly - 1000); // Grundfreibetrag ~12k
+  const taxableIncome1 = Math.max(0, grossMonthly - 1000);
   const taxEst1 = taxableIncome1 * (taxableIncome1 > 4000 ? 0.26 : 0.17);
   const approxNetMonthTaxClass1 = Math.round(Math.max(grossMonthly * 0.52, grossMonthly - socialContribution - taxEst1));
 
@@ -594,9 +840,11 @@ export function calculateSalaryBenchmark(params: {
     weeklyHours,
     userYearlyGross: params.userYearlyGross,
     benchmarkMedianYear,
+    benchmarkAverageYear,
     benchmarkP25Year,
     benchmarkP75Year,
     benchmarkMedianMonth,
+    benchmarkAverageMonth,
     benchmarkHourly,
     differenceToMedian,
     differencePercent,
@@ -604,4 +852,26 @@ export function calculateSalaryBenchmark(params: {
     approxNetMonthTaxClass1,
     approxNetMonthTaxClass3
   };
+}
+
+// Helpers
+export function getStateBySlug(slug: string): StateFactor | undefined {
+  return STATE_FACTORS.find(s => s.slug === slug.toLowerCase());
+}
+
+export function getStateByCode(code: string): StateFactor | undefined {
+  return STATE_FACTORS.find(s => s.code.toUpperCase() === code.toUpperCase());
+}
+
+export function getJobById(id: string): JobSalary | undefined {
+  return SALARY_DATABASE.find(j => j.id === id);
+}
+
+export function getRelatedJobs(jobId: string, limit: number = 3): JobSalary[] {
+  const current = getJobById(jobId);
+  if (!current) return SALARY_DATABASE.slice(0, limit);
+  const sameCategory = SALARY_DATABASE.filter(j => j.category === current.category && j.id !== jobId);
+  if (sameCategory.length >= limit) return sameCategory.slice(0, limit);
+  const others = SALARY_DATABASE.filter(j => j.id !== jobId && !sameCategory.includes(j));
+  return [...sameCategory, ...others].slice(0, limit);
 }

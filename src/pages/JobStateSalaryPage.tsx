@@ -1,0 +1,234 @@
+import { useParams, Link, Navigate } from 'react-router-dom';
+import {
+  STATE_FACTORS,
+  EXPERIENCE_FACTORS,
+  getStateBySlug,
+  getJobById
+} from '../data/salaryData';
+import Breadcrumbs from '../components/Breadcrumbs';
+import EditorialTrustBox from '../components/EditorialTrustBox';
+import CitationBox from '../components/CitationBox';
+import {
+  MapPin,
+  Calculator,
+  ArrowRight
+} from 'lucide-react';
+
+export default function JobStateSalaryPage() {
+  const { jobId, stateSlug } = useParams<{ jobId: string; stateSlug: string }>();
+  
+  const job = jobId ? getJobById(jobId) : undefined;
+  const state = stateSlug ? getStateBySlug(stateSlug) : undefined;
+
+  if (!job || !state) {
+    return <Navigate to="/gehalt" replace />;
+  }
+
+  const regionalMedianYear = Math.round(job.medianYear * state.factor);
+  const regionalMedianMonth = Math.round(regionalMedianYear / 12);
+  const regionalAverageYear = Math.round(regionalMedianYear * 1.11);
+  const regionalAverageMonth = Math.round(regionalAverageYear / 12);
+  const regionalHourly = (regionalMedianYear / (40 * 52)).toFixed(2);
+  const diffToBund = Math.round((state.factor - 1) * 100);
+
+  // Other states for cross-linking
+  const otherStates = STATE_FACTORS.filter(s => s.code !== state.code).slice(0, 8);
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-14 space-y-12">
+      
+      <Breadcrumbs
+        items={[
+          { name: 'Gehalt nach Beruf', url: '/gehalt' },
+          { name: job.title.split(' / ')[0], url: `/gehalt/${job.id}` },
+          { name: state.name, url: `/gehalt/${job.id}/${state.slug}` }
+        ]}
+      />
+
+      {/* Header */}
+      <div className="space-y-4 max-w-4xl">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100/80 text-emerald-900 text-xs font-mono font-bold">
+          <MapPin className="w-3.5 h-3.5 text-emerald-700" />
+          REGIONALE AUSWERTUNG · {state.name.toUpperCase()} (FAKTOR {state.factor.toFixed(3)})
+        </div>
+
+        <h1 className="text-3xl sm:text-5xl font-black text-slate-950 tracking-tight leading-[1.1]">
+          Gehalt als <span className="text-emerald-700">{job.title.split(' / ')[0]}</span> in {state.name}
+        </h1>
+
+        <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
+          Wie hoch ist das Gehalt als {job.title.split(' / ')[0]} in {state.name}? In {state.name} liegt das Entgeltniveau bei <strong>{diffToBund >= 0 ? `+${diffToBund} %` : `${diffToBund} %`}</strong> im Vergleich zum bundesweiten Durchschnitt.
+        </p>
+      </div>
+
+      {/* KPI Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+          <span className="text-xs font-mono uppercase tracking-wider text-emerald-800 font-bold block mb-1">
+            Regionaler Median ({state.name})
+          </span>
+          <div className="text-3xl font-black text-slate-950 font-mono tracking-tight">
+            {regionalMedianYear.toLocaleString('de-DE')} €
+          </div>
+          <span className="text-xs text-slate-500 block mt-1">
+            ≈ <strong>{regionalMedianMonth.toLocaleString('de-DE')} €</strong> / Monat brutto
+          </span>
+        </div>
+
+        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+          <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block mb-1">
+            Regionaler Durchschnitt (ca.)
+          </span>
+          <div className="text-3xl font-black text-slate-800 font-mono tracking-tight">
+            {regionalAverageYear.toLocaleString('de-DE')} €
+          </div>
+          <span className="text-xs text-slate-500 block mt-1">
+            ≈ <strong>{regionalAverageMonth.toLocaleString('de-DE')} €</strong> / Monat brutto
+          </span>
+        </div>
+
+        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+          <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block mb-1">
+            Abweichung zum Bundesschnitt
+          </span>
+          <div className={`text-2xl sm:text-3xl font-black font-mono tracking-tight ${diffToBund >= 0 ? 'text-emerald-700' : 'text-slate-800'}`}>
+            {diffToBund >= 0 ? `+${diffToBund} %` : `${diffToBund} %`}
+          </div>
+          <span className="text-xs text-slate-500 block mt-1">
+            Bundesschnitt: {job.medianYear.toLocaleString('de-DE')} €
+          </span>
+        </div>
+
+        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
+          <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block mb-1">
+            Stundenlohn ({state.name})
+          </span>
+          <div className="text-3xl font-black text-slate-900 font-mono tracking-tight">
+            {regionalHourly} €
+          </div>
+          <span className="text-xs text-slate-500 block mt-1">
+            bei 40h-Vollzeitwoche
+          </span>
+        </div>
+
+      </div>
+
+      {/* CTA: Rechner pre-filled */}
+      <div className="bg-white border-2 border-emerald-500/40 rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-xs">
+        <div className="space-y-1.5 max-w-2xl">
+          <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+            Gehalt individuell für {state.name} im Rechner simulieren
+          </h2>
+          <p className="text-slate-600 text-sm">
+            Passen Sie Berufserfahrung, Unternehmensgröße und Abschluss an, um Ihren genauen Netto- und Brutto-Benchmark für {state.name} zu erhalten.
+          </p>
+        </div>
+        <Link
+          to={`/rechner?beruf=${job.id}&bundesland=${state.code}`}
+          className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-sm shadow-sm transition-all shrink-0 cursor-pointer"
+        >
+          <Calculator className="w-4 h-4" />
+          Rechner mit {state.name} öffnen
+        </Link>
+      </div>
+
+      {/* Progression in this state */}
+      <section className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 space-y-6 shadow-xs">
+        <div>
+          <span className="text-xs font-mono uppercase tracking-wider text-emerald-700 font-bold bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200">
+            Erfahrungsstufen in {state.name}
+          </span>
+          <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mt-1.5">
+            Gehaltsentwicklung nach Berufserfahrung in {state.name}
+          </h2>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-sm border-collapse">
+            <thead>
+              <tr className="border-b border-slate-200 text-xs font-mono uppercase tracking-wider text-slate-500 bg-slate-50">
+                <th className="py-3 px-4 rounded-l-lg">Erfahrungsstufe</th>
+                <th className="py-3 px-4">Monat brutto ({state.name})</th>
+                <th className="py-3 px-4">Jahr brutto ({state.name})</th>
+                <th className="py-3 px-4 font-mono rounded-r-lg">Bundesweiter Vergleich</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100">
+              {Object.entries(EXPERIENCE_FACTORS).map(([key, exp]) => {
+                const stateExpYear = Math.round(regionalMedianYear * exp.factor);
+                const stateExpMonth = Math.round(stateExpYear / 12);
+                const federalExpYear = Math.round(job.medianYear * exp.factor);
+                return (
+                  <tr key={key} className="hover:bg-slate-50 transition-colors">
+                    <td className="py-3.5 px-4 font-bold text-slate-900">
+                      {exp.label}
+                    </td>
+                    <td className="py-3.5 px-4 font-mono font-bold text-slate-800">
+                      ca. {stateExpMonth.toLocaleString('de-DE')} €
+                    </td>
+                    <td className="py-3.5 px-4 font-mono font-extrabold text-emerald-800">
+                      {stateExpYear.toLocaleString('de-DE')} €
+                    </td>
+                    <td className="py-3.5 px-4 text-xs font-mono text-slate-500">
+                      Bund: {federalExpYear.toLocaleString('de-DE')} € ({diffToBund >= 0 ? `+${diffToBund} %` : `${diffToBund} %`})
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* Andere Bundesländer für diesen Beruf */}
+      <section className="space-y-4">
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-bold text-slate-900">
+            {job.title.split(' / ')[0]} in weiteren Bundesländern
+          </h2>
+          <Link
+            to={`/gehalt/${job.id}`}
+            className="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1"
+          >
+            Alle 16 Bundesländer ansehen <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {otherStates.map((other) => {
+            const otherMedian = Math.round(job.medianYear * other.factor);
+            return (
+              <Link
+                key={other.code}
+                to={`/gehalt/${job.id}/${other.slug}`}
+                className="p-3 bg-white rounded-xl border border-slate-200 hover:border-emerald-300 hover:shadow-2xs transition-all text-left group"
+              >
+                <span className="text-xs font-bold text-slate-900 group-hover:text-emerald-700 block truncate">
+                  {other.name}
+                </span>
+                <span className="text-xs font-mono font-extrabold text-slate-700 mt-1 block">
+                  {otherMedian.toLocaleString('de-DE')} €
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Editorial Trust */}
+      <section>
+        <EditorialTrustBox />
+      </section>
+
+      {/* Citation Box */}
+      <section>
+        <CitationBox
+          title={`Gehalt ${job.title} in ${state.name}: Regionale Destatis-Auswertung`}
+          url={`https://lohnvergleichsrechner.de/gehalt/${job.id}/${state.slug}`}
+        />
+      </section>
+
+    </div>
+  );
+}

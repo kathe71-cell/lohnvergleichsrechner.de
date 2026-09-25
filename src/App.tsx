@@ -8,6 +8,11 @@ import VercelAnalytics from './components/VercelAnalytics';
 import Home from './pages/Home';
 import CalculatorPage from './pages/CalculatorPage';
 import AtlasPage from './pages/AtlasPage';
+import SalaryIndexPage from './pages/SalaryIndexPage';
+import JobSalaryPage from './pages/JobSalaryPage';
+import JobStateSalaryPage from './pages/JobStateSalaryPage';
+import AverageSalaryPage from './pages/AverageSalaryPage';
+import MethodologyPage from './pages/MethodologyPage';
 import GuidePage from './pages/GuidePage';
 import GlossaryPage from './pages/GlossaryPage';
 import FaqPage from './pages/FaqPage';
@@ -28,6 +33,11 @@ export function Layout() {
           <Route path="/" element={<Home />} />
           <Route path="/rechner" element={<CalculatorPage />} />
           <Route path="/entgeltatlas" element={<AtlasPage />} />
+          <Route path="/durchschnittsgehalt" element={<AverageSalaryPage />} />
+          <Route path="/gehalt" element={<SalaryIndexPage />} />
+          <Route path="/gehalt/:jobId" element={<JobSalaryPage />} />
+          <Route path="/gehalt/:jobId/:stateSlug" element={<JobStateSalaryPage />} />
+          <Route path="/methodik" element={<MethodologyPage />} />
           <Route path="/ratgeber" element={<GuidePage />} />
           <Route path="/glossar" element={<GlossaryPage />} />
           <Route path="/faq" element={<FaqPage />} />

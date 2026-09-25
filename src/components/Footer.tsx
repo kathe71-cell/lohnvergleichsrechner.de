@@ -42,6 +42,16 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
+                <Link to="/gehalt" className="hover:text-emerald-400 transition-colors">
+                  Gehalt nach Beruf
+                </Link>
+              </li>
+              <li>
+                <Link to="/durchschnittsgehalt" className="hover:text-emerald-400 transition-colors">
+                  Durchschnittsgehalt Deutschland
+                </Link>
+              </li>
+              <li>
                 <Link to="/entgeltatlas" className="hover:text-emerald-400 transition-colors">
                   Berufs-Entgeltatlas
                 </Link>
@@ -49,16 +59,6 @@ export default function Footer() {
               <li>
                 <Link to="/rechner-embed" className="hover:text-emerald-400 transition-colors">
                   Webmaster Rechner-Widget
-                </Link>
-              </li>
-              <li>
-                <Link to="/rechner?beruf=softwareentwickler" className="text-slate-400 hover:text-slate-200 transition-colors text-xs">
-                  → IT &amp; Software Benchmark
-                </Link>
-              </li>
-              <li>
-                <Link to="/rechner?beruf=gesundheits-und-krankenpfleger" className="text-slate-400 hover:text-slate-200 transition-colors text-xs">
-                  → Pflege &amp; TVöD-P Benchmark
                 </Link>
               </li>
             </ul>
@@ -71,12 +71,17 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link to="/ratgeber" className="hover:text-emerald-400 transition-colors">
-                  Entgelttransparenzgesetz (§ 10)
+                <Link to="/methodik" className="hover:text-emerald-400 transition-colors font-medium">
+                  Methodik &amp; Datenquellen
                 </Link>
               </li>
               <li>
                 <Link to="/ratgeber" className="hover:text-emerald-400 transition-colors">
+                  Entgelttransparenz (§ 10 EntgTranspG)
+                </Link>
+              </li>
+              <li>
+                <Link to="/ratgeber#eu-richtlinie" className="hover:text-emerald-400 transition-colors">
                   EU-Entgelttransparenzrichtlinie
                 </Link>
               </li>

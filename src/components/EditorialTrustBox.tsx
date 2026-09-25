@@ -1,8 +1,8 @@
-import { CheckCircle2, FileSpreadsheet, ShieldCheck, Scale } from 'lucide-react';
+import { CheckCircle2, FileSpreadsheet, ShieldCheck, Scale, ExternalLink, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { DATA_METADATA } from '../data/salaryData';
 
 export default function EditorialTrustBox() {
-  const currentDate = new Date().toLocaleDateString('de-DE', { month: 'long', year: 'numeric' });
-
   return (
     <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-7 space-y-4">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-200">
@@ -13,7 +13,7 @@ export default function EditorialTrustBox() {
           </h3>
         </div>
         <div className="text-xs font-mono text-slate-500">
-          Stand: <strong className="text-slate-800">{currentDate}</strong> · Unabhängige Redaktion
+          Datenstand: <strong className="text-slate-800">{DATA_METADATA.lastUpdated}</strong> (Basis: {DATA_METADATA.version})
         </div>
       </div>
 
@@ -41,6 +41,29 @@ export default function EditorialTrustBox() {
             Fokussierung auf den Median (50. Perzentil) statt verzerrender Durchschnitte. Ausweisung interquartiler Bandbreiten (P25 - P75).
           </div>
         </div>
+      </div>
+
+      <div className="pt-2 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500 border-t border-slate-200/80">
+        <div className="flex flex-wrap items-center gap-3">
+          {DATA_METADATA.primarySources.map(source => (
+            <a
+              key={source.name}
+              href={source.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-slate-600 hover:text-emerald-700 transition-colors"
+            >
+              <span>{source.name}</span>
+              <ExternalLink className="w-3 h-3 text-slate-400" />
+            </a>
+          ))}
+        </div>
+        <Link
+          to="/methodik"
+          className="inline-flex items-center gap-1 font-bold text-emerald-700 hover:text-emerald-800 transition-colors"
+        >
+          Ausführliche Methodik &amp; Quellenprüfung <ArrowRight className="w-3.5 h-3.5" />
+        </Link>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import {
   SALARY_DATABASE,
   STATE_FACTORS,
@@ -22,7 +22,9 @@ import {
   Building2,
   GraduationCap,
   MapPin,
-  Briefcase
+  Briefcase,
+  ArrowRight,
+  BookOpen
 } from 'lucide-react';
 
 interface CalculatorWidgetProps {
@@ -355,14 +357,14 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
               <button
                 type="button"
                 onClick={() => setGrossInputMode('year')}
-                className={`px-2 py-0.5 rounded ${grossInputMode === 'year' ? 'bg-emerald-700 text-white font-bold' : 'text-slate-600'}`}
+                className={`px-2 py-0.5 rounded cursor-pointer ${grossInputMode === 'year' ? 'bg-emerald-700 text-white font-bold' : 'text-slate-600'}`}
               >
                 Jahr
               </button>
               <button
                 type="button"
                 onClick={() => setGrossInputMode('month')}
-                className={`px-2 py-0.5 rounded ${grossInputMode === 'month' ? 'bg-emerald-700 text-white font-bold' : 'text-slate-600'}`}
+                className={`px-2 py-0.5 rounded cursor-pointer ${grossInputMode === 'month' ? 'bg-emerald-700 text-white font-bold' : 'text-slate-600'}`}
               >
                 Monat
               </button>
@@ -400,41 +402,63 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
       <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-6">
         
         {/* Core KPIs Banner */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           
-          <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs">
-            <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block mb-1">
+          {/* 1. Benchmark-Median */}
+          <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs relative">
+            <span className="text-xs font-mono uppercase tracking-wider text-emerald-800 font-bold block mb-1">
               Benchmark-Median (50 %)
             </span>
-            <div className="text-3xl font-black text-slate-950 font-mono tracking-tight">
+            <div className="text-2xl sm:text-3xl font-black text-slate-950 font-mono tracking-tight">
               {result.benchmarkMedianYear.toLocaleString('de-DE')} €
             </div>
             <span className="text-xs text-slate-500 block mt-1">
-              ≈ <strong>{result.benchmarkMedianMonth.toLocaleString('de-DE')} €</strong> / Monat brutto
+              ≈ <strong>{result.benchmarkMedianMonth.toLocaleString('de-DE')} €</strong> / Mo. brutto
+            </span>
+            <span className="text-[10px] text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-mono font-semibold inline-block mt-2">
+              § 10 EntgTranspG Standard
             </span>
           </div>
 
+          {/* 2. Durchschnitt (Arithmetisches Mittel) */}
           <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs">
             <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block mb-1">
-              Mittlerer Korridor (25 % - 75 %)
+              Durchschnitt (Mittelwert)
+            </span>
+            <div className="text-2xl sm:text-3xl font-black text-slate-800 font-mono tracking-tight">
+              {result.benchmarkAverageYear.toLocaleString('de-DE')} €
+            </div>
+            <span className="text-xs text-slate-500 block mt-1">
+              ≈ <strong>{result.benchmarkAverageMonth.toLocaleString('de-DE')} €</strong> / Mo. brutto
+            </span>
+            <span className="text-[10px] text-slate-500 block mt-2">
+              (Destatis: ca. +11 % durch Spitzengehälter)
+            </span>
+          </div>
+
+          {/* 3. Mittlerer Korridor */}
+          <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs">
+            <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block mb-1">
+              Korridor (25 % - 75 %)
             </span>
             <div className="text-xl sm:text-2xl font-black text-slate-800 font-mono tracking-tight">
               {result.benchmarkP25Year.toLocaleString('de-DE')} € – {result.benchmarkP75Year.toLocaleString('de-DE')} €
             </div>
             <span className="text-xs text-slate-500 block mt-1">
-              50 % aller Fachkräfte liegen in dieser Spanne
+              50 % aller Beschäftigten liegen in diesem Bereich
             </span>
           </div>
 
+          {/* 4. Stundenlohn */}
           <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs">
             <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block mb-1">
-              Rechnerischer Stundenlohn
+              Rechner. Stundenlohn
             </span>
-            <div className="text-3xl font-black text-emerald-700 font-mono tracking-tight">
+            <div className="text-2xl sm:text-3xl font-black text-emerald-700 font-mono tracking-tight">
               {result.benchmarkHourly.toFixed(2)} €
             </div>
             <span className="text-xs text-slate-500 block mt-1">
-              bei {result.weeklyHours}h/Woche (52 Wochen/Jahr)
+              bei {result.weeklyHours}h/Woche (52 Wochen)
             </span>
           </div>
 
@@ -563,6 +587,74 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
             * Modellrechnung. Die tatsächliche Höhe hängt von individuellen Steuermerkmalen, Freibeträgen, Krankenkassen-Zusatzbeitrag und Kirchensteuerpflicht ab.
           </p>
         </div>
+
+        {/* NÄCHSTE SCHRITTE & CONVERSION BEREICH (Keine Sackgasse) */}
+        {!isEmbed && (
+          <div className="bg-white p-5 sm:p-6 rounded-xl border border-slate-200 space-y-4 no-print">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <h4 className="text-sm font-extrabold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-emerald-600" />
+                Nächste Schritte &amp; Detailanalysen für Ihre Karriere
+              </h4>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+              <Link
+                to={`/gehalt/${result.job.id}`}
+                className="p-4 rounded-xl border border-slate-200 hover:border-emerald-300 hover:bg-emerald-50/30 transition-all group flex flex-col justify-between"
+              >
+                <div>
+                  <div className="text-xs font-bold text-slate-900 group-hover:text-emerald-700 flex items-center justify-between">
+                    <span>Berufsprofil &amp; Aufgaben</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                  </div>
+                  <p className="text-xs text-slate-500 mt-1">
+                    Detaillierte Gehaltsstrukturen, KldB-Aufgaben und Qualifikationsstufen für <strong>{result.job.title.split(' / ')[0]}</strong>.
+                  </p>
+                </div>
+                <span className="text-[11px] font-bold text-emerald-700 mt-3 inline-block">
+                  Bericht öffnen →
+                </span>
+              </Link>
+
+              <Link
+                to={`/gehalt/${result.job.id}/${result.state.slug}`}
+                className="p-4 rounded-xl border border-slate-200 hover:border-emerald-300 hover:bg-emerald-50/30 transition-all group flex flex-col justify-between"
+              >
+                <div>
+                  <div className="text-xs font-bold text-slate-900 group-hover:text-emerald-700 flex items-center justify-between">
+                    <span>{result.state.name} Spezialreport</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+                  </div>
+                  <p className="text-xs text-slate-500 mt-1">
+                    Regionale Abweichung ({result.state.factor >= 1 ? `+${Math.round((result.state.factor - 1) * 100)} %` : `${Math.round((result.state.factor - 1) * 100)} %`}) und Kaufkraftvergleich für <strong>{result.state.name}</strong>.
+                  </p>
+                </div>
+                <span className="text-[11px] font-bold text-emerald-700 mt-3 inline-block">
+                  Regionaldaten ansehen →
+                </span>
+              </Link>
+
+              <Link
+                to="/ratgeber#verhandlung"
+                className="p-4 rounded-xl border border-slate-200 hover:border-emerald-300 hover:bg-emerald-50/30 transition-all group flex flex-col justify-between"
+              >
+                <div>
+                  <div className="text-xs font-bold text-slate-900 group-hover:text-emerald-700 flex items-center justify-between">
+                    <span>Gehaltsverhandlung führen</span>
+                    <BookOpen className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform text-slate-400" />
+                  </div>
+                  <p className="text-xs text-slate-500 mt-1">
+                    Wie Sie den ermittelten Median und interquartilen Korridor in Jahresgesprächen argumentativ einsetzen.
+                  </p>
+                </div>
+                <span className="text-[11px] font-bold text-emerald-700 mt-3 inline-block">
+                  Leitfaden lesen →
+                </span>
+              </Link>
+            </div>
+          </div>
+        )}
 
       </div>
 
