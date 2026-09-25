@@ -9,6 +9,7 @@ import {
   calculateSalaryBenchmark,
   type CalculationResult
 } from '../data/salaryData';
+import CustomDropdown from './CustomDropdown';
 import {
   Calculator,
   Share2,
@@ -218,17 +219,16 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
             <Briefcase className="w-4 h-4 text-emerald-600" />
             Beruf / Tätigkeit (KldB 2010)
           </label>
-          <select
+          <CustomDropdown
             value={jobId}
-            onChange={(e) => setJobId(e.target.value)}
-            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 font-medium text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all shadow-sm cursor-pointer"
-          >
-            {SALARY_DATABASE.map((job) => (
-              <option key={job.id} value={job.id}>
-                {job.title} ({job.category} · KldB {job.kldbCode})
-              </option>
-            ))}
-          </select>
+            onChange={setJobId}
+            searchable={true}
+            options={SALARY_DATABASE.map((job) => ({
+              value: job.id,
+              label: job.title,
+              sublabel: `${job.category} · KldB ${job.kldbCode}`
+            }))}
+          />
           <span className="text-xs text-slate-500 block truncate">
             {result.job.shortDesc}
           </span>
@@ -240,17 +240,15 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
             <MapPin className="w-4 h-4 text-emerald-600" />
             Bundesland / Arbeitsort
           </label>
-          <select
+          <CustomDropdown
             value={stateCode}
-            onChange={(e) => setStateCode(e.target.value)}
-            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 font-medium text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all shadow-sm cursor-pointer"
-          >
-            {STATE_FACTORS.map((s) => (
-              <option key={s.code} value={s.code}>
-                {s.name} ({s.factor >= 1 ? `+${Math.round((s.factor - 1) * 100)} %` : `${Math.round((s.factor - 1) * 100)} %`})
-              </option>
-            ))}
-          </select>
+            onChange={setStateCode}
+            options={STATE_FACTORS.map((s) => ({
+              value: s.code,
+              label: s.name,
+              sublabel: s.factor >= 1 ? `+${Math.round((s.factor - 1) * 100)} %` : `${Math.round((s.factor - 1) * 100)} %`
+            }))}
+          />
           <span className="text-xs text-slate-500 block">
             Regionaler Verdienstfaktor: {result.state.factor.toFixed(3)}
           </span>
@@ -262,17 +260,15 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
             <Sparkles className="w-4 h-4 text-emerald-600" />
             Berufserfahrung
           </label>
-          <select
+          <CustomDropdown
             value={experienceKey}
-            onChange={(e) => setExperienceKey(e.target.value)}
-            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 font-medium text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all shadow-sm cursor-pointer"
-          >
-            {Object.entries(EXPERIENCE_FACTORS).map(([key, item]) => (
-              <option key={key} value={key}>
-                {item.label}
-              </option>
-            ))}
-          </select>
+            onChange={setExperienceKey}
+            options={Object.entries(EXPERIENCE_FACTORS).map(([key, item]) => ({
+              value: key,
+              label: item.label,
+              sublabel: item.desc
+            }))}
+          />
           <span className="text-xs text-slate-500 block truncate">
             {result.experience.desc}
           </span>
@@ -284,17 +280,15 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
             <Building2 className="w-4 h-4 text-emerald-600" />
             Unternehmensgröße
           </label>
-          <select
+          <CustomDropdown
             value={companySizeKey}
-            onChange={(e) => setCompanySizeKey(e.target.value)}
-            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 font-medium text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all shadow-sm cursor-pointer"
-          >
-            {Object.entries(COMPANY_SIZE_FACTORS).map(([key, item]) => (
-              <option key={key} value={key}>
-                {item.label}
-              </option>
-            ))}
-          </select>
+            onChange={setCompanySizeKey}
+            options={Object.entries(COMPANY_SIZE_FACTORS).map(([key, item]) => ({
+              value: key,
+              label: item.label,
+              sublabel: `Tarifmultiplikator: ${item.factor}x`
+            }))}
+          />
           <span className="text-xs text-slate-500 block">
             Tarifbindung &amp; Betriebsgröße-Multiplikator: {result.companySize.factor}x
           </span>
@@ -306,17 +300,15 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
             <GraduationCap className="w-4 h-4 text-emerald-600" />
             Höchster Abschluss
           </label>
-          <select
+          <CustomDropdown
             value={educationKey}
-            onChange={(e) => setEducationKey(e.target.value)}
-            className="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 font-medium text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none transition-all shadow-sm cursor-pointer"
-          >
-            {Object.entries(EDUCATION_FACTORS).map(([key, item]) => (
-              <option key={key} value={key}>
-                {item.label}
-              </option>
-            ))}
-          </select>
+            onChange={setEducationKey}
+            options={Object.entries(EDUCATION_FACTORS).map(([key, item]) => ({
+              value: key,
+              label: item.label,
+              sublabel: `Bildungskoeffizient: ${item.factor}x`
+            }))}
+          />
           <span className="text-xs text-slate-500 block">
             Qualifikationskoeffizient: {result.education.factor}x
           </span>
