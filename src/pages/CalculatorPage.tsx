@@ -4,25 +4,30 @@ import EditorialTrustBox from '../components/EditorialTrustBox';
 
 export default function CalculatorPage() {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-12">
+    <div className="space-y-16 sm:space-y-24 pb-16">
       
-      {/* Intro Header */}
-      <div className="max-w-3xl space-y-2">
-        <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block">
+      {/* Hero Section */}
+      <section className="bg-slate-50 border-b border-slate-200/80 pt-6 sm:pt-8 pb-10 sm:pb-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-5 sm:space-y-6">
+          <div className="max-w-3xl space-y-2">
+            <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block">
               INTERAKTIVES BERECHNUNGSWERKZEUG
             </span>
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-950 tracking-tight leading-tight">
-          Lohnvergleichsrechner: Ihr Gehalt im statistischen Vergleich
-        </h1>
-        <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-          Berechnen Sie auf Basis empirischer Erhebungen des Statistischen Bundesamtes und der Bundesagentur für Arbeit Ihren statistischen Gehalts-Benchmark.
-        </p>
-      </div>
-
-      {/* The Calculator */}
-      <section>
-        <CalculatorWidget />
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-950 tracking-tight leading-tight">
+              Lohnvergleichsrechner: Ihr Gehalt im statistischen Vergleich
+            </h1>
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl">
+              Berechnen Sie auf Basis empirischer Erhebungen des Statistischen Bundesamtes und der Bundesagentur für Arbeit Ihren statistischen Gehalts-Benchmark.
+            </p>
+          </div>
+        </div>
       </section>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        {/* The Calculator */}
+        <section>
+          <CalculatorWidget />
+        </section>
 
       {/* Methodology and Explanations */}
       <section className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 space-y-6">
@@ -85,6 +90,7 @@ export default function CalculatorPage() {
           url="https://lohnvergleichsrechner.de/rechner"
         />
       </section>
+      </div>
 
     </div>
   );

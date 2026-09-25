@@ -5,20 +5,26 @@ import CitationBox from '../components/CitationBox';
 
 export default function GuidePage() {
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 space-y-12">
+    <div className="space-y-16 sm:space-y-24 pb-16">
       
-      {/* Header */}
-      <div className="space-y-3">
-        <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block">
+      {/* Hero Section */}
+      <section className="bg-slate-50 border-b border-slate-200/80 pt-6 sm:pt-8 pb-10 sm:pb-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-5 sm:space-y-6">
+          <div className="max-w-3xl space-y-2">
+            <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block">
               ARBEITSRECHT &amp; GEHALTSVERHANDLUNG
             </span>
-        <h1 className="text-3xl sm:text-5xl font-black text-slate-950 tracking-tight leading-tight">
-          Ratgeber: Entgelttransparenz, Auskunftsanspruch &amp; Verhandlung
-        </h1>
-        <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-          Fundierte juristische und strategische Einordnung des Entgelttransparenzgesetzes (§ 10 EntgTranspG), der EU-Richtlinie 2023/970 sowie praxiserprobte Verhandlungsstrategien.
-        </p>
-      </div>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-950 tracking-tight leading-tight">
+              Ratgeber: Entgelttransparenz, Auskunftsanspruch &amp; Verhandlung
+            </h1>
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl">
+              Fundierte juristische und strategische Einordnung des Entgelttransparenzgesetzes (§ 10 EntgTranspG), der EU-Richtlinie 2023/970 sowie praxiserprobte Verhandlungsstrategien.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
 
       {/* Guide Content Sections */}
       <div className="space-y-12">
@@ -180,6 +186,7 @@ export default function GuidePage() {
           url="https://lohnvergleichsrechner.de/ratgeber"
         />
       </section>
+      </div>
 
     </div>
   );

@@ -36,30 +36,35 @@ export default function JobStateSalaryPage() {
   const otherDedicatedStates = STATE_FACTORS.filter(s => focusStates.includes(s.code) && s.code !== state.code);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-14 space-y-12">
+    <div className="space-y-16 sm:space-y-24 pb-16">
       
-      <Breadcrumbs
-        items={[
-          { name: 'Gehalt nach Beruf', url: '/gehalt' },
-          { name: shortTitle, url: `/gehalt/${job.id}` },
-          { name: state.name, url: `/gehalt/${job.id}/${state.slug}` }
-        ]}
-      />
+      {/* Hero Section */}
+      <section className="bg-slate-50 border-b border-slate-200/80 pt-6 sm:pt-8 pb-10 sm:pb-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-5 sm:space-y-6">
+          <Breadcrumbs
+            items={[
+              { name: 'Gehalt nach Beruf', url: '/gehalt' },
+              { name: shortTitle, url: `/gehalt/${job.id}` },
+              { name: state.name, url: `/gehalt/${job.id}/${state.slug}` }
+            ]}
+          />
 
-      {/* Header */}
-      <div className="max-w-3xl space-y-2">
-        <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block">
+          {/* Header */}
+          <div className="max-w-3xl space-y-2">
+            <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block">
               REGIONALE AUSWERTUNG · {state.name.toUpperCase()} (FAKTOR {state.factor.toFixed(3)})
             </span>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-950 tracking-tight leading-tight">
+              Gehalt als <span className="text-emerald-700">{shortTitle}</span> in {state.name}: Regionaler Lohnvergleich
+            </h1>
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl">
+              Wie hoch ist das Gehalt als {shortTitle} in {state.name}? Für {state.name} ergibt sich ein modellierter Orientierungswert (Kategorie C) von rund <strong>{regionalMedianYear.toLocaleString('de-DE')} €</strong> brutto im Jahr (ca. <strong>{regionalMedianMonth.toLocaleString('de-DE')} €</strong> im Monat). Dies entspricht einer Abweichung von <strong>{diffToBund >= 0 ? `+${diffToBund} %` : `${diffToBund} %`}</strong> gegenüber dem bundesweiten Berufsmedian ({job.medianYear.toLocaleString('de-DE')} €), basierend auf dem allgemeinen regionalen Lohnniveau nach der Entgeltstatistik der Bundesagentur für Arbeit.
+            </p>
+          </div>
+        </div>
+      </section>
 
-        <h1 className="text-3xl sm:text-5xl font-black text-slate-950 tracking-tight leading-[1.1]">
-          Gehalt als <span className="text-emerald-700">{shortTitle}</span> in {state.name}: Regionaler Lohnvergleich
-        </h1>
-
-        <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-          Wie hoch ist das Gehalt als {shortTitle} in {state.name}? Für {state.name} ergibt sich ein modellierter Orientierungswert (Kategorie C) von rund <strong>{regionalMedianYear.toLocaleString('de-DE')} €</strong> brutto im Jahr (ca. <strong>{regionalMedianMonth.toLocaleString('de-DE')} €</strong> im Monat). Dies entspricht einer Abweichung von <strong>{diffToBund >= 0 ? `+${diffToBund} %` : `${diffToBund} %`}</strong> gegenüber dem bundesweiten Berufsmedian ({job.medianYear.toLocaleString('de-DE')} €), basierend auf dem allgemeinen regionalen Lohnniveau nach der Entgeltstatistik der Bundesagentur für Arbeit.
-        </p>
-      </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
 
       {/* KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -260,6 +265,7 @@ export default function JobStateSalaryPage() {
           url={`https://lohnvergleichsrechner.de/gehalt/${job.id}/${state.slug}`}
         />
       </section>
+      </div>
 
     </div>
   );

@@ -44,29 +44,34 @@ export default function JobSalaryPage() {
   }).sort((a, b) => b.stateMedian - a.stateMedian);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-14 space-y-12">
+    <div className="space-y-16 sm:space-y-24 pb-16">
       
-      <Breadcrumbs
-        items={[
-          { name: 'Gehalt nach Beruf', url: '/gehalt' },
-          { name: shortTitle, url: `/gehalt/${job.id}` }
-        ]}
-      />
+      {/* Hero Section */}
+      <section className="bg-slate-50 border-b border-slate-200/80 pt-6 sm:pt-8 pb-10 sm:pb-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-5 sm:space-y-6">
+          <Breadcrumbs
+            items={[
+              { name: 'Gehalt nach Beruf', url: '/gehalt' },
+              { name: shortTitle, url: `/gehalt/${job.id}` }
+            ]}
+          />
 
-      {/* Hero Header */}
-      <div className="max-w-3xl space-y-2">
-        <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block">
+          {/* Hero Header */}
+          <div className="max-w-3xl space-y-2">
+            <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block">
               KLDB-SCHLÜSSEL {job.kldbCode} · {job.category.toUpperCase()}
             </span>
-        
-        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-950 tracking-tight leading-[1.1]">
-          <span className="text-emerald-700">{shortTitle}</span> Gehalt: Was verdient man in Deutschland?
-        </h1>
-        
-        <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-          {job.shortDesc} Aktuelle Gehaltsdaten, regionale Unterschiede und statistische Quartile nach der Entgeltstatistik der Bundesagentur für Arbeit.
-        </p>
-      </div>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-950 tracking-tight leading-tight">
+              <span className="text-emerald-700">{shortTitle}</span> Gehalt: Was verdient man in Deutschland?
+            </h1>
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl">
+              {job.shortDesc} Aktuelle Gehaltsdaten, regionale Unterschiede und statistische Quartile nach der Entgeltstatistik der Bundesagentur für Arbeit.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
 
       {/* Answer-First Lead Box */}
       <div className="bg-emerald-50/70 border border-emerald-200 rounded-2xl p-5 sm:p-6 space-y-2 text-slate-800">
@@ -439,6 +444,7 @@ export default function JobSalaryPage() {
           url={`https://lohnvergleichsrechner.de/gehalt/${job.id}`}
         />
       </section>
+      </div>
 
     </div>
   );

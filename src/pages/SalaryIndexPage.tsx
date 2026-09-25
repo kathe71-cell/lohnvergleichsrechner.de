@@ -25,22 +25,28 @@ export default function SalaryIndexPage() {
   }, [searchTerm, selectedCat]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-14 space-y-10">
+    <div className="space-y-16 sm:space-y-24 pb-16">
       
-      <Breadcrumbs items={[{ name: 'Gehalt nach Beruf', url: '/gehalt' }]} />
-
-      {/* Header */}
-      <div className="max-w-3xl space-y-2">
-        <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block">
+      {/* Hero Section */}
+      <section className="bg-slate-50 border-b border-slate-200/80 pt-6 sm:pt-8 pb-10 sm:pb-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-5 sm:space-y-6">
+          <Breadcrumbs items={[{ name: 'Gehalt nach Beruf', url: '/gehalt' }]} />
+          
+          <div className="max-w-3xl space-y-2">
+            <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block">
               BERUFSGEHÄLTER &amp; ENTGELTSTRUKTUREN
             </span>
-        <h1 className="text-3xl sm:text-5xl font-black text-slate-950 tracking-tight leading-tight">
-          Gehalt nach Beruf: Amtliche Gehälter in Deutschland
-        </h1>
-        <p className="text-base sm:text-lg text-slate-600 leading-relaxed">
-          Wie viel verdient man in welchem Beruf? Entdecken Sie verlässliche Mediane, Einstiegsgehälter, Spitzenverdienste und KldB-Aufgabenprofile auf Basis amtlicher Verdienststatistiken.
-        </p>
-      </div>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-950 tracking-tight leading-tight">
+              Gehalt nach Beruf: Amtliche Gehälter in Deutschland
+            </h1>
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl">
+              Wie viel verdient man in welchem Beruf? Entdecken Sie verlässliche Mediane, Einstiegsgehälter, Spitzenverdienste und KldB-Aufgabenprofile auf Basis amtlicher Verdienststatistiken.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
 
       {/* Filter and Search Bar */}
       <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
@@ -158,6 +164,7 @@ export default function SalaryIndexPage() {
           url="https://lohnvergleichsrechner.de/gehalt"
         />
       </section>
+      </div>
 
     </div>
   );

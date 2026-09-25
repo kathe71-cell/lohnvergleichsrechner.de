@@ -1,18 +1,16 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Calculator, BarChart3, BookOpen, HelpCircle, Layers, Menu, X } from 'lucide-react';
+import { Calculator, BarChart3, BookOpen, Layers, Menu, X } from 'lucide-react';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
 
   const navLinks = [
-    { to: '/rechner', label: 'Lohnrechner', icon: Calculator },
-    { to: '/gehalt', label: 'Gehalt nach Beruf', icon: BarChart3 },
-    { to: '/durchschnittsgehalt', label: 'Durchschnittsgehalt', icon: Layers },
-    { to: '/entgeltatlas', label: 'Entgeltatlas', icon: BarChart3 },
-    { to: '/ratgeber', label: 'Ratgeber', icon: BookOpen },
-    { to: '/methodik', label: 'Methodik', icon: HelpCircle },
+    { to: '/rechner', label: 'Rechner', icon: Calculator },
+    { to: '/gehalt', label: 'Berufe', icon: BarChart3 },
+    { to: '/durchschnittsgehalt', label: 'Statistik', icon: Layers },
+    { to: '/ratgeber', label: 'Ratgeber', icon: BookOpen }
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -59,7 +57,7 @@ export default function Navbar() {
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                   }`}
                 >
-                  <Icon className={`w-4 h-4 ${active ? 'text-emerald-600' : 'text-slate-400'}`} />
+                  <Icon className={`w-4 h-4 hidden lg:block ${active ? 'text-emerald-600' : 'text-slate-400'}`} />
                   {item.label}
                 </Link>
               );
