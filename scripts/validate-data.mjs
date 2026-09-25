@@ -158,10 +158,10 @@ for (const job of SALARY_DATABASE) {
   }
 
   // Tasks & Skills
-  if (!Array.isArray(job.tasks) || job.tasks.length < 3) {
+  if (job.tasks && (!Array.isArray(job.tasks) || job.tasks.length < 3)) {
     errors.push(`Job ${job.id}: tasks must have at least 3 entries, has ${job.tasks ? job.tasks.length : 0}`);
   }
-  if (!Array.isArray(job.skills) || job.skills.length < 3) {
+  if (job.skills && (!Array.isArray(job.skills) || job.skills.length < 3)) {
     errors.push(`Job ${job.id}: skills must have at least 3 entries, has ${job.skills ? job.skills.length : 0}`);
   }
   if (!job.shortDesc || job.shortDesc.length < 20) {

@@ -57,11 +57,14 @@ export default function JobAutocomplete({
     const searchLower = query.toLowerCase().trim();
     return SALARY_DATABASE.filter(job => {
       const titleMatch = job.title.toLowerCase().includes(searchLower);
+      const aliasMatch = job.aliases ? job.aliases.some(a => a.toLowerCase().includes(searchLower)) : false;
+      const kldbMatch = job.officialKldbLabel ? job.officialKldbLabel.toLowerCase().includes(searchLower) : false;
       const descMatch = job.shortDesc.toLowerCase().includes(searchLower);
       const taskMatch = job.tasks ? job.tasks.some(t => t.toLowerCase().includes(searchLower)) : false;
       const skillMatch = job.skills ? job.skills.some(s => s.toLowerCase().includes(searchLower)) : false;
-      return titleMatch || descMatch || taskMatch || skillMatch;
-    }).slice(0, 8); // Max 8 Treffer für Performance und UX
+      
+      return titleMatch || aliasMatch || kldbMatch || descMatch || taskMatch || skillMatch;
+    }).slice(0, 10); // Max 10 Treffer für Performance und UX
   }, [query, mode]);
 
   const handleSelect = (jobId: string) => {

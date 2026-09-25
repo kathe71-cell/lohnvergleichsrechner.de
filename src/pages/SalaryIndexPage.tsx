@@ -1,13 +1,14 @@
 import { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import JobAutocomplete from '../components/JobAutocomplete';
 import { SALARY_DATABASE } from '../data/salaryData';
 import Breadcrumbs from '../components/Breadcrumbs';
 import EditorialTrustBox from '../components/EditorialTrustBox';
 import CitationBox from '../components/CitationBox';
-import { Search, Filter, ArrowRight, TrendingUp } from 'lucide-react';
+import { Filter, ArrowRight, TrendingUp } from 'lucide-react';
 
 export default function SalaryIndexPage() {
-  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
   const [selectedCat, setSelectedCat] = useState('Alle');
 
   const categories = useMemo(() => {
@@ -16,13 +17,9 @@ export default function SalaryIndexPage() {
 
   const filteredJobs = useMemo(() => {
     return SALARY_DATABASE.filter(j => {
-      const matchSearch = j.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        j.kldbCode.includes(searchTerm) ||
-        j.shortDesc.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchCat = selectedCat === 'Alle' || j.category === selectedCat;
-      return matchSearch && matchCat;
+      return selectedCat === 'Alle' || j.category === selectedCat;
     });
-  }, [searchTerm, selectedCat]);
+  }, [selectedCat]);
 
   return (
     <div className="space-y-16 sm:space-y-24 pb-16">
@@ -52,13 +49,10 @@ export default function SalaryIndexPage() {
       <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
         <div className="flex flex-col gap-4">
           <div className="relative w-full md:w-1/2 lg:w-1/3">
-            <Search className="w-5 h-5 text-slate-400 absolute left-3.5 top-3 pointer-events-none" />
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Beruf suchen (z. B. Softwareentwickler, Mechatroniker, Pflegefachkraft)..."
-              className="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-300 bg-white text-slate-900 placeholder:text-slate-400 text-sm font-medium focus:ring-2 focus:ring-emerald-500 outline-none"
+            <JobAutocomplete 
+              mode="navigate" 
+              onSelect={(id) => navigate(`/gehalt/${id}`)}
+              placeholder="Beruf suchen, z. B. Softwareentwickler..."
             />
           </div>
 
