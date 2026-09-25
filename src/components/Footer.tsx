@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ShieldCheck, Scale, ExternalLink } from 'lucide-react';
+import { DATA_METADATA } from '../data/salaryData';
 
 export default function Footer() {
   return (
@@ -136,7 +137,7 @@ export default function Footer() {
         {/* Bottom Strip */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-mono">
           <div>
-            © {new Date().getFullYear()} lohnvergleichsrechner.de · Alle Rechte vorbehalten.
+            © {DATA_METADATA.contentYear} lohnvergleichsrechner.de · Alle Rechte vorbehalten.
           </div>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
             <span>§ 5 DDG</span>

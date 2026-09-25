@@ -34,24 +34,28 @@ export default function MethodologyPage() {
       <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-7 shadow-xs space-y-3">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
           <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold">
-            Aktualitätsstatus des Datenbestands
+            Transparenz- &amp; Datenstatus
           </span>
           <span className="text-xs font-mono font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded">
-            Version {DATA_METADATA.version} · Stand {DATA_METADATA.lastUpdated}
+            Version {DATA_METADATA.version} · Berichtszeitraum: {DATA_METADATA.dataReferencePeriod}
           </span>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-slate-600 pt-1">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs text-slate-600 pt-1">
           <div>
-            <span className="text-slate-400 block uppercase tracking-wider font-semibold">Destatis Verdienststatistik</span>
-            <span className="font-bold text-slate-800">{DATA_METADATA.destatisSurvey}</span>
+            <span className="text-slate-400 block uppercase tracking-wider font-semibold">Destatis VSE</span>
+            <span className="font-bold text-slate-800">Verdienststrukturerhebung (§ 12 VStatG)</span>
           </div>
           <div>
-            <span className="text-slate-400 block uppercase tracking-wider font-semibold">Bundesagentur für Arbeit</span>
-            <span className="font-bold text-slate-800">{DATA_METADATA.baStats}</span>
+            <span className="text-slate-400 block uppercase tracking-wider font-semibold">BA Entgeltatlas</span>
+            <span className="font-bold text-slate-800">Klassifikation der Berufe (KldB 2010)</span>
           </div>
           <div>
-            <span className="text-slate-400 block uppercase tracking-wider font-semibold">Rechtsgrundlage</span>
-            <span className="font-bold text-slate-800">{DATA_METADATA.bmasRef}</span>
+            <span className="text-slate-400 block uppercase tracking-wider font-semibold">Quelle &amp; Stand</span>
+            <span className="font-bold text-slate-800">{DATA_METADATA.dataPublishedAt}</span>
+          </div>
+          <div>
+            <span className="text-slate-400 block uppercase tracking-wider font-semibold">System-Import</span>
+            <span className="font-bold text-slate-800">{DATA_METADATA.dataImportedAt} (geprüft)</span>
           </div>
         </div>
       </div>
@@ -116,11 +120,11 @@ export default function MethodologyPage() {
               2
             </span>
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Warum der Median der einzig juristisch haltbare Benchmark ist
+              Warum der Median der einzig wissenschaftlich robuste Benchmark ist
             </h2>
           </div>
           <p>
-            Das arithmetische Mittel (der umgangssprachliche Durchschnitt) hat in der Gehaltsstatistik einen gravierenden methodischen Mangel: Es ist extrem anfällig für Ausreißer nach oben. Wenige Vorstandsgehälter oder hohe Boni ziehen den rechnerischen Durchschnitt stark in die Höhe, obwohl die überwiegende Mehrheit der Belegschaft deutlich weniger verdient.
+            Das arithmetische Mittel (der umgangssprachliche Durchschnitt) hat in der Gehaltsstatistik einen gravierenden methodischen Mangel: Es ist extrem anfällig für Ausreißer nach oben. Wenige Vorstandsgehälter oder hohe Boni ziehen den rechnerischen Durchschnitt stark in die Höhe, obwohl die überwiegende Mehrheit der Belegschaft deutlich weniger verdient. Zudem erfasst die Sozialversicherungsstatistik Einkommen oberhalb der Beitragsbemessungsgrenze nur gedeckelt, weshalb die Bundesagentur für Arbeit berufsbezogen <strong>keine</strong> arithmetischen Mittelwerte ausweist.
           </p>
           <div className="p-4 bg-emerald-50/60 rounded-xl border border-emerald-200 text-slate-800 text-sm space-y-2">
             <p>
@@ -132,20 +136,67 @@ export default function MethodologyPage() {
           </div>
         </section>
 
-        {/* Kapitel 3 */}
+        {/* Kapitel 3: Datenkategorien */}
         <section className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 space-y-4 shadow-xs">
           <div className="flex items-center gap-2">
             <span className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-mono font-bold text-sm">
               3
             </span>
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Einschränkungen und Grenzen der Modellrechnung
+              Datenkategorien (A, B, C) und Vermeidung von Scheingenauigkeit
+            </h2>
+          </div>
+          <p>
+            Zur maximalen Transparenz unterscheiden wir auf unserem Portal streng zwischen drei Datenkategorien:
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs sm:text-sm pt-2">
+            <div className="p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-1.5">
+              <span className="inline-block px-2 py-0.5 rounded bg-slate-200 text-slate-800 font-mono font-bold text-xs">
+                Kategorie A
+              </span>
+              <h4 className="font-extrabold text-slate-900">Amtlicher Primärwert</h4>
+              <p className="text-slate-600 text-xs leading-relaxed">
+                Unveränderte Werte direkt aus amtlichen Tabellen der BA und Destatis (Bundesmedian, 25. Perzentil P25, 75. Perzentil P75 nach KldB 2010).
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-slate-200 bg-slate-50 space-y-1.5">
+              <span className="inline-block px-2 py-0.5 rounded bg-slate-200 text-slate-800 font-mono font-bold text-xs">
+                Kategorie B
+              </span>
+              <h4 className="font-extrabold text-slate-900">Berechneter Wert</h4>
+              <p className="text-slate-600 text-xs leading-relaxed">
+                Rein mathematisch abgeleitete Werte ohne statistische Schätzung (Monatsgehalt = Jahresgehalt / 12, rechnerischer Stundenlohn bei Wochenarbeitszeit).
+              </p>
+            </div>
+
+            <div className="p-4 rounded-xl border border-emerald-200 bg-emerald-50/40 space-y-1.5">
+              <span className="inline-block px-2 py-0.5 rounded bg-emerald-100 text-emerald-900 font-mono font-bold text-xs">
+                Kategorie C
+              </span>
+              <h4 className="font-extrabold text-slate-900">Modellierter Wert</h4>
+              <p className="text-slate-600 text-xs leading-relaxed">
+                Individuelle Orientierungswerte über parametrisierte Multiplikatoren (Bundesland, Erfahrung, Betriebsgröße). <strong>Gerundet auf volle 100 Euro</strong>, um Scheingenauigkeit zu vermeiden.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Kapitel 4 */}
+        <section className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 space-y-4 shadow-xs">
+          <div className="flex items-center gap-2">
+            <span className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center font-mono font-bold text-sm">
+              4
+            </span>
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+              Einschränkungen und rechtliche Einordnung
             </h2>
           </div>
           <p>
             Trotz höchster statistischer Sorgfalt und wissenschaftlicher Modellierung unterliegt jeder Gehaltsrechner methodischen Einschränkungen:
           </p>
           <ul className="list-disc list-inside space-y-2 text-sm text-slate-600 pl-2">
+            <li><strong>Kein gesetzliches Vergleichsentgelt nach § 10 EntgTranspG:</strong> Unser Rechner bietet eine externe Orientierung am Gesamtmarkt. Er ersetzt nicht das gesetzliche Auskunftsverlangen nach § 10 EntgTranspG, das ausschließlich innerbetrieblich in Unternehmen ab 200 Beschäftigten gegenüber dem Arbeitgeber geltend gemacht werden kann.</li>
             <li><strong>Sonderzahlungen &amp; Boni:</strong> Feste Jahressonderzahlungen (13. Monatsgehalt, vertragliches Urlaubsgeld) sind im Bruttojahresgehalt enthalten. Stark schwankende, rein erfolgsabhängige Tantiemen ohne Rechtsanspruch können im Modell nur standardisiert abgebildet werden.</li>
             <li><strong>Individuelle Leistungszulagen:</strong> Außertarifliche Leistungszulagen, AT-Boni oder besondere Verhandlungssituationen in Nischenbranchen können im Einzelfall zu Abweichungen vom Benchmark führen.</li>
             <li><strong>Keine individuelle Rechts- oder Steuerberatung:</strong> Die Netto-Orientierungswerte stellen Richtwerte nach § 38b EStG dar. Die exakte Steuerlast hängt von persönlichen Freibeträgen, Vorsorgeaufwendungen und Kirchensteuer ab.</li>

@@ -143,10 +143,10 @@ export default function Home() {
             </div>
             <div className="text-center border-r border-slate-100 last:border-0">
               <span className="text-2xl sm:text-3xl font-black font-mono text-slate-900 block">
-                § 10
+                50 %
               </span>
               <span className="text-xs text-slate-500 font-medium">
-                EntgTranspG Auskunftsanspruch
+                Median als Kern-Benchmark
               </span>
             </div>
             <div className="text-center">
@@ -171,7 +171,7 @@ export default function Home() {
               <Sparkles className="w-4 h-4" />
             </span>
             <span className="text-xs font-mono uppercase tracking-wider font-extrabold text-emerald-900">
-              Amtliche Definition &amp; Rechtsnorm
+              Amtliche Definition &amp; Methodik
             </span>
           </div>
           <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight mb-3">
@@ -179,11 +179,11 @@ export default function Home() {
           </h2>
           <div className="text-slate-700 text-base sm:text-lg leading-relaxed space-y-2 font-medium">
             <p>
-              Ein <strong>Lohnvergleich</strong> ermittelt das marktübliche Bruttoarbeitsentgelt für eine konkrete berufliche Tätigkeit unter Berücksichtigung von Qualifikation, Berufserfahrung, Bundesland und Betriebsgröße. Maßgeblich ist nach der Rechtsprechung des Bundesarbeitsgerichts (BAG) und dem <strong>Entgelttransparenzgesetz (§ 10 EntgTranspG)</strong> der statistische <strong>Median (50. Perzentil)</strong> einer repräsentativen Vergleichsgruppe (Peer-Group) auf Basis der amtlichen Verdienststrukturerhebung (Destatis) und der Klassifikation der Berufe (KldB 2010), um Verzerrungen durch extreme Ausreißergehälter auszuschließen.
+              Ein <strong>Lohnvergleich</strong> ermittelt das marktübliche Bruttoarbeitsentgelt für eine konkrete berufliche Tätigkeit unter Berücksichtigung von Qualifikation, Berufserfahrung, Bundesland und Betriebsgröße. Als statistisch belastbare Referenzgröße dient – analog zum Grundsatz des Entgelttransparenzgesetzes (§ 11 Abs. 3 EntgTranspG) und der Rechtsprechung des Bundesarbeitsgerichts (BAG) – der statistische <strong>Median (50. Perzentil)</strong> einer repräsentativen Vergleichsgruppe auf Basis der amtlichen Verdienststrukturerhebung (Destatis) und der Klassifikation der Berufe (KldB 2010), um Verzerrungen durch Spitzengehälter auszuschließen. Ein marktbasierter Lohnvergleich dient der empirischen Gehaltseinordnung und begründet keinen gesetzlichen Auskunftsanspruch im Sinne des § 10 EntgTranspG.
             </p>
           </div>
           <div className="mt-4 pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500 font-mono">
-            <span>Rechtsgrundlage: § 10 EntgTranspG · Richtlinie (EU) 2023/970</span>
+            <span>Statistischer Standard: Median (50 %) · Referenzgesetze: EntgTranspG &amp; Richtlinie (EU) 2023/970</span>
             <span>Datenbasis: Destatis Verdienststatistik &amp; BA-Entgeltatlas</span>
           </div>
         </section>

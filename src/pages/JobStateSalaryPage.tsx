@@ -24,10 +24,9 @@ export default function JobStateSalaryPage() {
     return <Navigate to="/gehalt" replace />;
   }
 
-  const regionalMedianYear = Math.round(job.medianYear * state.factor);
+  // Modellierter regionaler Median: Auf volle 100 € gerundet zur Vermeidung von Scheingenauigkeit (Kategorie C)
+  const regionalMedianYear = Math.round((job.medianYear * state.factor) / 100) * 100;
   const regionalMedianMonth = Math.round(regionalMedianYear / 12);
-  const regionalAverageYear = Math.round(regionalMedianYear * 1.11);
-  const regionalAverageMonth = Math.round(regionalAverageYear / 12);
   const regionalHourly = (regionalMedianYear / (40 * 52)).toFixed(2);
   const diffToBund = Math.round((state.factor - 1) * 100);
 
@@ -65,50 +64,82 @@ export default function JobStateSalaryPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
-          <span className="text-xs font-mono uppercase tracking-wider text-emerald-800 font-bold block mb-1">
-            Regionaler Median ({state.name})
-          </span>
+          <div className="flex items-center justify-between gap-1 mb-1">
+            <span className="text-xs font-mono uppercase tracking-wider text-emerald-800 font-bold block">
+              Regionaler Median ({state.name})
+            </span>
+            <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200">
+              Kategorie C
+            </span>
+          </div>
           <div className="text-3xl font-black text-slate-950 font-mono tracking-tight">
-            {regionalMedianYear.toLocaleString('de-DE')} €
+            rund {regionalMedianYear.toLocaleString('de-DE')} €
           </div>
           <span className="text-xs text-slate-500 block mt-1">
-            ≈ <strong>{regionalMedianMonth.toLocaleString('de-DE')} €</strong> / Monat brutto
+            ≈ <strong>rund {regionalMedianMonth.toLocaleString('de-DE')} €</strong> / Monat brutto
+          </span>
+          <span className="text-[10px] text-slate-500 block mt-2">
+            Modelliert mit Landesfaktor {state.factor.toFixed(3)}
           </span>
         </div>
 
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
-          <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block mb-1">
-            Regionaler Durchschnitt (ca.)
-          </span>
-          <div className="text-3xl font-black text-slate-800 font-mono tracking-tight">
-            {regionalAverageYear.toLocaleString('de-DE')} €
+          <div className="flex items-center justify-between gap-1 mb-1">
+            <span className="text-xs font-mono uppercase tracking-wider text-slate-600 font-bold block">
+              Bundesmedian (Deutschland)
+            </span>
+            <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+              Kategorie A
+            </span>
+          </div>
+          <div className="text-3xl font-black text-slate-900 font-mono tracking-tight">
+            {job.medianYear.toLocaleString('de-DE')} €
           </div>
           <span className="text-xs text-slate-500 block mt-1">
-            ≈ <strong>{regionalAverageMonth.toLocaleString('de-DE')} €</strong> / Monat brutto
+            ≈ <strong>{Math.round(job.medianYear / 12).toLocaleString('de-DE')} €</strong> / Monat brutto
+          </span>
+          <span className="text-[10px] text-slate-500 block mt-2">
+            BA Entgeltatlas (unskalierte Bundesbasis)
           </span>
         </div>
 
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
-          <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block mb-1">
-            Abweichung zum Bundesschnitt
-          </span>
+          <div className="flex items-center justify-between gap-1 mb-1">
+            <span className="text-xs font-mono uppercase tracking-wider text-slate-600 font-bold block">
+              Abweichung zum Bund
+            </span>
+            <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+              Kategorie B
+            </span>
+          </div>
           <div className={`text-2xl sm:text-3xl font-black font-mono tracking-tight ${diffToBund >= 0 ? 'text-emerald-700' : 'text-slate-800'}`}>
             {diffToBund >= 0 ? `+${diffToBund} %` : `${diffToBund} %`}
           </div>
           <span className="text-xs text-slate-500 block mt-1">
-            Bundesschnitt: {job.medianYear.toLocaleString('de-DE')} €
+            Index: {(state.factor * 100).toFixed(1)} (Bund = 100)
+          </span>
+          <span className="text-[10px] text-slate-500 block mt-2">
+            Regionales Gehaltsniveau nach BA
           </span>
         </div>
 
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
-          <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block mb-1">
-            Stundenlohn ({state.name})
-          </span>
+          <div className="flex items-center justify-between gap-1 mb-1">
+            <span className="text-xs font-mono uppercase tracking-wider text-slate-600 font-bold block">
+              Stundenlohn ({state.name})
+            </span>
+            <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+              Kategorie B
+            </span>
+          </div>
           <div className="text-3xl font-black text-slate-900 font-mono tracking-tight">
             {regionalHourly} €
           </div>
           <span className="text-xs text-slate-500 block mt-1">
-            bei 40h-Vollzeitwoche
+            bei 40h-Vollzeitwoche (52 Wochen)
+          </span>
+          <span className="text-[10px] text-slate-500 block mt-2">
+            Mathematisch aus Landesmedian abgeleitet
           </span>
         </div>
 

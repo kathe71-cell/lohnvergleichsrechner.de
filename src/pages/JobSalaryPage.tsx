@@ -27,8 +27,8 @@ export default function JobSalaryPage() {
 
   const relatedJobs = getRelatedJobs(job.id, 4);
   const medianMonth = Math.round(job.medianYear / 12);
-  const avgYear = Math.round(job.medianYear * 1.11);
-  const avgMonth = Math.round(avgYear / 12);
+  const p25Month = Math.round(job.p25Year / 12);
+  const p75Month = Math.round(job.p75Year / 12);
   const hourlyRate = (job.medianYear / (40 * 52)).toFixed(2);
 
   // Top Bundesländer calculations
@@ -72,50 +72,82 @@ export default function JobSalaryPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
-          <span className="text-xs font-mono uppercase tracking-wider text-emerald-800 font-bold block mb-1">
-            Bundesweiter Median (50 %)
-          </span>
+          <div className="flex items-center justify-between gap-1 mb-1">
+            <span className="text-xs font-mono uppercase tracking-wider text-emerald-800 font-bold block">
+              Bundesmedian (50 %)
+            </span>
+            <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200">
+              Kategorie A
+            </span>
+          </div>
           <div className="text-3xl font-black text-slate-950 font-mono tracking-tight">
             {job.medianYear.toLocaleString('de-DE')} €
           </div>
           <span className="text-xs text-slate-500 block mt-1">
             ≈ <strong>{medianMonth.toLocaleString('de-DE')} €</strong> / Monat brutto
           </span>
+          <span className="text-[10px] text-slate-500 block mt-2">
+            Amtliche BA-Meldungen (KldB {job.kldbCode})
+          </span>
         </div>
 
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
-          <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block mb-1">
-            Durchschnitt (Mittelwert)
-          </span>
+          <div className="flex items-center justify-between gap-1 mb-1">
+            <span className="text-xs font-mono uppercase tracking-wider text-slate-600 font-bold block">
+              Unteres Quartil (P25)
+            </span>
+            <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+              Kategorie A
+            </span>
+          </div>
           <div className="text-3xl font-black text-slate-800 font-mono tracking-tight">
-            {avgYear.toLocaleString('de-DE')} €
+            {job.p25Year.toLocaleString('de-DE')} €
           </div>
           <span className="text-xs text-slate-500 block mt-1">
-            ≈ <strong>{avgMonth.toLocaleString('de-DE')} €</strong> / Monat brutto
+            ≈ <strong>{p25Month.toLocaleString('de-DE')} €</strong> / Monat (Basis)
+          </span>
+          <span className="text-[10px] text-slate-500 block mt-2">
+            25 % der Beschäftigten verdienen weniger
           </span>
         </div>
 
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
-          <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block mb-1">
-            Korridor (P25 - P75)
-          </span>
-          <div className="text-xl sm:text-2xl font-black text-slate-800 font-mono tracking-tight">
-            {job.p25Year.toLocaleString('de-DE')} € – {job.p75Year.toLocaleString('de-DE')} €
+          <div className="flex items-center justify-between gap-1 mb-1">
+            <span className="text-xs font-mono uppercase tracking-wider text-slate-600 font-bold block">
+              Oberes Quartil (P75)
+            </span>
+            <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+              Kategorie A
+            </span>
+          </div>
+          <div className="text-3xl font-black text-slate-800 font-mono tracking-tight">
+            {job.p75Year.toLocaleString('de-DE')} €
           </div>
           <span className="text-xs text-slate-500 block mt-1">
-            Mittlere 50 % aller Gehälter
+            ≈ <strong>{p75Month.toLocaleString('de-DE')} €</strong> / Monat (Senior)
+          </span>
+          <span className="text-[10px] text-slate-500 block mt-2">
+            25 % der Beschäftigten verdienen mehr
           </span>
         </div>
 
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
-          <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block mb-1">
-            Stundenlohn (Vollzeit)
-          </span>
+          <div className="flex items-center justify-between gap-1 mb-1">
+            <span className="text-xs font-mono uppercase tracking-wider text-slate-600 font-bold block">
+              Rechner. Stundenlohn
+            </span>
+            <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+              Kategorie B
+            </span>
+          </div>
           <div className="text-3xl font-black text-emerald-700 font-mono tracking-tight">
             {hourlyRate} €
           </div>
           <span className="text-xs text-slate-500 block mt-1">
-            bei 40 Wochenstunden
+            bei 40 Wochenstunden (52 Wochen)
+          </span>
+          <span className="text-[10px] text-slate-500 block mt-2">
+            Mathematisch aus Median abgeleitet
           </span>
         </div>
 

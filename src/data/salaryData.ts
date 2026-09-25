@@ -26,13 +26,18 @@ export interface StateFactor {
 
 export const DATA_METADATA = {
   version: "2024/2025",
+  dataReferencePeriod: "2023 / 2024",
+  dataPublishedAt: "Juni 2024 (BA Entgeltatlas) / Oktober 2024 (Destatis VSE)",
+  dataImportedAt: "2026-09-25",
+  contentModifiedAt: "2026-09-25",
+  contentYear: "2026",
   lastUpdated: "September 2026",
   destatisSurvey: "Statistisches Bundesamt (Destatis) - Verdienststrukturerhebung (VSE) nach § 12 VStatG",
   baStats: "Bundesagentur für Arbeit - Statistik der sozialversicherungspflichtig Vollzeitbeschäftigten (KldB 2010 5-Steller)",
   bmasRef: "BMAS - Entgelttransparenzgesetz (§ 10 EntgTranspG) & Richtlinie (EU) 2023/970",
   federalMedianFullTimeMonthly: 4100,
   federalMedianFullTimeYearly: 49200,
-  federalAverageFullTimeMonthly: 4479, // Destatis arithmetisches Mittel Vollzeit (ca. 11 % über Median)
+  federalAverageFullTimeMonthly: 4479, // Destatis arithmetisches Mittel Vollzeit (ca. 9,2 % über Bundesmedian)
   federalAverageFullTimeYearly: 53748,
   primarySources: [
     {
@@ -743,6 +748,12 @@ export const SALARY_DATABASE: JobSalary[] = [
   }
 ];
 
+/**
+ * Datenklassifikation:
+ * - Kategorie A (Primärwert): Amtliche Bundeswerte (z. B. unskalierter Bundesmedian des Berufs aus BA Entgeltatlas)
+ * - Kategorie B (Berechneter Wert): Rein mathematische Ableitungen (z. B. Monatslohn = Jahreslohn / 12, Stundenlohn, Differenz)
+ * - Kategorie C (Modellierter Wert): Multiplikatorenbasiertes Modell für individuelle Parameter, gerundet auf volle 100 € zur Vermeidung von Scheingenauigkeit
+ */
 export interface CalculationResult {
   job: JobSalary;
   state: StateFactor;
@@ -751,16 +762,20 @@ export interface CalculationResult {
   education: { label: string; factor: number };
   weeklyHours: number;
   userYearlyGross?: number;
+  // Kategorie A: Amtlicher Primärwert des Berufs (Bundesmedian Vollzeit KldB)
+  federalJobMedianYear: number;
+  federalJobMedianMonth: number;
+  // Kategorie C: Individueller Modell-Orientierungswert (auf 100 € gerundet)
   benchmarkMedianYear: number;
-  benchmarkAverageYear: number; // Arithmetisches Mittel
   benchmarkP25Year: number;
   benchmarkP75Year: number;
+  // Kategorie B: Mathematische Ableitungen
   benchmarkMedianMonth: number;
-  benchmarkAverageMonth: number;
   benchmarkHourly: number;
   differenceToMedian?: number;
   differencePercent?: number;
   percentileRank?: number;
+  // Kategorie C: Netto-Schätzwerte
   approxNetMonthTaxClass1: number;
   approxNetMonthTaxClass3: number;
 }
@@ -781,18 +796,23 @@ export function calculateSalaryBenchmark(params: {
   const education = EDUCATION_FACTORS[params.educationKey] || EDUCATION_FACTORS.ausbildung;
   const weeklyHours = params.weeklyHours || 40;
 
-  // Combined multiplier
+  // Combined multiplier (Kategorie C)
   const combinedFactor = state.factor * experience.factor * companySize.factor * education.factor;
   const hoursRatio = weeklyHours / 40;
 
-  const benchmarkMedianYear = Math.round(job.medianYear * combinedFactor * hoursRatio);
-  // Empirisches arithmetisches Mittel liegt lt. Destatis VSE ca. 11 % über dem Median
-  const benchmarkAverageYear = Math.round(benchmarkMedianYear * 1.11);
-  const benchmarkP25Year = Math.round(job.p25Year * combinedFactor * hoursRatio);
-  const benchmarkP75Year = Math.round(job.p75Year * combinedFactor * hoursRatio);
+  // Modellierter Orientierungswert: Gerundet auf volle 100 € zur Vermeidung unbegründeter Scheingenauigkeit
+  const rawMedianYear = job.medianYear * combinedFactor * hoursRatio;
+  const benchmarkMedianYear = Math.round(rawMedianYear / 100) * 100;
+  const benchmarkP25Year = Math.round((job.p25Year * combinedFactor * hoursRatio) / 100) * 100;
+  const benchmarkP75Year = Math.round((job.p75Year * combinedFactor * hoursRatio) / 100) * 100;
+
+  // Kategorie B: Mathematisch abgeleitete Monatswerte & Stundenlohn
   const benchmarkMedianMonth = Math.round(benchmarkMedianYear / 12);
-  const benchmarkAverageMonth = Math.round(benchmarkAverageYear / 12);
   const benchmarkHourly = Number((benchmarkMedianYear / (weeklyHours * 52)).toFixed(2));
+
+  // Kategorie A: Amtliche Primärwerte des Berufs (unskalierter Bundesmedian)
+  const federalJobMedianYear = job.medianYear;
+  const federalJobMedianMonth = Math.round(job.medianYear / 12);
 
   let differenceToMedian: number | undefined;
   let differencePercent: number | undefined;
@@ -818,7 +838,7 @@ export function calculateSalaryBenchmark(params: {
     }
   }
 
-  // Realistic simplified German tax & social contributions estimation for reference
+  // Realistic simplified German tax & social contributions estimation for reference (Kategorie C)
   const grossMonthly = params.userYearlyGross ? Math.round(params.userYearlyGross / 12) : benchmarkMedianMonth;
   const socialContribution = grossMonthly * 0.205;
   
@@ -839,12 +859,12 @@ export function calculateSalaryBenchmark(params: {
     education,
     weeklyHours,
     userYearlyGross: params.userYearlyGross,
+    federalJobMedianYear,
+    federalJobMedianMonth,
     benchmarkMedianYear,
-    benchmarkAverageYear,
     benchmarkP25Year,
     benchmarkP75Year,
     benchmarkMedianMonth,
-    benchmarkAverageMonth,
     benchmarkHourly,
     differenceToMedian,
     differencePercent,

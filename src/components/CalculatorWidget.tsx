@@ -24,7 +24,8 @@ import {
   MapPin,
   Briefcase,
   ArrowRight,
-  BookOpen
+  BookOpen,
+  Scale
 } from 'lucide-react';
 
 interface CalculatorWidgetProps {
@@ -402,66 +403,104 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
       <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 sm:p-8 space-y-6">
         
         {/* Core KPIs Banner */}
+        {/* Core KPIs Banner (Kategorien A, B, C transparent aufgeschlüsselt) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           
-          {/* 1. Benchmark-Median */}
-          <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs relative">
-            <span className="text-xs font-mono uppercase tracking-wider text-emerald-800 font-bold block mb-1">
-              Benchmark-Median (50 %)
-            </span>
+          {/* 1. Individueller Modellwert (Kategorie C) */}
+          <div className="bg-white p-5 rounded-xl border border-emerald-200/80 shadow-xs relative">
+            <div className="flex items-center justify-between gap-1 mb-1">
+              <span className="text-xs font-mono uppercase tracking-wider text-emerald-800 font-bold block">
+                Modell-Benchmark
+              </span>
+              <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200">
+                Kategorie C
+              </span>
+            </div>
             <div className="text-2xl sm:text-3xl font-black text-slate-950 font-mono tracking-tight">
-              {result.benchmarkMedianYear.toLocaleString('de-DE')} €
+              rund {result.benchmarkMedianYear.toLocaleString('de-DE')} €
             </div>
             <span className="text-xs text-slate-500 block mt-1">
-              ≈ <strong>{result.benchmarkMedianMonth.toLocaleString('de-DE')} €</strong> / Mo. brutto
-            </span>
-            <span className="text-[10px] text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-mono font-semibold inline-block mt-2">
-              § 10 EntgTranspG Standard
-            </span>
-          </div>
-
-          {/* 2. Durchschnitt (Arithmetisches Mittel) */}
-          <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs">
-            <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block mb-1">
-              Durchschnitt (Mittelwert)
-            </span>
-            <div className="text-2xl sm:text-3xl font-black text-slate-800 font-mono tracking-tight">
-              {result.benchmarkAverageYear.toLocaleString('de-DE')} €
-            </div>
-            <span className="text-xs text-slate-500 block mt-1">
-              ≈ <strong>{result.benchmarkAverageMonth.toLocaleString('de-DE')} €</strong> / Mo. brutto
+              ≈ <strong>rund {result.benchmarkMedianMonth.toLocaleString('de-DE')} €</strong> / Mo. brutto
             </span>
             <span className="text-[10px] text-slate-500 block mt-2">
-              (Destatis: ca. +11 % durch Spitzengehälter)
+              Individuelle Modellanpassung für Ihre Parameter
             </span>
           </div>
 
-          {/* 3. Mittlerer Korridor */}
+          {/* 2. Amtlicher Bundesmedian (Kategorie A) */}
           <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs">
-            <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block mb-1">
-              Korridor (25 % - 75 %)
+            <div className="flex items-center justify-between gap-1 mb-1">
+              <span className="text-xs font-mono uppercase tracking-wider text-slate-600 font-bold block">
+                Amtlicher Bundesmedian
+              </span>
+              <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+                Kategorie A
+              </span>
+            </div>
+            <div className="text-2xl sm:text-3xl font-black text-slate-900 font-mono tracking-tight">
+              {result.federalJobMedianYear.toLocaleString('de-DE')} €
+            </div>
+            <span className="text-xs text-slate-500 block mt-1">
+              ≈ <strong>{result.federalJobMedianMonth.toLocaleString('de-DE')} €</strong> / Mo. brutto
             </span>
+            <span className="text-[10px] text-slate-500 block mt-2">
+              BA Entgeltatlas (unskalierte Bundesbasis)
+            </span>
+          </div>
+
+          {/* 3. Modellierter Korridor (Kategorie C) */}
+          <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs">
+            <div className="flex items-center justify-between gap-1 mb-1">
+              <span className="text-xs font-mono uppercase tracking-wider text-slate-600 font-bold block">
+                Korridor (P25 – P75)
+              </span>
+              <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+                Kategorie C
+              </span>
+            </div>
             <div className="text-xl sm:text-2xl font-black text-slate-800 font-mono tracking-tight">
               {result.benchmarkP25Year.toLocaleString('de-DE')} € – {result.benchmarkP75Year.toLocaleString('de-DE')} €
             </div>
             <span className="text-xs text-slate-500 block mt-1">
-              50 % aller Beschäftigten liegen in diesem Bereich
+              50 % der Vergleichsgruppe liegen hier
+            </span>
+            <span className="text-[10px] text-slate-500 block mt-2">
+              Interquartilsabstand (statistisch robust)
             </span>
           </div>
 
-          {/* 4. Stundenlohn */}
+          {/* 4. Stundenlohn (Kategorie B) */}
           <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs">
-            <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block mb-1">
-              Rechner. Stundenlohn
-            </span>
+            <div className="flex items-center justify-between gap-1 mb-1">
+              <span className="text-xs font-mono uppercase tracking-wider text-slate-600 font-bold block">
+                Rechner. Stundenlohn
+              </span>
+              <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
+                Kategorie B
+              </span>
+            </div>
             <div className="text-2xl sm:text-3xl font-black text-emerald-700 font-mono tracking-tight">
               {result.benchmarkHourly.toFixed(2)} €
             </div>
             <span className="text-xs text-slate-500 block mt-1">
               bei {result.weeklyHours}h/Woche (52 Wochen)
             </span>
+            <span className="text-[10px] text-slate-500 block mt-2">
+              Mathematisch abgeleitet (Monat / Arbeitszeit)
+            </span>
           </div>
 
+        </div>
+
+        {/* Rechtlicher & Methodischer Transparenzhinweis */}
+        <div className="p-4 bg-white rounded-xl border border-slate-200 text-xs text-slate-600 space-y-1.5 shadow-2xs">
+          <div className="font-bold text-slate-900 flex items-center gap-1.5">
+            <Scale className="w-4 h-4 text-emerald-700 shrink-0" />
+            Statistischer Markt-Orientierungswert – Kein Rechtsanspruch
+          </div>
+          <p className="leading-relaxed">
+            Dieser Rechner liefert eine mathematisch-statistische Marktmodellierung auf Basis amtlicher Primärdaten (Destatis / BA Entgeltatlas). Es handelt sich <strong>nicht</strong> um ein individuelles Vergleichsentgelt im Sinne des § 10 EntgTranspG und begründet keine arbeitsrechtlichen Ansprüche oder Gehaltsgarantien. Ein Auskunftsanspruch nach § 10 EntgTranspG gilt ausschließlich innerbetrieblich in Unternehmen mit in der Regel mehr als 200 Beschäftigten gegenüber dem eigenen Arbeitgeber.
+          </p>
         </div>
 
         {/* Eigener Vergleichsstatus (wenn Gehalt eingegeben) */}

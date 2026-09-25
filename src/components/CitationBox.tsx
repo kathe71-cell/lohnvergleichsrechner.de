@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Copy, Check, Quote } from 'lucide-react';
+import { DATA_METADATA } from '../data/salaryData';
 
 interface CitationBoxProps {
   title?: string;
@@ -11,7 +12,7 @@ export default function CitationBox({
   url = "https://lohnvergleichsrechner.de/"
 }: CitationBoxProps) {
   const [copied, setCopied] = useState(false);
-  const currentYear = new Date().getFullYear();
+  const currentYear = DATA_METADATA.contentYear;
   const citationText = `lohnvergleichsrechner.de Redaktion (${currentYear}). ${title}. Abgerufen von ${url} (Datenstand: Destatis Verdiensterhebung & Bundesagentur für Arbeit Entgeltatlas).`;
 
   const copyToClipboard = () => {

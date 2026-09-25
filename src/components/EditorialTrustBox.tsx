@@ -29,8 +29,8 @@ export default function EditorialTrustBox() {
         <div className="flex items-start gap-2.5">
           <Scale className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
           <div>
-            <strong className="text-slate-900 block font-semibold mb-0.5">Entgelttransparenzgesetz (EntgTranspG)</strong>
-            Berechnungsmethodik orientiert am gesetzlichen Peer-Group-Vergleich (§ 10 Abs. 1 EntgTranspG) und der EU-Entgelttransparenzrichtlinie 2023/970.
+            <strong className="text-slate-900 block font-semibold mb-0.5">Median-Standard nach EntgTranspG</strong>
+            Orientierung am statistischen Median-Grundsatz (§ 11 Abs. 3 EntgTranspG). Rechner dient als externer Markt-Benchmark (kein innerbetrieblicher Auskunftsanspruch).
           </div>
         </div>
 

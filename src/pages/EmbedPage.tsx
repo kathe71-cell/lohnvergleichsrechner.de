@@ -3,7 +3,8 @@ import CalculatorWidget from '../components/CalculatorWidget';
 export default function EmbedPage() {
   return (
     <div className="bg-slate-50 min-h-screen p-3 sm:p-4">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl mx-auto space-y-3">
+        <h1 className="sr-only">Lohnvergleichsrechner Widget für Websites</h1>
         <CalculatorWidget isEmbed={true} />
         <div className="pt-2 text-center text-xs text-slate-500 font-mono">
           Bereitgestellt von{' '}
