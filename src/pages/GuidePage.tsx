@@ -2,6 +2,7 @@ import { Scale, FileText, CheckCircle2, AlertCircle, ArrowRight } from 'lucide-r
 import { Link } from 'react-router-dom';
 import EditorialTrustBox from '../components/EditorialTrustBox';
 import CitationBox from '../components/CitationBox';
+import Breadcrumbs from '../components/Breadcrumbs';
 
 export default function GuidePage() {
   return (
@@ -10,6 +11,7 @@ export default function GuidePage() {
       {/* Hero Section */}
       <section className="bg-slate-50 border-b border-slate-200/80 pt-6 sm:pt-8 pb-10 sm:pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-5 sm:space-y-6">
+          <Breadcrumbs items={[{ name: 'Ratgeber', url: '/ratgeber' }]} />
           <div className="max-w-3xl space-y-2">
             <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block">
               ARBEITSRECHT &amp; GEHALTSVERHANDLUNG

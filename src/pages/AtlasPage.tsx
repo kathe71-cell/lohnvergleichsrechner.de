@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { SALARY_DATABASE } from '../data/salaryData';
 import StateComparisonTable from '../components/StateComparisonTable';
 import CitationBox from '../components/CitationBox';
+import Breadcrumbs from '../components/Breadcrumbs';
 import EditorialTrustBox from '../components/EditorialTrustBox';
 import { Search, Filter, ArrowRight, TrendingUp } from 'lucide-react';
 
@@ -34,6 +35,7 @@ export default function AtlasPage() {
       {/* Hero Section */}
       <section className="bg-slate-50 border-b border-slate-200/80 pt-6 sm:pt-8 pb-10 sm:pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-5 sm:space-y-6">
+          <Breadcrumbs items={[{ name: 'Entgeltatlas', url: '/entgeltatlas' }]} />
           <div className="max-w-3xl space-y-2">
             <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block">
               OFFIZIELLER DATENKATALOG · KLASSIFIKATION DER BERUFE (KLDB 2010)
