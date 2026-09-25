@@ -1,6 +1,7 @@
 import CalculatorWidget from '../components/CalculatorWidget';
 import CitationBox from '../components/CitationBox';
 import EditorialTrustBox from '../components/EditorialTrustBox';
+import Breadcrumbs from '../components/Breadcrumbs';
 
 export default function CalculatorPage() {
   return (
@@ -9,6 +10,7 @@ export default function CalculatorPage() {
       {/* Hero Section */}
       <section className="bg-slate-50 border-b border-slate-200/80 pt-6 sm:pt-8 pb-10 sm:pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-5 sm:space-y-6">
+          <Breadcrumbs items={[{ name: 'Rechner', url: '/rechner' }]} />
           <div className="max-w-3xl space-y-2">
             <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block">
               INTERAKTIVES BERECHNUNGSWERKZEUG

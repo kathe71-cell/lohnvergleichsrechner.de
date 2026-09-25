@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Search } from 'lucide-react';
 import EditorialTrustBox from '../components/EditorialTrustBox';
 import CitationBox from '../components/CitationBox';
+import Breadcrumbs from '../components/Breadcrumbs';
 
 interface GlossaryTerm {
   term: string;
@@ -100,6 +101,7 @@ export default function GlossaryPage() {
       {/* Hero Section */}
       <section className="bg-slate-50 border-b border-slate-200/80 pt-6 sm:pt-8 pb-10 sm:pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-5 sm:space-y-6">
+          <Breadcrumbs items={[{ name: 'Glossar', url: '/glossar' }]} />
           <div className="max-w-3xl space-y-2">
             <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block">
               FACHBEGRIFFE &amp; DEFINITIONEN
