@@ -518,8 +518,8 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
                   <TrendingDown className="w-6 h-6" />
                 )}
               </div>
-              <div>
-                <h4 className="font-extrabold text-base sm:text-lg">
+              <div className="min-w-0 flex-1">
+                <h4 className="font-extrabold text-base sm:text-lg break-words hyphens-auto">
                   {result.differenceToMedian >= 0
                     ? `Überdurchschnittlich: +${result.differencePercent} % über dem Benchmark-Median`
                     : `Verhandlungspotenzial: ${result.differencePercent} % unter dem Benchmark-Median`}
@@ -535,17 +535,20 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
 
         {/* Visual Corridor Boxplot Bar */}
         <div className="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0 text-xs font-bold text-slate-700">
-            <span className="text-slate-500">
-              <span className="hidden sm:inline">Unteres Quartil (25 %):</span>
-              <span className="sm:hidden">P25:</span> {result.benchmarkP25Year.toLocaleString('de-DE')} €
+          <div className="flex justify-between items-end text-[10px] sm:text-xs font-bold text-slate-700 pb-1">
+            <span className="text-slate-500 leading-tight">
+              <span className="hidden sm:inline">Unteres Quartil (25 %): </span>
+              <span className="sm:hidden">P25:<br/></span>
+              {result.benchmarkP25Year.toLocaleString('de-DE')} €
             </span>
-            <span className="font-extrabold text-slate-900 font-mono bg-slate-100 px-2 py-0.5 rounded-md self-center">
-              Median: {result.benchmarkMedianYear.toLocaleString('de-DE')} €
+            <span className="font-extrabold text-slate-900 font-mono bg-slate-100 px-2 py-1 rounded-md text-center leading-tight">
+              Median<span className="hidden sm:inline">: </span><br className="sm:hidden"/>
+              {result.benchmarkMedianYear.toLocaleString('de-DE')} €
             </span>
-            <span className="text-slate-500 self-end sm:self-auto">
-              <span className="hidden sm:inline">Oberes Quartil (75 %):</span>
-              <span className="sm:hidden">P75:</span> {result.benchmarkP75Year.toLocaleString('de-DE')} €
+            <span className="text-slate-500 text-right leading-tight">
+              <span className="hidden sm:inline">Oberes Quartil (75 %): </span>
+              <span className="sm:hidden">P75:<br/></span>
+              {result.benchmarkP75Year.toLocaleString('de-DE')} €
             </span>
           </div>
 
