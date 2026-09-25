@@ -50,8 +50,8 @@ export default function SalaryIndexPage() {
 
       {/* Filter and Search Bar */}
       <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
-        <div className="flex flex-col md:flex-row gap-4">
-          <div className="relative flex-1">
+        <div className="flex flex-col gap-4">
+          <div className="relative w-full md:w-1/2 lg:w-1/3">
             <Search className="w-5 h-5 text-slate-400 absolute left-3.5 top-3 pointer-events-none" />
             <input
               type="text"
@@ -62,8 +62,8 @@ export default function SalaryIndexPage() {
             />
           </div>
 
-          <div className="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0">
-            <Filter className="w-4 h-4 text-slate-400 shrink-0" />
+          <div className="flex flex-wrap items-center gap-2">
+            <Filter className="w-4 h-4 text-slate-400 shrink-0 mr-1" />
             {categories.map((cat) => (
               <button
                 key={cat}
