@@ -1,7 +1,5 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
-  Search,
   Sparkles,
   TrendingUp,
   MapPin,
@@ -9,7 +7,6 @@ import {
   Scale,
   ArrowRight
 } from 'lucide-react';
-import { SALARY_DATABASE } from '../data/salaryData';
 import CalculatorWidget from '../components/CalculatorWidget';
 import Top20Grid from '../components/Top20Grid';
 import StateComparisonTable from '../components/StateComparisonTable';
@@ -17,146 +14,45 @@ import EditorialTrustBox from '../components/EditorialTrustBox';
 import CitationBox from '../components/CitationBox';
 
 export default function Home() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const navigate = useNavigate();
-
-  const filteredJobs = searchTerm.trim() === ''
-    ? []
-    : SALARY_DATABASE.filter(job =>
-        job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        job.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        job.kldbCode.includes(searchTerm)
-      ).slice(0, 6);
-
-  const handleSelectJob = (jobId: string) => {
-    navigate(`/rechner?beruf=${jobId}`);
-  };
-
   return (
     <div className="space-y-16 sm:space-y-24 pb-16">
       
-      {/* HERO SECTION (Helles Design PFLICHT) */}
-      <section className="relative pt-10 sm:pt-16 pb-12 sm:pb-16 bg-gradient-to-b from-emerald-50/50 via-white to-slate-50 border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* HERO SECTION: Sachlich, utility-fokussiert, Rechner direkt above the fold */}
+      <section className="bg-slate-50 border-b border-slate-200/80 pt-6 sm:pt-8 pb-10 sm:pb-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-5 sm:space-y-6">
           
-          <div className="max-w-4xl mx-auto text-center space-y-6">
-            
-            {/* Superskript Tag */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100/80 border border-emerald-300 text-emerald-900 text-xs font-mono font-bold tracking-wide">
-              <Scale className="w-3.5 h-3.5 text-emerald-700" />
-              DESTATIS VSE &amp; BUNDESAGENTUR FÜR ARBEIT · KLDB 2010
-            </div>
+          {/* Kompakte sachliche Einordnung & H1 */}
+          <div className="max-w-3xl space-y-2">
+            <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block">
+              Lohn- &amp; Gehaltsvergleich für Deutschland
+            </span>
 
-            {/* Display Headline */}
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-950 tracking-tight leading-[1.08]">
-              Was verdienen Sie wirklich im <span className="text-emerald-700 underline decoration-emerald-300 decoration-wavy decoration-2">Lohnvergleich</span>?
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-950 tracking-tight leading-tight">
+              Gehalt vergleichen – nach Beruf, Region und Erfahrung
             </h1>
 
-            {/* Subtext */}
-            <p className="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">
-              Vergleichen Sie Ihr Gehalt wissenschaftlich fundiert mit dem regionalen Median Ihrer Branche. Datenbasis aus amtlichen Verdienststrukturerhebungen nach KldB-Klassifikation.
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl">
+              Vergleichen Sie Ihr Bruttoentgelt mit dem statistischen Median Ihrer Vergleichsgruppe auf Basis amtlicher Gehaltsdaten der Bundesagentur für Arbeit und des Statistischen Bundesamtes.
             </p>
-
-            {/* Instant-Finder / Autocomplete Search */}
-            <div className="max-w-2xl mx-auto relative pt-2">
-              <div className="relative flex items-center">
-                <Search className="w-5 h-5 text-slate-400 absolute left-4 pointer-events-none" />
-                <input
-                  type="text"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  placeholder="Beruf suchen (z. B. Softwareentwickler, Pflegefachkraft, Mechatroniker)..."
-                  data-svsearch="salary-quick-finder"
-                  className="w-full pl-12 pr-4 py-4 rounded-2xl border-2 border-slate-300 bg-white text-slate-900 placeholder:text-slate-400 text-base font-medium shadow-md focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100 outline-none transition-all"
-                />
-              </div>
-
-              {/* Instant Search Dropdown */}
-              {filteredJobs.length > 0 && (
-                <div className="absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-xl border border-slate-200 z-50 text-left overflow-hidden divide-y divide-slate-100">
-                  {filteredJobs.map((job) => (
-                    <button
-                      key={job.id}
-                      onClick={() => handleSelectJob(job.id)}
-                      className="w-full px-4 py-3 hover:bg-emerald-50 flex items-center justify-between text-left transition-colors cursor-pointer group"
-                    >
-                      <div>
-                        <div className="font-bold text-slate-900 group-hover:text-emerald-700">
-                          {job.title}
-                        </div>
-                        <div className="text-xs text-slate-500">
-                          {job.category} · KldB {job.kldbCode}
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <div className="font-mono font-bold text-slate-900 text-sm">
-                          {job.medianYear.toLocaleString('de-DE')} €
-                        </div>
-                        <div className="text-[11px] text-emerald-700 font-semibold">
-                          Lohn prüfen →
-                        </div>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              {/* Quick Suggestion Tags */}
-              <div className="flex flex-wrap items-center justify-center gap-2 pt-3 text-xs text-slate-500">
-                <span className="font-semibold text-slate-700">Häufig geprüft:</span>
-                {['softwareentwickler', 'gesundheits-und-krankenpfleger', 'mechatroniker', 'controller', 'erzieher'].map(id => {
-                  const item = SALARY_DATABASE.find(j => j.id === id);
-                  if (!item) return null;
-                  return (
-                    <Link
-                      key={id}
-                      to={`/rechner?beruf=${id}`}
-                      className="px-2.5 py-1 rounded-full bg-white border border-slate-200 hover:border-emerald-400 hover:text-emerald-800 transition-colors shadow-2xs font-medium"
-                    >
-                      {item.title.split(' / ')[0]}
-                    </Link>
-                  );
-                })}
-              </div>
-
-            </div>
-
           </div>
 
-          {/* Fact Statistics Strip */}
-          <div className="mt-12 max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 p-5 rounded-2xl bg-white border border-slate-200 shadow-xs">
-            <div className="text-center border-r border-slate-100 last:border-0">
-              <span className="text-2xl sm:text-3xl font-black font-mono text-slate-900 block">
-                4.100 €
-              </span>
-              <span className="text-xs text-slate-500 font-medium">
-                Bundesweiter Median (Vollzeit)
-              </span>
-            </div>
-            <div className="text-center md:border-r border-slate-100">
-              <span className="text-2xl sm:text-3xl font-black font-mono text-emerald-700 block">
-                +27 %
-              </span>
-              <span className="text-xs text-slate-500 font-medium">
-                Süden vs. Osten Gefälle
-              </span>
-            </div>
-            <div className="text-center border-r border-slate-100 last:border-0">
-              <span className="text-2xl sm:text-3xl font-black font-mono text-slate-900 block">
-                50 %
-              </span>
-              <span className="text-xs text-slate-500 font-medium">
-                Median als Kern-Benchmark
-              </span>
-            </div>
-            <div className="text-center">
-              <span className="text-2xl sm:text-3xl font-black font-mono text-slate-900 block">
-                100 %
-              </span>
-              <span className="text-xs text-slate-500 font-medium">
-                Werbefrei &amp; Neutral
-              </span>
-            </div>
+          {/* Subtiler Daten- & Methodenhinweis unmittelbar am Rechner */}
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs text-slate-500 font-mono">
+            <span className="font-semibold text-slate-700">Datenbasis:</span>
+            <span>Bundesagentur für Arbeit (Entgeltatlas)</span>
+            <span className="text-slate-300">·</span>
+            <span>Destatis Verdienststatistik</span>
+            <span className="text-slate-300">·</span>
+            <span>30 Berufe (KldB 2010)</span>
+            <span className="text-slate-300">·</span>
+            <span>16 Bundesländer</span>
+            <span className="text-slate-300">·</span>
+            <span className="text-emerald-700 font-bold">Transparente Methodik</span>
+          </div>
+
+          {/* Der Rechner direkt als primäres Produkt above the fold */}
+          <div id="rechner-section">
+            <CalculatorWidget />
           </div>
 
         </div>
@@ -165,7 +61,7 @@ export default function Home() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 sm:space-y-24">
 
         {/* PFLICHT-BAUSTEIN 1: Position-0 Definitions-Box (Featured Snippet) */}
-        <section className="bg-white rounded-2xl border-2 border-emerald-600/30 p-6 sm:p-8 shadow-sm">
+        <section className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs">
           <div className="flex items-center gap-2 mb-3">
             <span className="p-1.5 rounded-md bg-emerald-100 text-emerald-800">
               <Sparkles className="w-4 h-4" />
@@ -188,12 +84,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* PFLICHT-BAUSTEIN 2: Interaktive Kernkomponente (Lohnrechner) */}
-        <section id="rechner-section" className="space-y-6">
-          <CalculatorWidget />
-        </section>
-
-        {/* PFLICHT-BAUSTEIN 3: Top-20 High-Volume Entitäten Grid */}
+        {/* PFLICHT-BAUSTEIN 2: Top-20 High-Volume Entitäten Grid */}
         <section>
           <Top20Grid />
         </section>
@@ -228,7 +119,7 @@ export default function Home() {
                 Regionales Lohn- und Kaufkraftgefälle (Ost-West &amp; Metropolen)
               </h4>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Der Arbeitsort hat den stärksten exogenen Einfluss auf das Bruttogehalt. Spitzenreiter sind Hamburg (+9,5 %), Hessen (+8,0 %) und Baden-Württemberg (+7,5 %). Die ostdeutschen Bundesländer (z. B. Mecklenburg-Vorpommern mit -20,5 % und Thüringen mit -19,0 %) weisen historisch bedingt niedrigere Nominalgehälter auf, wenngleich die Lebenshaltungskosten und Mieten regional dämpfend wirken.
+                Der Arbeitsort hat den stärksten exogenen Einfluss auf das Bruttogehalt. Spitzenreiter sind Hamburg (+13,4 %), Baden-Württemberg (+8,9 %) und Hessen (+7,7 %). Die ostdeutschen Bundesländer (z. B. Mecklenburg-Vorpommern mit -18,4 % und Thüringen mit -18,1 %) weisen historisch bedingt niedrigere Nominalgehälter auf, wenngleich die Lebenshaltungskosten und Mieten regional dämpfend wirken.
               </p>
               <div className="pt-2">
                 <Link
