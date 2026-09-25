@@ -5,7 +5,7 @@ import { SALARY_DATABASE } from '../data/salaryData';
 import Breadcrumbs from '../components/Breadcrumbs';
 import EditorialTrustBox from '../components/EditorialTrustBox';
 import CitationBox from '../components/CitationBox';
-import { Filter, ArrowRight, TrendingUp } from 'lucide-react';
+import { ArrowRight, TrendingUp } from 'lucide-react';
 
 export default function SalaryIndexPage() {
   const navigate = useNavigate();
@@ -46,9 +46,9 @@ export default function SalaryIndexPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
 
       {/* Filter and Search Bar */}
-      <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
-        <div className="flex flex-col gap-4">
-          <div className="relative w-full md:w-1/2 lg:w-1/3">
+      <div className="bg-white p-5 sm:p-6 rounded-2xl border border-slate-200 shadow-sm space-y-5">
+        <div className="flex flex-col gap-5">
+          <div className="w-full max-w-2xl">
             <JobAutocomplete 
               mode="navigate" 
               onSelect={(id) => navigate(`/gehalt/${id}`)}
@@ -57,14 +57,13 @@ export default function SalaryIndexPage() {
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            <Filter className="w-4 h-4 text-slate-400 shrink-0 mr-1" />
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setSelectedCat(cat)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition-colors cursor-pointer ${
+                className={`px-3.5 py-2 rounded-lg text-sm font-bold whitespace-nowrap transition-colors cursor-pointer ${
                   selectedCat === cat
-                    ? 'bg-slate-900 text-white'
+                    ? 'bg-slate-900 text-white shadow-sm'
                     : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                 }`}
               >
@@ -74,7 +73,7 @@ export default function SalaryIndexPage() {
           </div>
         </div>
 
-        <div className="text-xs text-slate-500 font-mono flex items-center justify-between">
+        <div className="pt-4 border-t border-slate-100 text-xs text-slate-500 font-mono flex items-center justify-between">
           <span>{filteredJobs.length} Berufs-Landingpages verfügbar</span>
           <span>Vollzeit (40h/Woche) Bundesmedian</span>
         </div>
