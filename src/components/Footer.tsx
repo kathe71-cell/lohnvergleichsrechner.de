@@ -10,14 +10,22 @@ export default function Footer() {
           
           {/* Brand & Purpose Statement */}
           <div className="lg:col-span-2 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-emerald-600 flex items-center justify-center text-white font-mono font-bold text-lg">
+            <Link
+              to="/"
+              onClick={() => {
+                window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+                document.documentElement.scrollTop = 0;
+                document.body.scrollTop = 0;
+              }}
+              className="inline-flex items-center gap-3 group"
+            >
+              <div className="w-9 h-9 rounded-xl bg-emerald-600 flex items-center justify-center text-white font-mono font-bold text-lg group-hover:bg-emerald-500 transition-colors">
                 €
               </div>
               <span className="font-extrabold text-white text-xl tracking-tight">
                 lohnvergleichsrechner<span className="text-emerald-400">.de</span>
               </span>
-            </div>
+            </Link>
             <p className="text-sm text-slate-400 leading-relaxed pr-4">
               Datengestütztes Vergleichsportal für Gehälter, Löhne und Stundenverrechnungssätze in Deutschland. Wissenschaftliche Modellierung auf Basis amtlicher Primärquellen (Statistisches Bundesamt Destatis &amp; Bundesagentur für Arbeit).
             </p>

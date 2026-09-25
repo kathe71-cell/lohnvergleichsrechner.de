@@ -118,7 +118,7 @@ export const SALARY_DATABASE: JobSalary[] = [
     id: "softwareentwickler",
     title: "Softwareentwickler / Software Engineer",
     category: "IT & Digitales",
-    kldbCode: "43124",
+    kldbCode: "43114",
     medianYear: 62400,
     p25Year: 51200,
     p75Year: 75800,
@@ -133,7 +133,7 @@ export const SALARY_DATABASE: JobSalary[] = [
       "Code Reviews und Mitwirkung an CI/CD-Deployment-Pipelines",
       "Refactoring von Legacy-Systemen und Optimierung von Datenbankabfragen"
     ],
-    skills: ["TypeScript / JavaScript", "Python / Java / Go", "Docker & Kubernetes", "Cloud (AWS / Azure)", "SQL / NoSQL"]
+    skills: ["TypeScript / JavaScript", "Python / Java / Go", "Docker & Kubernetes", "Cloud (AWS / Deploy)", "SQL / NoSQL"]
   },
   {
     id: "data-scientist",
@@ -160,7 +160,7 @@ export const SALARY_DATABASE: JobSalary[] = [
     id: "it-systemadministrator",
     title: "IT-Systemadministrator / DevOps Engineer",
     category: "IT & Digitales",
-    kldbCode: "43113",
+    kldbCode: "43123",
     medianYear: 53800,
     p25Year: 44200,
     p75Year: 64500,
@@ -439,7 +439,7 @@ export const SALARY_DATABASE: JobSalary[] = [
     id: "gesundheits-und-krankenpfleger",
     title: "Pflegefachkraft / Krankenpfleger",
     category: "Medizin & Gesundheit",
-    kldbCode: "81312",
+    kldbCode: "81302",
     medianYear: 43200,
     p25Year: 36800,
     p75Year: 51200,
@@ -525,7 +525,7 @@ export const SALARY_DATABASE: JobSalary[] = [
     id: "mechatroniker",
     title: "Mechatroniker / Industriemechaniker",
     category: "Handwerk & Bau",
-    kldbCode: "27212",
+    kldbCode: "26112",
     medianYear: 45200,
     p25Year: 38400,
     p75Year: 53600,

@@ -22,7 +22,15 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo / Brand */}
-          <Link to="/" className="flex items-center gap-2.5 group">
+          <Link
+            to="/"
+            onClick={() => {
+              window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+              document.documentElement.scrollTop = 0;
+              document.body.scrollTop = 0;
+            }}
+            className="flex items-center gap-2.5 group"
+          >
             <div className="w-9 h-9 rounded-lg bg-slate-900 flex items-center justify-center text-white font-mono font-bold text-base shadow-xs group-hover:bg-emerald-600 transition-colors">
               €
             </div>
