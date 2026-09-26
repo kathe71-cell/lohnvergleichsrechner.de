@@ -28,7 +28,7 @@ export default function JobSearchRecommendation({ jobTitle }: JobSearchRecommend
             </h2>
           </div>
           <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-2xl">
-            Möchten Sie sehen, welche Stellen für diesen Beruf aktuell angeboten werden? Auf Arbeitsplatz.de finden Sie passende Stellenangebote.
+            Passende Stellenangebote zu diesem Beruf finden Sie auf Arbeitsplatz.de.
           </p>
         </div>
 
@@ -40,7 +40,7 @@ export default function JobSearchRecommendation({ jobTitle }: JobSearchRecommend
             onClick={handleClick}
             className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-emerald-700 hover:text-emerald-800 transition-colors"
           >
-            <span>Aktuelle Stellenangebote auf Arbeitsplatz.de ansehen</span>
+            <span>Aktuelle Stellenangebote ansehen</span>
             <ArrowRight className="w-4 h-4" />
           </a>
         </div>
