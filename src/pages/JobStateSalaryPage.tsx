@@ -29,7 +29,7 @@ export default function JobStateSalaryPage() {
   // Modellierter regionaler Median: Auf volle 100 € gerundet zur Vermeidung von Scheingenauigkeit (Kategorie C)
   const regionalMedianYear = Math.round((job.medianYear * state.factor) / 100) * 100;
   const regionalMedianMonth = Math.round(regionalMedianYear / 12);
-  const regionalHourly = (regionalMedianYear / (40 * 52)).toFixed(2);
+  const regionalHourly = (regionalMedianYear / (40 * 52)).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const diffToBund = Math.round((state.factor - 1) * 100);
 
   // Other states that actually have dedicated landing pages for this job
@@ -53,7 +53,7 @@ export default function JobStateSalaryPage() {
           {/* Header */}
           <div className="max-w-3xl space-y-2">
             <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold block">
-              REGIONALE AUSWERTUNG · {state.name.toUpperCase()} (FAKTOR {state.factor.toFixed(3)})
+              REGIONALE AUSWERTUNG · {state.name.toUpperCase()} (FAKTOR {state.factor.toLocaleString('de-DE', { minimumFractionDigits: 3, maximumFractionDigits: 3 })})
             </span>
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-950 tracking-tight leading-tight">
               Gehalt als <span className="text-emerald-700">{shortTitle}</span> in {state.name}: Regionaler Lohnvergleich
@@ -86,7 +86,7 @@ export default function JobStateSalaryPage() {
             ≈ <strong>rund {regionalMedianMonth.toLocaleString('de-DE')} €</strong> / Monat brutto
           </span>
           <span className="text-[10px] text-slate-500 block mt-2">
-            Modelliert mit Landesfaktor {state.factor.toFixed(3)}
+            Modelliert mit Landesfaktor {state.factor.toLocaleString('de-DE', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}
           </span>
         </div>
 
@@ -123,7 +123,7 @@ export default function JobStateSalaryPage() {
             {diffToBund >= 0 ? `+${diffToBund} %` : `${diffToBund} %`}
           </div>
           <span className="text-xs text-slate-500 block mt-1">
-            Index: {(state.factor * 100).toFixed(1)} (Bund = 100)
+            Index: {(state.factor * 100).toLocaleString('de-DE', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} (Bund = 100)
           </span>
           <span className="text-[10px] text-slate-500 block mt-2">
             Regionales Gehaltsniveau nach BA

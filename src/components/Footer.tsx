@@ -66,8 +66,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/rechner-embed" className="hover:text-emerald-400 transition-colors">
-                  Webmaster Rechner-Widget
+                <Link to="/gehaltsrechner-einbinden" className="hover:text-emerald-400 transition-colors">
+                  Gehaltsrechner einbinden
                 </Link>
               </li>
             </ul>

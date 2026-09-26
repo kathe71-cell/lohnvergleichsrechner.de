@@ -4,9 +4,9 @@ import { ArrowUp } from 'lucide-react';
 
 export default function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
-  const { pathname, search, hash } = useLocation();
+  const { pathname, hash } = useLocation();
 
-  // Scroll to top or targeted anchor on any route/link navigation
+  // Scroll to top or targeted anchor on route/link navigation (pathname/hash only, not query params)
   useEffect(() => {
     if (typeof window !== 'undefined') {
       if (hash) {
@@ -20,7 +20,7 @@ export default function ScrollToTop() {
       document.body.scrollTop = 0;
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
     }
-  }, [pathname, search, hash]);
+  }, [pathname, hash]);
 
   useEffect(() => {
     const handleScroll = () => {

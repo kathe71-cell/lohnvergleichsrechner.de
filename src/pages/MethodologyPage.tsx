@@ -45,20 +45,20 @@ export default function MethodologyPage() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs text-slate-600 pt-1">
           <div>
-            <span className="text-slate-400 block uppercase tracking-wider font-semibold">Destatis VSE</span>
-            <span className="font-bold text-slate-800">Verdienststrukturerhebung (§ 12 VStatG)</span>
+            <span className="text-slate-400 block uppercase tracking-wider font-semibold">Destatis</span>
+            <span className="font-bold text-slate-800">Verdienststatistik (Stichprobe nach VStatG)</span>
           </div>
           <div>
             <span className="text-slate-400 block uppercase tracking-wider font-semibold">BA Entgeltatlas</span>
-            <span className="font-bold text-slate-800">Klassifikation der Berufe (KldB 2010)</span>
+            <span className="font-bold text-slate-800">DEÜV-Meldungen Vollzeit (Stichtag 31.12.2023)</span>
           </div>
           <div>
-            <span className="text-slate-400 block uppercase tracking-wider font-semibold">Quelle &amp; Stand</span>
-            <span className="font-bold text-slate-800">{DATA_METADATA.dataPublishedAt}</span>
+            <span className="text-slate-400 block uppercase tracking-wider font-semibold">Regionale Faktoren</span>
+            <span className="font-bold text-slate-800">Länderfaktoren (Basis 2024)</span>
           </div>
           <div>
-            <span className="text-slate-400 block uppercase tracking-wider font-semibold">System-Import</span>
-            <span className="font-bold text-slate-800">{DATA_METADATA.dataImportedAt} (geprüft)</span>
+            <span className="text-slate-400 block uppercase tracking-wider font-semibold">Modellberechnung</span>
+            <span className="font-bold text-slate-800">Stand {DATA_METADATA.lastUpdated}</span>
           </div>
         </div>
       </div>
@@ -77,12 +77,12 @@ export default function MethodologyPage() {
             </h2>
           </div>
           <p>
-            Die Berechnungen und Benchmarks auf <strong>lohnvergleichsrechner.de</strong> stützen sich auf amtliche und repräsentative Erhebungen der deutschen Arbeitsmarkt- und Verdienststatistik:
+            Die Berechnungen und Benchmarks auf <strong>lohnvergleichsrechner.de</strong> stützen sich auf amtliche und repräsentative Erhebungen der deutschen Arbeitsmarkt- und Verdienststatistik unter strikter methodischer Differenzierung:
           </p>
           <div className="space-y-3 pt-2">
             <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
               <div className="flex items-center justify-between">
-                <h3 className="font-bold text-slate-900 text-base">Statistisches Bundesamt (Destatis) – Verdienststrukturerhebung (VSE)</h3>
+                <h3 className="font-bold text-slate-900 text-base">Statistisches Bundesamt (Destatis) – Repräsentative Stichprobenerhebung</h3>
                 <a
                   href="https://www.destatis.de/DE/Themen/Arbeit/Verdienste/_inhalt.html"
                   target="_blank"
@@ -93,13 +93,13 @@ export default function MethodologyPage() {
                 </a>
               </div>
               <p className="text-xs sm:text-sm text-slate-600 mt-1">
-                Die Verdienststrukturerhebung nach § 12 Verdienststatistikgesetz (VStatG) erfasst die tatsächlichen Bruttoverdienste von Millionen Beschäftigten aus den Lohnabrechnungen der Unternehmen. Sie liefert die empirischen Koeffizienten für Bundesländer, Altersgruppen, Bildungsabschlüsse und Branchen.
+                Die Verdienststatistik des Statistischen Bundesamtes nach dem Verdienststatistikgesetz (VStatG) basiert auf einer repräsentativen Stichprobenerhebung bei wirtschaftlich aktiven Betrieben. Sie liefert die empirischen Gewichtungsfaktoren für Bildungsabschlüsse, Unternehmensgrößen und Altersstufen.
               </p>
             </div>
 
             <div className="p-4 bg-slate-50 rounded-xl border border-slate-200">
               <div className="flex items-center justify-between">
-                <h3 className="font-bold text-slate-900 text-base">Bundesagentur für Arbeit (BA) – Entgeltatlas (KldB 2010)</h3>
+                <h3 className="font-bold text-slate-900 text-base">Bundesagentur für Arbeit (BA) – DEÜV-Meldedaten (KldB 2010 5-Steller)</h3>
                 <a
                   href="https://entgeltatlas.arbeitsagentur.de/"
                   target="_blank"
@@ -110,7 +110,7 @@ export default function MethodologyPage() {
                 </a>
               </div>
               <p className="text-xs sm:text-sm text-slate-600 mt-1">
-                Die Beschäftigungsstatistik der BA analysiert die Meldungen zur Sozialversicherung aller sozialversicherungspflichtig Vollzeitbeschäftigten in Deutschland. Die Zuordnung erfolgt über den 5-stelligen Schlüssel der Klassifikation der Berufe 2010 (KldB 2010).
+                Die Beschäftigungsstatistik der BA analysiert die gesetzlichen Meldungen zur Sozialversicherung (DEÜV) aller ca. 22 Millionen sozialversicherungspflichtig Vollzeitbeschäftigten der Kerngruppe in Deutschland (Stichtag 31.12.2023, BT-Drs. 20/12571). Die Berufsverortung erfolgt exakt über den 5-stelligen amtlichen Schlüssel der Klassifikation der Berufe (KldB 2010).
               </p>
             </div>
           </div>

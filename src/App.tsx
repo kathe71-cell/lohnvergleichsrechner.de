@@ -17,12 +17,14 @@ import GuidePage from './pages/GuidePage';
 import GlossaryPage from './pages/GlossaryPage';
 import FaqPage from './pages/FaqPage';
 import EmbedPage from './pages/EmbedPage';
+import EmbedSalaryComparisonPage from './pages/EmbedSalaryComparisonPage';
+import EmbedGuidePage from './pages/EmbedGuidePage';
 import ImprintPage from './pages/ImprintPage';
 import PrivacyPage from './pages/PrivacyPage';
 
 export function Layout() {
   const location = useLocation();
-  const isEmbed = location.pathname === '/rechner-embed';
+  const isEmbed = location.pathname.startsWith('/embed') || location.pathname === '/rechner-embed';
 
   return (
     <div className="flex flex-col min-h-screen bg-slate-50 text-slate-900 selection:bg-emerald-100 selection:text-emerald-900">
@@ -41,6 +43,8 @@ export function Layout() {
           <Route path="/ratgeber" element={<GuidePage />} />
           <Route path="/glossar" element={<GlossaryPage />} />
           <Route path="/faq" element={<FaqPage />} />
+          <Route path="/embed/gehaltsvergleich" element={<EmbedSalaryComparisonPage />} />
+          <Route path="/gehaltsrechner-einbinden" element={<EmbedGuidePage />} />
           <Route path="/rechner-embed" element={<EmbedPage />} />
           <Route path="/impressum" element={<ImprintPage />} />
           <Route path="/datenschutz" element={<PrivacyPage />} />

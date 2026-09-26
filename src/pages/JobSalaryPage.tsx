@@ -31,7 +31,7 @@ export default function JobSalaryPage() {
   const medianMonth = Math.round(job.medianYear / 12);
   const p25Month = Math.round(job.p25Year / 12);
   const p75Month = Math.round(job.p75Year / 12);
-  const hourlyRate = (job.medianYear / (40 * 52)).toFixed(2);
+  const hourlyRate = (job.medianYear / (40 * 52)).toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
   // Top Bundesländer calculations
   const stateHighlights = STATE_FACTORS.map(state => {
@@ -151,7 +151,7 @@ export default function JobSalaryPage() {
         <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs">
           <div className="flex items-center justify-between gap-1 mb-1">
             <span className="text-xs font-mono uppercase tracking-wider text-slate-600 font-bold block">
-              Rechner. Stundenlohn
+              Rechnerischer Stundenlohn
             </span>
             <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
               Kategorie B

@@ -56,9 +56,21 @@ const coreRoutes = [
     desc: "Antworten auf die wichtigsten Fragen zu Datenherkunft (Destatis/BA), Berechnungsmethoden, Teilzeit und arbeitsrechtlichen Ansprüchen."
   },
   {
+    url: "/gehaltsrechner-einbinden",
+    title: "Gehaltsrechner kostenlos auf der eigenen Website einbinden | lohnvergleichsrechner.de",
+    desc: "Binden Sie den amtlich fundierten Gehaltsvergleich von lohnvergleichsrechner.de kostenlos als responsive Iframe-Widget in Ihre Website oder Jobbörse ein."
+  },
+  {
+    url: "/embed/gehaltsvergleich",
+    title: "Gehaltsvergleich Widget – lohnvergleichsrechner.de",
+    desc: "Kompaktes, kostenloses Gehaltsvergleich-Widget für externe Websites und Jobbörsen.",
+    noindex: true
+  },
+  {
     url: "/rechner-embed",
     title: "Lohnvergleichsrechner Widget: Kostenloses Rechner-Embed für Webmaster",
-    desc: "Kostenloses interaktives Rechner-Widget zur Einbettung in redaktionelle Websites, Fachportale und Kanzlei-Websites."
+    desc: "Kostenloses interaktives Rechner-Widget zur Einbettung in redaktionelle Websites, Fachportale und Kanzlei-Websites.",
+    noindex: true
   },
   {
     url: "/impressum",
@@ -119,6 +131,10 @@ for (const route of allRoutes) {
     rendered = rendered.replace(/<title>.*?<\/title>/, `<title>${route.title}</title>`);
     rendered = rendered.replace(/<meta name="description" content=".*?" \/>/, `<meta name="description" content="${route.desc}" />`);
     
+    if (route.noindex) {
+      rendered = rendered.replace(/<meta name="robots" content=".*?" \/>/, `<meta name="robots" content="noindex, follow" />`);
+    }
+
     const fullUrl = `https://lohnvergleichsrechner.de${route.url === "/" ? "" : route.url}`;
     rendered = rendered.replace(/<link rel="canonical" href=".*?" \/>/, `<link rel="canonical" href="${fullUrl}" />`);
     rendered = rendered.replace(/<meta property="og:url" content=".*?" \/>/, `<meta property="og:url" content="${fullUrl}" />`);
@@ -138,15 +154,17 @@ for (const route of allRoutes) {
   }
 }
 
-// Generate updated sitemap.xml with all canonical routes
+// Generate updated sitemap.xml with canonical indexable routes only
+const sitemapRoutes = allRoutes.filter(r => !r.noindex);
 const sitemapLastmod = DATA_METADATA.contentModifiedAt;
 const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${allRoutes.map(r => {
+${sitemapRoutes.map(r => {
   let priority = "0.7";
   let changefreq = "monthly";
   if (r.url === "/") { priority = "1.0"; changefreq = "daily"; }
   else if (r.url === "/rechner" || r.url === "/durchschnittsgehalt" || r.url === "/gehalt") { priority = "0.9"; changefreq = "weekly"; }
+  else if (r.url === "/gehaltsrechner-einbinden") { priority = "0.8"; changefreq = "monthly"; }
   else if (r.url.startsWith("/gehalt/")) { priority = "0.8"; changefreq = "monthly"; }
   else if (r.url === "/impressum" || r.url === "/datenschutz") { priority = "0.3"; changefreq = "yearly"; }
   

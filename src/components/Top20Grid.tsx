@@ -1,6 +1,13 @@
 import { Link } from 'react-router-dom';
 import { SALARY_DATABASE } from '../data/salaryData';
-import { ArrowRight, TrendingUp } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+
+const LEVEL_LABELS: Record<number, string> = {
+  1: 'Helfer',
+  2: 'Fachkraft',
+  3: 'Spezialist',
+  4: 'Experte'
+};
 
 export default function Top20Grid() {
   const topJobs = SALARY_DATABASE.slice(0, 16);
@@ -39,8 +46,8 @@ export default function Top20Grid() {
                 <span className="text-[11px] font-mono text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
                   KldB {job.kldbCode}
                 </span>
-                <span className="text-[11px] font-bold text-emerald-700 flex items-center gap-0.5">
-                  <TrendingUp className="w-3 h-3" /> +{job.trendPercent} %
+                <span className="text-[11px] font-semibold text-slate-600 bg-slate-100 px-2 py-0.5 rounded">
+                  {LEVEL_LABELS[job.requirementLevel || Number(job.kldbCode.slice(-1))] || 'Fachkraft'}
                 </span>
               </div>
               <h4 className="font-bold text-slate-900 text-sm group-hover:text-emerald-700 transition-colors line-clamp-1">

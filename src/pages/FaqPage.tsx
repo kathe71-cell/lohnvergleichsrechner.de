@@ -17,7 +17,7 @@ const FAQS: FaqItem[] = [
   {
     category: "Methodik & Rechner",
     question: "Auf welchen Datenquellen basiert der Lohnvergleichsrechner?",
-    answer: "Unser Modell stützt sich primär auf die amtlichen Daten der Verdienststrukturerhebung des Statistischen Bundesamtes (Destatis, VSE nach § 12 VStatG) sowie den Entgeltatlas der Bundesagentur für Arbeit auf Basis der Klassifikation der Berufe 2010 (KldB 2010 5-Steller). Es werden ausschließlich sozialversicherungspflichtige Vollzeitbeschäftigungen zugrunde gelegt."
+    answer: "Unser Modell stützt sich primär auf die repräsentativen Stichprobenerhebungen des Statistischen Bundesamtes (Destatis Verdienststatistik nach § 12 VStatG) sowie die amtlichen DEÜV-Meldungen des Entgeltatlasses der Bundesagentur für Arbeit auf Basis der Klassifikation der Berufe (KldB 2010 5-Steller). Es werden sozialversicherungspflichtige Vollzeitbeschäftigungen in Deutschland zugrunde gelegt."
   },
   {
     category: "Methodik & Rechner",
@@ -32,7 +32,7 @@ const FAQS: FaqItem[] = [
   {
     category: "Recht & Entgelttransparenz",
     question: "Darf der Arbeitgeber Gehälter wegen Verhandlungsgeschick unterschiedlich festsetzen?",
-    answer: "Nein. Das Bundesarbeitsgericht (BAG, Urteil vom 16.02.2023 – 8 AZR 450/21) hat unmissverständlich klargestellt: Verhandlungsgeschick eines Mitarbeiters ist kein sachlicher, geschlechtsunabhängiger Grund, der ein höheres Gehalt gegenüber einer Kollegin bei gleicher Arbeit rechtfertigt. Es gilt der Grundsatz: Gleicher Lohn für gleiche Arbeit."
+    answer: "Das Bundesarbeitsgericht (BAG, Urteil vom 16.02.2023 – 8 AZR 450/21) hat entschieden, dass besseres Verhandlungsgeschick eines Mitarbeiters bei gleicher oder gleichwertiger Arbeit keine geschlechtsbezogene Entgeltungleichheit gegenüber Kolleginnen rechtfertigt (§§ 3, 7 EntgTranspG). Objektive, geschlechtsneutrale Differenzierungen – wie einschlägige Berufserfahrung, Zusatzqualifikationen oder konkrete Leistungsanforderungen – bleiben arbeitsrechtlich hingegen weiterhin zulässig."
   },
   {
     category: "Recht & Entgelttransparenz",

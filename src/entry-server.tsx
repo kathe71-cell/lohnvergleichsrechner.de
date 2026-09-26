@@ -8,7 +8,8 @@ export {
   DATA_METADATA,
   EXPERIENCE_FACTORS,
   COMPANY_SIZE_FACTORS,
-  EDUCATION_FACTORS
+  EDUCATION_FACTORS,
+  calculateSalaryBenchmark
 } from "./data/salaryData";
 
 export function render(url: string) {

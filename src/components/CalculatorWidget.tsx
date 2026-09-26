@@ -83,7 +83,7 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
     });
   }, [jobId, stateCode, experienceKey, companySizeKey, educationKey, weeklyHours, userYearlyGross]);
 
-  // Update URL params without full page reload
+  // Update URL params without full page reload (debounced to avoid history spam and re-render lag)
   useEffect(() => {
     const isDefault = 
       jobId === 'softwareentwickler' &&
@@ -94,20 +94,28 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
       weeklyHours === 40 &&
       userYearlyGross === 65000;
 
-    const hasExistingParams = searchParams.toString().length > 0;
+    if (isEmbed) return;
 
-    if (!isEmbed && (!isDefault || hasExistingParams)) {
-      const params = new URLSearchParams();
-      params.set('beruf', jobId);
-      params.set('bundesland', stateCode);
-      params.set('exp', experienceKey);
-      params.set('size', companySizeKey);
-      params.set('edu', educationKey);
-      params.set('hours', weeklyHours.toString());
-      if (userYearlyGross) params.set('gehalt', userYearlyGross.toString());
-      setSearchParams(params, { replace: true });
-    }
-  }, [jobId, stateCode, experienceKey, companySizeKey, educationKey, weeklyHours, userYearlyGross, isEmbed, searchParams, setSearchParams]);
+    const timeout = setTimeout(() => {
+      const hasExistingParams = searchParams.toString().length > 0;
+      if (!isDefault || hasExistingParams) {
+        const params = new URLSearchParams();
+        params.set('beruf', jobId);
+        params.set('bundesland', stateCode);
+        params.set('exp', experienceKey);
+        params.set('size', companySizeKey);
+        params.set('edu', educationKey);
+        params.set('hours', weeklyHours.toString());
+        if (userYearlyGross) params.set('gehalt', userYearlyGross.toString());
+        
+        if (params.toString() !== searchParams.toString()) {
+          setSearchParams(params, { replace: true });
+        }
+      }
+    }, 250);
+
+    return () => clearTimeout(timeout);
+  }, [jobId, stateCode, experienceKey, companySizeKey, educationKey, weeklyHours, userYearlyGross, isEmbed, setSearchParams]);
 
   // Copy share URL
   const copyShareUrl = () => {
@@ -256,7 +264,7 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
             }))}
           />
           <span className="text-xs text-slate-500 block">
-            Regionaler Verdienstfaktor: {result.state.factor.toFixed(3)}
+            Regionaler Verdienstfaktor: {result.state.factor.toLocaleString('de-DE', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}
           </span>
         </div>
 
@@ -327,7 +335,7 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
               Wochenarbeitszeit
             </label>
             <span className="text-xs font-mono font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded">
-              {weeklyHours} Stunden
+              {weeklyHours.toLocaleString('de-DE')} Stunden
             </span>
           </div>
           <input
@@ -463,7 +471,7 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
               50 % der Vergleichsgruppe liegen hier
             </span>
             <span className="text-[10px] text-slate-500 block mt-2">
-              Interquartilsabstand (statistisch robust)
+              Modellierter Orientierungskorridor (P25–P75)
             </span>
           </div>
 
@@ -471,14 +479,14 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
           <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs">
             <div className="flex items-center justify-between gap-1 mb-1">
               <span className="text-xs font-mono uppercase tracking-wider text-slate-600 font-bold block">
-                Rechner. Stundenlohn
+                Rechnerischer Stundenlohn
               </span>
               <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">
                 Kategorie B
               </span>
             </div>
             <div className="text-2xl sm:text-3xl font-black text-emerald-700 font-mono tracking-tight">
-              {result.benchmarkHourly.toFixed(2)} €
+              {result.benchmarkHourly.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €
             </div>
             <span className="text-xs text-slate-500 block mt-1">
               bei {result.weeklyHours}h/Woche (52 Wochen)
@@ -521,12 +529,12 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
               <div className="min-w-0 flex-1">
                 <h4 className="font-extrabold text-base sm:text-lg break-words hyphens-auto">
                   {result.differenceToMedian >= 0
-                    ? `Überdurchschnittlich: +${result.differencePercent} % über dem Benchmark-Median`
-                    : `Verhandlungspotenzial: ${result.differencePercent} % unter dem Benchmark-Median`}
+                    ? `Überdurchschnittlich: +${Math.abs(result.differencePercent).toLocaleString('de-DE', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} % über dem Benchmark-Median`
+                    : `Verhandlungspotenzial: −${Math.abs(result.differencePercent).toLocaleString('de-DE', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} % unter dem Benchmark-Median`}
                 </h4>
                 <p className="text-xs sm:text-sm opacity-90 mt-0.5">
-                  Differenz zum statistischen Vergleichsmedian: <strong>{result.differenceToMedian >= 0 ? '+' : ''}{result.differenceToMedian.toLocaleString('de-DE')} €</strong> pro Jahr.
-                  Geschätzter Perzentilrang: ca. <strong>Top {100 - (result.percentileRank || 50)} %</strong> in der Peer-Group.
+                  Differenz zum statistischen Vergleichsmedian: <strong>{result.differenceToMedian >= 0 ? '+' : '−'}{Math.abs(result.differenceToMedian).toLocaleString('de-DE')} €</strong> pro Jahr.
+                  Dein Gehalt liegt über dem geschätzten Niveau von ca. <strong>{result.percentileRank || 50} %</strong> der Vergleichsgruppe.
                 </p>
               </div>
             </div>
@@ -605,11 +613,18 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
 
         {/* Netto-Orientierung & Abgaben-Indikation */}
         <div className="bg-white p-5 rounded-xl border border-slate-200 space-y-3">
-          <div className="flex items-center gap-2">
-            <Info className="w-4 h-4 text-emerald-600" />
-            <h4 className="text-xs font-mono uppercase tracking-wider text-slate-700 font-bold">
-              Geschätztes Netto-Entgelt (Orientierungswert nach § 38b EStG)
-            </h4>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+            <div className="flex items-center gap-2">
+              <Info className="w-4 h-4 text-emerald-600 shrink-0" />
+              <h4 className="text-xs font-mono uppercase tracking-wider text-slate-700 font-bold">
+                Geschätztes Netto-Entgelt (Orientierungswert nach § 38b EStG)
+              </h4>
+            </div>
+            <span className="text-[11px] font-semibold text-slate-600 bg-slate-100 px-2 py-0.5 rounded border border-slate-200 self-start sm:self-auto">
+              {result.userYearlyGross
+                ? `Basis: Ihr angegebenes Brutto (${Math.round(result.userYearlyGross / 12).toLocaleString('de-DE')} €/Monat)`
+                : `Basis: Regionaler Vergleichs-Median (${result.benchmarkMedianMonth.toLocaleString('de-DE')} €/Monat)`}
+            </span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
             <div className="p-3 bg-slate-50 rounded-lg border border-slate-200">

@@ -307,16 +307,16 @@ export default function Home() {
                 Woher stammen die Gehaltsdaten von lohnvergleichsrechner.de?
               </h4>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Die Daten basieren auf den amtlichen Vollerhebungen der <strong>Bundesagentur für Arbeit (Entgeltatlas)</strong> und der <strong>Verdienststrukturerhebung des Statistischen Bundesamtes (Destatis)</strong> nach der amtlichen Klassifikation der Berufe (KldB 2010). Sie erfassen sozialversicherungspflichtig Vollzeitbeschäftigte in Deutschland.
+                Die Daten basieren auf den amtlichen Meldungen zur Sozialversicherung der <strong>Bundesagentur für Arbeit (Entgeltatlas)</strong> und der repräsentativen <strong>Verdienststrukturerhebung des Statistischen Bundesamtes (Destatis, Stichprobenerhebung nach VStatG)</strong> nach der amtlichen Klassifikation der Berufe (KldB 2010). Sie erfassen sozialversicherungspflichtig Vollzeitbeschäftigte in Deutschland.
               </p>
             </div>
 
             <div className="py-4 space-y-2">
               <h4 className="text-base font-bold text-slate-900">
-                Habe ich einen gesetzlichen Anspruch auf gleichen Lohn?
+                Gibt es einen gesetzlichen Anspruch auf gleichen Lohn?
               </h4>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Ja, nach dem Entgelttransparenzgesetz (§ 1 EntgTranspG) und Art. 157 AEUV gilt das Gebot des gleichen Entgelts für gleiche oder gleichwertige Arbeit bei Männern und Frauen. Seit dem Grundsatzurteil des Bundesarbeitsgerichts vom 16.02.2023 (8 AZR 450/21) darf ein Arbeitgeber einem Mann nicht allein deshalb mehr zahlen als einer Frau, weil er im Einstellungsgespräch besser verhandelt hat.
+                Das Entgelttransparenzgesetz (§§ 1, 3, 7 EntgTranspG) und Art. 157 AEUV verbieten eine Entgeltbenachteiligung wegen des Geschlechts bei gleicher oder gleichwertiger Arbeit. Einen allgemeinen Anspruch auf identischen Lohn unabhängig vom Geschlecht gibt es dagegen nicht: Sachliche Differenzierungen (z. B. nach Qualifikation, Berufserfahrung oder individueller Leistung) bleiben zulässig. Laut Bundesarbeitsgericht (BAG, Urteil vom 16.02.2023 – 8 AZR 450/21) darf ein Arbeitgeber einer Frau bei gleicher Arbeit jedoch nicht allein deshalb weniger zahlen als einem Mann, weil dieser im Einstellungsgespräch besser verhandelt hat.
               </p>
             </div>
 
