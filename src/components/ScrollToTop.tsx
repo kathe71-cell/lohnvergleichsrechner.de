@@ -6,6 +6,13 @@ export default function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
   const { pathname, hash } = useLocation();
 
+  // Disable browser automatic scroll restoration to ensure route changes always reset to top
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+  }, []);
+
   // Scroll to top or targeted anchor on route/link navigation (pathname/hash only, not query params)
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -16,9 +23,35 @@ export default function ScrollToTop() {
           return;
         }
       }
+
+      // Temporarily override stylesheet scroll-behavior to prevent sluggish/aborted smooth-scroll
+      const originalHtmlScrollBehavior = document.documentElement.style.scrollBehavior;
+      document.documentElement.style.scrollBehavior = 'auto';
+
+      window.scrollTo(0, 0);
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
-      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+
+      // Repeat on next animation frame after DOM updates
+      const raf = requestAnimationFrame(() => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        document.documentElement.style.scrollBehavior = originalHtmlScrollBehavior;
+      });
+
+      // Additional safeguard for late hydration/layout measurements
+      const timer = setTimeout(() => {
+        window.scrollTo(0, 0);
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+      }, 50);
+
+      return () => {
+        cancelAnimationFrame(raf);
+        clearTimeout(timer);
+        document.documentElement.style.scrollBehavior = originalHtmlScrollBehavior;
+      };
     }
   }, [pathname, hash]);
 

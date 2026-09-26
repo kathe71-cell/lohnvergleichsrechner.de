@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import {
   SALARY_DATABASE,
   STATE_FACTORS,
@@ -39,6 +39,15 @@ import {
 } from 'lucide-react';
 
 export default function EmbedGuidePage() {
+  // Ensure page always starts at top upon entry
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }
+  }, []);
+
   // Content selection (defaults to empty so no job is preselected)
   const [selectedJob, setSelectedJob] = useState<string>('');
   const [selectedState, setSelectedState] = useState<string>('');

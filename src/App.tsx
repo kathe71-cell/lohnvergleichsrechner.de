@@ -29,6 +29,7 @@ export function Layout() {
   return (
     <div className="flex flex-col min-h-screen bg-slate-50 text-slate-900 selection:bg-emerald-100 selection:text-emerald-900">
       <VercelAnalytics />
+      {!isEmbed && <ScrollToTop />}
       {!isEmbed && <Navbar />}
       <main className="flex-grow">
         <Routes>
@@ -52,7 +53,6 @@ export function Layout() {
         </Routes>
       </main>
       {!isEmbed && <Footer />}
-      {!isEmbed && <ScrollToTop />}
       {!isEmbed && <StickyBottomBar />}
     </div>
   );

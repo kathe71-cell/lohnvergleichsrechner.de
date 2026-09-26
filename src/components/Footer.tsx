@@ -3,6 +3,15 @@ import { ShieldCheck, Scale, ExternalLink } from 'lucide-react';
 import { DATA_METADATA } from '../data/salaryData';
 
 export default function Footer() {
+  const handleNavClick = () => {
+    if (typeof window !== 'undefined') {
+      document.documentElement.style.scrollBehavior = 'auto';
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }
+  };
+
   return (
     <footer className="bg-slate-950 text-slate-300 pt-16 pb-12 border-t border-slate-800 no-print">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -46,27 +55,27 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link to="/rechner" className="hover:text-emerald-400 transition-colors">
+                <Link to="/rechner" onClick={handleNavClick} className="hover:text-emerald-400 transition-colors">
                   Lohnvergleichsrechner
                 </Link>
               </li>
               <li>
-                <Link to="/gehalt" className="hover:text-emerald-400 transition-colors">
+                <Link to="/gehalt" onClick={handleNavClick} className="hover:text-emerald-400 transition-colors">
                   Gehalt nach Beruf
                 </Link>
               </li>
               <li>
-                <Link to="/durchschnittsgehalt" className="hover:text-emerald-400 transition-colors">
+                <Link to="/durchschnittsgehalt" onClick={handleNavClick} className="hover:text-emerald-400 transition-colors">
                   Durchschnittsgehalt Deutschland
                 </Link>
               </li>
               <li>
-                <Link to="/entgeltatlas" className="hover:text-emerald-400 transition-colors">
+                <Link to="/entgeltatlas" onClick={handleNavClick} className="hover:text-emerald-400 transition-colors">
                   Berufs-Entgeltatlas
                 </Link>
               </li>
               <li>
-                <Link to="/gehaltsrechner-einbinden" className="hover:text-emerald-400 transition-colors">
+                <Link to="/gehaltsrechner-einbinden" onClick={handleNavClick} className="hover:text-emerald-400 transition-colors">
                   Gehaltsrechner einbinden
                 </Link>
               </li>
@@ -80,12 +89,12 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link to="/methodik" className="hover:text-emerald-400 transition-colors font-medium">
+                <Link to="/methodik" onClick={handleNavClick} className="hover:text-emerald-400 transition-colors font-medium">
                   Methodik &amp; Datenquellen
                 </Link>
               </li>
               <li>
-                <Link to="/ratgeber" className="hover:text-emerald-400 transition-colors">
+                <Link to="/ratgeber" onClick={handleNavClick} className="hover:text-emerald-400 transition-colors">
                   Entgelttransparenz (§ 10 EntgTranspG)
                 </Link>
               </li>
@@ -95,12 +104,12 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/glossar" className="hover:text-emerald-400 transition-colors">
+                <Link to="/glossar" onClick={handleNavClick} className="hover:text-emerald-400 transition-colors">
                   Fachglossar (Median vs. Mittelwert)
                 </Link>
               </li>
               <li>
-                <Link to="/faq" className="hover:text-emerald-400 transition-colors">
+                <Link to="/faq" onClick={handleNavClick} className="hover:text-emerald-400 transition-colors">
                   Häufige Fragen (FAQ)
                 </Link>
               </li>
@@ -124,12 +133,12 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link to="/impressum" className="text-slate-300 hover:text-emerald-400 transition-colors font-medium">
+                <Link to="/impressum" onClick={handleNavClick} className="text-slate-300 hover:text-emerald-400 transition-colors font-medium">
                   → Impressum
                 </Link>
               </li>
               <li>
-                <Link to="/datenschutz" className="text-slate-300 hover:text-emerald-400 transition-colors">
+                <Link to="/datenschutz" onClick={handleNavClick} className="text-slate-300 hover:text-emerald-400 transition-colors">
                   Datenschutzerklärung
                 </Link>
               </li>
