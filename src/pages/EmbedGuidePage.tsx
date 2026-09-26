@@ -295,8 +295,8 @@ export default function EmbedGuidePage() {
                 </div>
 
                 {/* 1. Akzentfarbe */}
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
+                <div className="space-y-2.5">
+                  <div className="flex items-center justify-between gap-2">
                     <label className="text-xs font-bold text-slate-700">
                       Akzentfarbe (Buttons &amp; Highlights)
                     </label>
@@ -304,38 +304,56 @@ export default function EmbedGuidePage() {
                       {accentColor.toUpperCase()}
                     </span>
                   </div>
+
+                  {/* Primary Color Input Row */}
                   <div className="flex items-center gap-2">
-                    <input
-                      type="color"
-                      value={normAccent}
-                      onChange={(e) => setAccentColor(e.target.value)}
-                      className="w-9 h-9 p-0.5 rounded-lg border border-slate-300 cursor-pointer bg-white"
-                      title="Farbe mit Color-Picker wählen"
-                    />
+                    <div className="relative w-9 h-9 min-w-[36px] max-w-[36px] shrink-0 rounded-lg border border-slate-300 overflow-hidden shadow-2xs bg-white">
+                      <input
+                        type="color"
+                        value={normAccent}
+                        onChange={(e) => setAccentColor(e.target.value)}
+                        className="absolute -top-3 -left-3 w-16 h-16 cursor-pointer border-0 p-0"
+                        title="Farbe mit Color-Picker wählen"
+                      />
+                    </div>
                     <input
                       type="text"
                       value={accentColor}
                       onChange={(e) => setAccentColor(e.target.value)}
                       placeholder="#059669"
                       maxLength={7}
-                      className="flex-1 px-3 py-1.5 text-xs font-mono bg-white border border-slate-300 rounded-lg text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="flex-1 min-w-0 px-3 py-1.5 text-xs font-mono bg-white border border-slate-300 rounded-lg text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"
                     />
-                    {/* Quick Palette */}
-                    <div className="flex items-center gap-1">
-                      {['#059669', '#2563eb', '#4f46e5', '#d97706', '#0f172a'].map((c) => (
+                  </div>
+
+                  {/* Quick Palette: own row with wrapping to prevent mobile overflow */}
+                  <div className="flex flex-wrap items-center gap-2 pt-0.5">
+                    <span className="text-[11px] text-slate-500 font-medium shrink-0">
+                      Vorschläge:
+                    </span>
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      {[
+                        { hex: '#059669', name: 'Emerald' },
+                        { hex: '#2563eb', name: 'Blau' },
+                        { hex: '#4f46e5', name: 'Indigo' },
+                        { hex: '#d97706', name: 'Amber' },
+                        { hex: '#0f172a', name: 'Slate' }
+                      ].map((c) => (
                         <button
-                          key={c}
+                          key={c.hex}
                           type="button"
-                          onClick={() => setAccentColor(c)}
-                          style={{ backgroundColor: c }}
-                          className={`w-6 h-6 rounded-md border border-slate-300 cursor-pointer transition-transform hover:scale-110 ${
-                            accentColor.toLowerCase() === c.toLowerCase() ? 'ring-2 ring-emerald-500 ring-offset-1' : ''
+                          onClick={() => setAccentColor(c.hex)}
+                          style={{ backgroundColor: c.hex }}
+                          className={`w-7 h-7 rounded-md border border-slate-300 cursor-pointer transition-transform hover:scale-110 active:scale-95 shadow-2xs ${
+                            accentColor.toLowerCase() === c.hex.toLowerCase() ? 'ring-2 ring-emerald-500 ring-offset-1' : ''
                           }`}
-                          title={`Palette: ${c}`}
+                          title={`Palette: ${c.name} (${c.hex})`}
+                          aria-label={`Farbe ${c.name}`}
                         />
                       ))}
                     </div>
                   </div>
+
                   <div className="text-[10px] text-slate-500 flex items-center gap-1">
                     <Check className="w-3 h-3 text-emerald-600 shrink-0" />
                     <span>
@@ -387,13 +405,15 @@ export default function EmbedGuidePage() {
                       Eigener HEX:
                     </button>
                     {bgType === 'custom' && (
-                      <div className="flex items-center gap-1.5 flex-1">
-                        <input
-                          type="color"
-                          value={parseHexColor(customBgHex) || '#ffffff'}
-                          onChange={(e) => setCustomBgHex(e.target.value)}
-                          className="w-7 h-7 p-0.5 rounded border border-slate-300 bg-white cursor-pointer"
-                        />
+                      <div className="flex items-center gap-1.5 flex-1 min-w-0">
+                        <div className="relative w-7 h-7 min-w-[28px] max-w-[28px] shrink-0 rounded-md border border-slate-300 overflow-hidden bg-white">
+                          <input
+                            type="color"
+                            value={parseHexColor(customBgHex) || '#ffffff'}
+                            onChange={(e) => setCustomBgHex(e.target.value)}
+                            className="absolute -top-3 -left-3 w-14 h-14 cursor-pointer border-0 p-0"
+                          />
+                        </div>
                         <input
                           type="text"
                           value={customBgHex}
@@ -412,7 +432,7 @@ export default function EmbedGuidePage() {
                   <label className="text-xs font-bold text-slate-700 block">
                     Eckenradius (Border Radius)
                   </label>
-                  <div className="grid grid-cols-4 gap-1.5">
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5">
                     {Object.entries(RADIUS_VALUES).map(([key, item]) => (
                       <button
                         key={key}
