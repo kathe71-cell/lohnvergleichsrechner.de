@@ -151,13 +151,13 @@ export default function EmbedGuidePage() {
 
           <div className="max-w-3xl space-y-2">
             <span className="text-xs font-mono uppercase tracking-wider text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200 font-bold inline-block">
-              KOSTENLOSES WEB-WIDGET FÜR PARTNER &amp; WEBMASCHINEN
+              KOSTENLOSES WEB-WIDGET FÜR WEBSITES &amp; PUBLISHER
             </span>
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-950 tracking-tight leading-tight">
               Gehaltsrechner kostenlos auf der eigenen Website einbinden
             </h1>
             <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-2xl">
-              Bieten Sie Besuchern, Jobsuchenden und Fachkräften einen interaktiven Gehaltsvergleich direkt auf Ihrer Seite. Passen Sie Farben, Schrift und Eckenradius flexibel an Ihr Corporate Design an – 100 % DSGVO-konform und wartungsfrei.
+              Bieten Sie Besuchern, Jobsuchenden und Fachkräften einen interaktiven Gehaltsvergleich direkt auf Ihrer Seite. Passen Sie Farben, Schrift und Eckenradius flexibel an Ihr Corporate Design an – datenschutzfreundlich und wartungsfrei.
             </p>
           </div>
         </div>
@@ -290,7 +290,7 @@ export default function EmbedGuidePage() {
                     Design anpassen
                   </h3>
                   <span className="text-[10px] text-slate-500 font-mono">
-                    100 % DSGVO-konform
+                    Datenschutzfreundlich
                   </span>
                 </div>
 
@@ -621,7 +621,7 @@ export default function EmbedGuidePage() {
         <section className="space-y-6">
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold">
-              VORTEILE FÜR WEBMASCHINEN &amp; PUBLISHER
+              VORTEILE FÜR WEBSITEBETREIBER &amp; PUBLISHER
             </span>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
               Warum Lohnvergleichsrechner.de einbinden?
@@ -653,9 +653,9 @@ export default function EmbedGuidePage() {
               <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-800 flex items-center justify-center font-bold">
                 <ShieldCheck className="w-5 h-5" />
               </div>
-              <h3 className="font-bold text-slate-900 text-base">100 % DSGVO-konform</h3>
+              <h3 className="font-bold text-slate-900 text-base">Datenschutzfreundlich</h3>
               <p className="text-xs text-slate-600 leading-relaxed">
-                Keine Tracking-Cookies, kein Fingerprinting, keine Werbenetzwerke im Widget. Vollständig datenschutzfreundlich und rechtssicher in der EU.
+                Keine Tracking-Cookies, kein Fingerprinting und keine Werbenetzwerke im Widget. Die Gehaltsberechnung erfolgt rein clientseitig ohne Speicherung der eingegebenen Daten.
               </p>
             </div>
           </div>

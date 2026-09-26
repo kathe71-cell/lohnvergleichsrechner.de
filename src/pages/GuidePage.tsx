@@ -118,7 +118,7 @@ export default function GuidePage() {
               „Der Umstand, dass ein männlicher Arbeitnehmer ein höheres Entgelt verhandelt hat als eine weibliche Arbeitnehmerin bei gleicher Arbeit, begründet keinen sachlichen, geschlechtsunabhängigen Grund für eine Entgeltdifferenzierung.“ (BAG, Urteil vom 16.02.2023 – 8 AZR 450/21).
             </blockquote>
             <p>
-              Dieses Urteil stärkt Arbeitnehmerinnen in Gehaltsprozessen massiv und zwingt Unternehmen zur Einführung transparenter, objektiver Vergütungsgitter auf Basis von Qualifikation, Verantwortung und Leistung.
+              Das Urteil stärkt den Grundsatz der Entgeltgleichheit bei gleicher oder gleichwertiger Arbeit: Besteht bei identischer Tätigkeit eine geschlechtsbezogene Entgeltdifferenz, obliegt es dem Arbeitgeber, diese durch objektive, geschlechtsneutrale Gründe – wie einschlägige Berufserfahrung oder Qualifikation – zu rechtfertigen. Individuelles Verhandlungsgeschick allein reicht dafür rechtlich nicht aus.
             </p>
           </div>
         </section>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Calculator, BarChart3, BookOpen, Layers, Menu, X } from 'lucide-react';
+import { Calculator, BarChart3, BookOpen, Layers, Code2, Menu, X } from 'lucide-react';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -10,7 +10,8 @@ export default function Navbar() {
     { to: '/rechner', label: 'Rechner', icon: Calculator },
     { to: '/gehalt', label: 'Berufe', icon: BarChart3 },
     { to: '/durchschnittsgehalt', label: 'Statistik', icon: Layers },
-    { to: '/ratgeber', label: 'Ratgeber', icon: BookOpen }
+    { to: '/ratgeber', label: 'Ratgeber', icon: BookOpen },
+    { to: '/gehaltsrechner-einbinden', label: 'Für Websites', icon: Code2 }
   ];
 
   const isActive = (path: string) => location.pathname === path;
