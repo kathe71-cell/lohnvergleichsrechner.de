@@ -51,12 +51,12 @@ export default function EmbedSalaryWidget({
 }: EmbedSalaryWidgetProps) {
   // 1. Parameter Validation & Fallbacks
   const validatedInitialJob = useMemo(() => {
-    if (!initialJobId) return SALARY_DATABASE[0].id;
+    if (!initialJobId) return '';
     const clean = initialJobId.toLowerCase().trim();
     const found = SALARY_DATABASE.find(
       (j) => j.id === clean || j.id.replace(/-/g, '') === clean.replace(/-/g, '')
     );
-    return found ? found.id : SALARY_DATABASE[0].id;
+    return found ? found.id : '';
   }, [initialJobId]);
 
   const validatedInitialState = useMemo(() => {
@@ -127,7 +127,8 @@ export default function EmbedSalaryWidget({
 
   // Current Job
   const selectedJob = useMemo(() => {
-    return SALARY_DATABASE.find((j) => j.id === jobId) || SALARY_DATABASE[0];
+    if (!jobId) return null;
+    return SALARY_DATABASE.find((j) => j.id === jobId) || null;
   }, [jobId]);
 
   // Filtered jobs for search
@@ -143,7 +144,8 @@ export default function EmbedSalaryWidget({
   }, [jobSearchQuery]);
 
   // 3. Calculation using central audited logic
-  const result: CalculationResult = useMemo(() => {
+  const result: CalculationResult | null = useMemo(() => {
+    if (!jobId || !selectedJob) return null;
     return calculateSalaryBenchmark({
       jobId,
       stateCode,
@@ -153,7 +155,7 @@ export default function EmbedSalaryWidget({
       weeklyHours: 40,
       userYearlyGross: userYearlyGross > 0 ? userYearlyGross : undefined
     });
-  }, [jobId, stateCode, experienceKey, userYearlyGross]);
+  }, [jobId, selectedJob, stateCode, experienceKey, userYearlyGross]);
 
   // Gross input handler
   const handleGrossChange = (valStr: string) => {
@@ -194,9 +196,9 @@ export default function EmbedSalaryWidget({
   }, [jobId, stateCode, experienceKey, userYearlyGross, isSearchingJob, theme]);
 
   // Difference formatters
-  const diffPercent = result.differencePercent;
-  const isAbove = result.differenceToMedian !== undefined && result.differenceToMedian >= 0;
-  const shortTitle = selectedJob.title.split(' / ')[0];
+  const diffPercent = result ? result.differencePercent : 0;
+  const isAbove = result ? (result.differenceToMedian !== undefined && result.differenceToMedian >= 0) : false;
+  const shortTitle = selectedJob ? selectedJob.title.split(' / ')[0] : '';
 
   return (
     <div
@@ -244,17 +246,19 @@ export default function EmbedSalaryWidget({
               </span>
             </div>
           </div>
-          <span
-            style={{
-              backgroundColor: isDark ? '#1e293b' : '#f1f5f9',
-              borderColor: isDark ? '#334155' : '#e2e8f0',
-              color: isDark ? '#cbd5e1' : '#475569',
-              borderRadius: `${innerRadiusPx}px`
-            }}
-            className="text-[10px] font-mono font-semibold px-2 py-0.5 border shrink-0"
-          >
-            KldB {selectedJob.kldbCode}
-          </span>
+          {selectedJob && (
+            <span
+              style={{
+                backgroundColor: isDark ? '#1e293b' : '#f1f5f9',
+                borderColor: isDark ? '#334155' : '#e2e8f0',
+                color: isDark ? '#cbd5e1' : '#475569',
+                borderRadius: `${innerRadiusPx}px`
+              }}
+              className="text-[10px] font-mono font-semibold px-2 py-0.5 border shrink-0"
+            >
+              KldB {selectedJob.kldbCode}
+            </span>
+          )}
         </div>
       )}
 
@@ -267,15 +271,17 @@ export default function EmbedSalaryWidget({
             className="text-[11px] font-bold uppercase tracking-wider flex items-center justify-between"
           >
             <span>Beruf</span>
-            <button
-              type="button"
-              onClick={() => setIsSearchingJob(!isSearchingJob)}
-              style={{ color: theme.accent }}
-              className="lowercase font-medium text-[11px] cursor-pointer flex items-center gap-1 hover:opacity-80 transition-opacity"
-            >
-              <Search className="w-3 h-3" />
-              {isSearchingJob ? 'schließen' : 'Beruf wechseln'}
-            </button>
+            {selectedJob && (
+              <button
+                type="button"
+                onClick={() => setIsSearchingJob(!isSearchingJob)}
+                style={{ color: theme.accent }}
+                className="lowercase font-medium text-[11px] cursor-pointer flex items-center gap-1 hover:opacity-80 transition-opacity"
+              >
+                <Search className="w-3 h-3" />
+                {isSearchingJob ? 'schließen' : 'Beruf wechseln'}
+              </button>
+            )}
           </label>
 
           {isSearchingJob ? (
@@ -335,6 +341,33 @@ export default function EmbedSalaryWidget({
                 ))}
               </div>
             </div>
+          ) : !selectedJob ? (
+            <button
+              type="button"
+              onClick={() => setIsSearchingJob(true)}
+              style={{
+                backgroundColor: isDark ? '#1e293b' : '#ffffff',
+                borderColor: isDark ? '#334155' : '#cbd5e1',
+                borderRadius: `${innerRadiusPx}px`,
+                color: isDark ? '#94a3b8' : '#64748b'
+              }}
+              className="w-full flex items-center justify-between px-3.5 py-2.5 border border-dashed hover:border-solid hover:opacity-90 transition-all cursor-pointer text-xs group text-left"
+            >
+              <span className="flex items-center gap-2 font-medium">
+                <Search className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100" />
+                Beruf auswählen (z. B. Softwareentwickler, Kaufmann, Dachdecker...)
+              </span>
+              <span
+                style={{
+                  backgroundColor: `${theme.accent}1a`,
+                  color: theme.accent,
+                  borderRadius: `${Math.max(4, innerRadiusPx - 2)}px`
+                }}
+                className="text-[10px] font-bold px-2 py-0.5 shrink-0"
+              >
+                Auswählen
+              </span>
+            </button>
           ) : (
             <div
               onClick={() => setIsSearchingJob(true)}
@@ -496,187 +529,236 @@ export default function EmbedSalaryWidget({
       </div>
 
       {/* Ergebnis-Bereich */}
-      <div
-        style={{
-          backgroundColor: isDark ? '#0b1120' : '#f8fafc',
-          borderColor: isDark ? '#334155' : '#e2e8f0',
-          borderRadius: `${innerRadiusPx}px`
-        }}
-        className="border p-4 space-y-3.5"
-      >
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {/* Vergleichswert (Kategorie C) */}
+      {selectedJob && result ? (
+        <div
+          style={{
+            backgroundColor: isDark ? '#0b1120' : '#f8fafc',
+            borderColor: isDark ? '#334155' : '#e2e8f0',
+            borderRadius: `${innerRadiusPx}px`
+          }}
+          className="border p-4 space-y-3.5"
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {/* Vergleichswert (Kategorie C) */}
+            <div
+              style={{
+                backgroundColor: isDark ? '#1e293b' : '#ffffff',
+                borderColor: isDark ? '#334155' : '#e2e8f0',
+                borderRadius: `${Math.max(4, innerRadiusPx - 2)}px`
+              }}
+              className="p-3.5 border shadow-2xs"
+            >
+              <div className="flex items-center justify-between gap-1 mb-1">
+                <span
+                  style={{ color: isDark ? '#94a3b8' : '#64748b' }}
+                  className="text-[10px] font-mono uppercase tracking-wider font-bold"
+                >
+                  Vergleichswert
+                </span>
+                <span
+                  style={{
+                    backgroundColor: `${theme.accent}1a`,
+                    color: theme.accent,
+                    borderColor: `${theme.accent}33`,
+                    borderRadius: `${Math.max(2, innerRadiusPx - 4)}px`
+                  }}
+                  className="text-[9px] font-mono font-bold px-1.5 py-0.2 border"
+                >
+                  Kategorie C
+                </span>
+              </div>
+              <div
+                style={{ color: isDark ? '#ffffff' : '#0f172a' }}
+                className="text-xl sm:text-2xl font-black font-mono tracking-tight"
+              >
+                {result.benchmarkMedianYear.toLocaleString('de-DE')} €
+              </div>
+              <span
+                style={{ color: isDark ? '#94a3b8' : '#64748b' }}
+                className="text-[11px] block mt-0.5"
+              >
+                ≈ {result.benchmarkMedianMonth.toLocaleString('de-DE')} € / Monat brutto
+              </span>
+            </div>
+
+            {/* Ihr Gehalt (oder Bundesmedian als Referenz) */}
+            <div
+              style={{
+                backgroundColor: isDark ? '#1e293b' : '#ffffff',
+                borderColor: isDark ? '#334155' : '#e2e8f0',
+                borderRadius: `${Math.max(4, innerRadiusPx - 2)}px`
+              }}
+              className="p-3.5 border shadow-2xs"
+            >
+              <div className="flex items-center justify-between gap-1 mb-1">
+                <span
+                  style={{ color: isDark ? '#94a3b8' : '#64748b' }}
+                  className="text-[10px] font-mono uppercase tracking-wider font-bold"
+                >
+                  {userYearlyGross > 0 ? 'Ihr Gehalt' : 'Amtlicher Bundesmedian'}
+                </span>
+                <span
+                  style={{
+                    backgroundColor: isDark ? '#0f172a' : '#f1f5f9',
+                    color: isDark ? '#cbd5e1' : '#475569',
+                    borderColor: isDark ? '#334155' : '#e2e8f0',
+                    borderRadius: `${Math.max(2, innerRadiusPx - 4)}px`
+                  }}
+                  className="text-[9px] font-mono font-bold px-1.5 py-0.2 border"
+                >
+                  {userYearlyGross > 0 ? 'Eingabe' : 'Kategorie A'}
+                </span>
+              </div>
+              <div
+                style={{ color: isDark ? '#ffffff' : '#0f172a' }}
+                className="text-xl sm:text-2xl font-black font-mono tracking-tight"
+              >
+                {userYearlyGross > 0
+                  ? `${userYearlyGross.toLocaleString('de-DE')} €`
+                  : `${selectedJob.medianYear.toLocaleString('de-DE')} €`}
+              </div>
+              <span
+                style={{ color: isDark ? '#94a3b8' : '#64748b' }}
+                className="text-[11px] block mt-0.5"
+              >
+                {userYearlyGross > 0
+                  ? `≈ ${Math.round(userYearlyGross / 12).toLocaleString('de-DE')} € / Monat`
+                  : `BA-Entgeltatlas (unskalierte Bundesbasis)`}
+              </span>
+            </div>
+          </div>
+
+          {/* Abweichung (wenn Gehalt eingegeben) */}
+          {userYearlyGross > 0 && diffPercent !== undefined && result.differenceToMedian !== undefined && (
+            <div
+              style={{
+                backgroundColor: isAbove
+                  ? isDark ? '#064e3b40' : '#ecfdf5'
+                  : isDark ? '#78350f40' : '#fffbeb',
+                borderColor: isAbove ? '#10b981' : '#f59e0b',
+                color: isAbove
+                  ? isDark ? '#a7f3d0' : '#064e3b'
+                  : isDark ? '#fde68a' : '#78350f',
+                borderRadius: `${Math.max(4, innerRadiusPx - 2)}px`
+              }}
+              className="p-3 border flex items-center gap-3"
+            >
+              <div
+                style={{
+                  backgroundColor: isAbove ? '#10b981' : '#f59e0b',
+                  borderRadius: `${Math.max(4, innerRadiusPx - 2)}px`
+                }}
+                className="p-2 text-white shrink-0"
+              >
+                {isAbove ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="font-extrabold text-xs sm:text-sm">
+                  {isAbove
+                    ? `+${Math.abs(diffPercent).toLocaleString('de-DE', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} % über dem modellierten Vergleichswert`
+                    : `−${Math.abs(diffPercent).toLocaleString('de-DE', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} % unter dem modellierten Vergleichswert`}
+                </div>
+                <div className="text-[11px] opacity-90 mt-0.5">
+                  Differenz zum Vergleichsmedian: {isAbove ? '+' : '−'}
+                  {Math.abs(result.differenceToMedian).toLocaleString('de-DE')} € / Jahr
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Modellierter Orientierungskorridor (P25–P75) */}
           <div
             style={{
               backgroundColor: isDark ? '#1e293b' : '#ffffff',
               borderColor: isDark ? '#334155' : '#e2e8f0',
               borderRadius: `${Math.max(4, innerRadiusPx - 2)}px`
             }}
-            className="p-3.5 border shadow-2xs"
+            className="p-3 border space-y-1.5"
           >
-            <div className="flex items-center justify-between gap-1 mb-1">
+            <div className="flex items-center justify-between text-[10px] font-mono">
               <span
                 style={{ color: isDark ? '#94a3b8' : '#64748b' }}
-                className="text-[10px] font-mono uppercase tracking-wider font-bold"
+                className="font-bold uppercase tracking-wider"
               >
-                Vergleichswert
+                Modellierter Orientierungskorridor (P25–P75)
               </span>
-              <span
-                style={{
-                  backgroundColor: `${theme.accent}1a`,
-                  color: theme.accent,
-                  borderColor: `${theme.accent}33`,
-                  borderRadius: `${Math.max(2, innerRadiusPx - 4)}px`
-                }}
-                className="text-[9px] font-mono font-bold px-1.5 py-0.2 border"
-              >
+              <span style={{ color: isDark ? '#64748b' : '#94a3b8' }} className="font-semibold">
                 Kategorie C
               </span>
             </div>
             <div
-              style={{ color: isDark ? '#ffffff' : '#0f172a' }}
-              className="text-xl sm:text-2xl font-black font-mono tracking-tight"
+              style={{ color: isDark ? '#f8fafc' : '#1e293b' }}
+              className="text-sm sm:text-base font-extrabold font-mono"
             >
-              {result.benchmarkMedianYear.toLocaleString('de-DE')} €
+              {result.benchmarkP25Year.toLocaleString('de-DE')} € – {result.benchmarkP75Year.toLocaleString('de-DE')} €
             </div>
             <span
               style={{ color: isDark ? '#94a3b8' : '#64748b' }}
-              className="text-[11px] block mt-0.5"
+              className="text-[10px] block"
             >
-              ≈ {result.benchmarkMedianMonth.toLocaleString('de-DE')} € / Monat brutto
-            </span>
-          </div>
-
-          {/* Ihr Gehalt (oder Bundesmedian als Referenz) */}
-          <div
-            style={{
-              backgroundColor: isDark ? '#1e293b' : '#ffffff',
-              borderColor: isDark ? '#334155' : '#e2e8f0',
-              borderRadius: `${Math.max(4, innerRadiusPx - 2)}px`
-            }}
-            className="p-3.5 border shadow-2xs"
-          >
-            <div className="flex items-center justify-between gap-1 mb-1">
-              <span
-                style={{ color: isDark ? '#94a3b8' : '#64748b' }}
-                className="text-[10px] font-mono uppercase tracking-wider font-bold"
-              >
-                {userYearlyGross > 0 ? 'Ihr Gehalt' : 'Amtlicher Bundesmedian'}
-              </span>
-              <span
-                style={{
-                  backgroundColor: isDark ? '#0f172a' : '#f1f5f9',
-                  color: isDark ? '#cbd5e1' : '#475569',
-                  borderColor: isDark ? '#334155' : '#e2e8f0',
-                  borderRadius: `${Math.max(2, innerRadiusPx - 4)}px`
-                }}
-                className="text-[9px] font-mono font-bold px-1.5 py-0.2 border"
-              >
-                {userYearlyGross > 0 ? 'Eingabe' : 'Kategorie A'}
-              </span>
-            </div>
-            <div
-              style={{ color: isDark ? '#ffffff' : '#0f172a' }}
-              className="text-xl sm:text-2xl font-black font-mono tracking-tight"
-            >
-              {userYearlyGross > 0
-                ? `${userYearlyGross.toLocaleString('de-DE')} €`
-                : `${selectedJob.medianYear.toLocaleString('de-DE')} €`}
-            </div>
-            <span
-              style={{ color: isDark ? '#94a3b8' : '#64748b' }}
-              className="text-[11px] block mt-0.5"
-            >
-              {userYearlyGross > 0
-                ? `≈ ${Math.round(userYearlyGross / 12).toLocaleString('de-DE')} € / Monat`
-                : `BA-Entgeltatlas (unskalierte Bundesbasis)`}
+              50 % der Beschäftigten in diesem Profil liegen innerhalb dieser typischen Marktspanne.
             </span>
           </div>
         </div>
-
-        {/* Abweichung (wenn Gehalt eingegeben) */}
-        {userYearlyGross > 0 && diffPercent !== undefined && result.differenceToMedian !== undefined && (
-          <div
-            style={{
-              backgroundColor: isAbove
-                ? isDark ? '#064e3b40' : '#ecfdf5'
-                : isDark ? '#78350f40' : '#fffbeb',
-              borderColor: isAbove ? '#10b981' : '#f59e0b',
-              color: isAbove
-                ? isDark ? '#a7f3d0' : '#064e3b'
-                : isDark ? '#fde68a' : '#78350f',
-              borderRadius: `${Math.max(4, innerRadiusPx - 2)}px`
-            }}
-            className="p-3 border flex items-center gap-3"
-          >
-            <div
-              style={{
-                backgroundColor: isAbove ? '#10b981' : '#f59e0b',
-                borderRadius: `${Math.max(4, innerRadiusPx - 2)}px`
-              }}
-              className="p-2 text-white shrink-0"
-            >
-              {isAbove ? <TrendingUp className="w-4 h-4" /> : <TrendingDown className="w-4 h-4" />}
-            </div>
-            <div className="min-w-0 flex-1">
-              <div className="font-extrabold text-xs sm:text-sm">
-                {isAbove
-                  ? `+${Math.abs(diffPercent).toLocaleString('de-DE', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} % über dem modellierten Vergleichswert`
-                  : `−${Math.abs(diffPercent).toLocaleString('de-DE', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} % unter dem modellierten Vergleichswert`}
-              </div>
-              <div className="text-[11px] opacity-90 mt-0.5">
-                Differenz zum Vergleichsmedian: {isAbove ? '+' : '−'}
-                {Math.abs(result.differenceToMedian).toLocaleString('de-DE')} € / Jahr
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Modellierter Orientierungskorridor (P25–P75) */}
+      ) : (
         <div
           style={{
-            backgroundColor: isDark ? '#1e293b' : '#ffffff',
+            backgroundColor: isDark ? '#0b1120' : '#f8fafc',
             borderColor: isDark ? '#334155' : '#e2e8f0',
-            borderRadius: `${Math.max(4, innerRadiusPx - 2)}px`
+            borderRadius: `${innerRadiusPx}px`
           }}
-          className="p-3 border space-y-1.5"
+          className="border border-dashed p-6 text-center space-y-2.5"
         >
-          <div className="flex items-center justify-between text-[10px] font-mono">
-            <span
-              style={{ color: isDark ? '#94a3b8' : '#64748b' }}
-              className="font-bold uppercase tracking-wider"
-            >
-              Modellierter Orientierungskorridor (P25–P75)
-            </span>
-            <span style={{ color: isDark ? '#64748b' : '#94a3b8' }} className="font-semibold">
-              Kategorie C
-            </span>
+          <div
+            style={{
+              backgroundColor: `${theme.accent}1a`,
+              color: theme.accent,
+              borderRadius: `${innerRadiusPx}px`
+            }}
+            className="w-10 h-10 mx-auto flex items-center justify-center"
+          >
+            <Search className="w-5 h-5" />
           </div>
           <div
-            style={{ color: isDark ? '#f8fafc' : '#1e293b' }}
-            className="text-sm sm:text-base font-extrabold font-mono"
+            style={{ color: isDark ? '#ffffff' : '#0f172a' }}
+            className="text-sm font-bold"
           >
-            {result.benchmarkP25Year.toLocaleString('de-DE')} € – {result.benchmarkP75Year.toLocaleString('de-DE')} €
+            Bitte wählen Sie oben einen Beruf aus
           </div>
-          <span
+          <p
             style={{ color: isDark ? '#94a3b8' : '#64748b' }}
-            className="text-[10px] block"
+            className="text-xs max-w-sm mx-auto"
           >
-            50 % der Beschäftigten in diesem Profil liegen innerhalb dieser typischen Marktspanne.
-          </span>
+            Wählen Sie einen von über 100 amtlich erfassten Berufen, um den regionalen Gehaltskorridor und Vergleichswerte sofort zu berechnen.
+          </p>
+          <button
+            type="button"
+            onClick={() => setIsSearchingJob(true)}
+            style={{
+              backgroundColor: theme.accent,
+              color: accentContrastText,
+              borderRadius: `${Math.max(4, innerRadiusPx - 2)}px`
+            }}
+            className="px-4 py-2 text-xs font-bold shadow-xs hover:opacity-95 transition-opacity inline-flex items-center gap-1.5 cursor-pointer mt-1"
+          >
+            <Search className="w-3.5 h-3.5" />
+            Beruf jetzt auswählen
+          </button>
         </div>
-      </div>
+      )}
 
       {/* Rechtlicher A/B/C Hinweis */}
-      <div
-        style={{ color: isDark ? '#94a3b8' : '#64748b' }}
-        className="text-[10px] leading-relaxed flex items-start gap-1.5 pt-0.5"
-      >
-        <Info className="w-3.5 h-3.5 opacity-60 shrink-0 mt-0.5" />
-        <span>
-          Modellrechnung (Kategorie C) basierend auf dem amtlichen Bundesmedian (Kategorie A, KldB {selectedJob.kldbCode}) der Bundesagentur für Arbeit und Destatis-Faktoren. Kein Rechtsanspruch nach § 10 EntgTranspG.
-        </span>
-      </div>
+      {selectedJob && (
+        <div
+          style={{ color: isDark ? '#94a3b8' : '#64748b' }}
+          className="text-[10px] leading-relaxed flex items-start gap-1.5 pt-0.5"
+        >
+          <Info className="w-3.5 h-3.5 opacity-60 shrink-0 mt-0.5" />
+          <span>
+            Modellrechnung (Kategorie C) basierend auf dem amtlichen Bundesmedian (Kategorie A, KldB {selectedJob.kldbCode}) der Bundesagentur für Arbeit und Destatis-Faktoren. Kein Rechtsanspruch nach § 10 EntgTranspG.
+          </span>
+        </div>
+      )}
 
       {/* Attribution & Deep-Link (Zwingend & Permanent) */}
       <div
@@ -696,15 +778,17 @@ export default function EmbedSalaryWidget({
           </a>
         </div>
 
-        <a
-          href={`https://www.lohnvergleichsrechner.de/gehalt/${jobId}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ color: theme.accent }}
-          className="inline-flex items-center gap-1 font-bold hover:underline transition-opacity shrink-0"
-        >
-          Detaillierte Gehaltsanalyse für {shortTitle} <ExternalLink className="w-3 h-3" />
-        </a>
+        {selectedJob && (
+          <a
+            href={`https://www.lohnvergleichsrechner.de/gehalt/${jobId}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: theme.accent }}
+            className="inline-flex items-center gap-1 font-bold hover:underline transition-opacity shrink-0"
+          >
+            Detaillierte Gehaltsanalyse für {shortTitle} <ExternalLink className="w-3 h-3" />
+          </a>
+        )}
       </div>
     </div>
   );
