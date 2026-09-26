@@ -39,8 +39,8 @@ import {
 } from 'lucide-react';
 
 export default function EmbedGuidePage() {
-  // Content selection
-  const [selectedJob, setSelectedJob] = useState<string>('dachdecker');
+  // Content selection (defaults to empty so no job is preselected)
+  const [selectedJob, setSelectedJob] = useState<string>('');
   const [selectedState, setSelectedState] = useState<string>('');
   const [selectedExp, setSelectedExp] = useState<string>('');
 
@@ -208,10 +208,11 @@ export default function EmbedGuidePage() {
                 </div>
               </div>
 
-              {/* Inhaltliche Voreinstellungen */}
+              {/* Optionale Parameter konfigurieren */}
               <div className="bg-slate-50 p-4 sm:p-5 rounded-2xl border border-slate-200 space-y-3.5">
-                <h3 className="text-xs font-extrabold text-slate-900 uppercase tracking-wider">
-                  Inhaltliche Voreinstellungen
+                <h3 className="text-xs font-extrabold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
+                  <Sliders className="w-3.5 h-3.5 text-slate-700" />
+                  Optionale Parameter konfigurieren
                 </h3>
 
                 {/* Beruf vorauswählen */}
