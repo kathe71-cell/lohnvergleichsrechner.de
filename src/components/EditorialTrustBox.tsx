@@ -13,7 +13,7 @@ export default function EditorialTrustBox() {
           </h3>
         </div>
         <div className="text-xs font-mono text-slate-500">
-          Datenstand: <strong className="text-slate-800">{DATA_METADATA.lastUpdated}</strong> (Basis: {DATA_METADATA.version})
+          Berechnungsstand: <strong className="text-slate-800">{DATA_METADATA.calculationDate}</strong> · BA-Stichtag: <strong className="text-slate-800">{DATA_METADATA.baCensusDate}</strong>
         </div>
       </div>
 

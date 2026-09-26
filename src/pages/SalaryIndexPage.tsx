@@ -203,7 +203,7 @@ export default function SalaryIndexPage() {
       <section>
         <CitationBox
           title="Gehalt nach Beruf: Amtliche KldB-Entgeltstrukturen in Deutschland"
-          url="https://lohnvergleichsrechner.de/gehalt"
+          url="https://www.lohnvergleichsrechner.de/gehalt"
         />
       </section>
       </div>

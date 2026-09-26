@@ -9,7 +9,7 @@ interface CitationBoxProps {
 
 export default function CitationBox({
   title = "Lohn- und Gehaltsvergleich Deutschland: Statistische Verdienststrukturen und KldB-Klassifikation",
-  url = "https://lohnvergleichsrechner.de/"
+  url = "https://www.lohnvergleichsrechner.de/"
 }: CitationBoxProps) {
   const [copied, setCopied] = useState(false);
   const currentYear = DATA_METADATA.contentYear;

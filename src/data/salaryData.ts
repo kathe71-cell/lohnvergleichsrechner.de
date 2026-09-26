@@ -33,8 +33,12 @@ export interface StateFactor {
 }
 
 export const DATA_METADATA = {
-  version: "2024/2025",
-  dataReferencePeriod: "2023 / 2024",
+  version: "2026",
+  calculationDate: "September 2026",
+  baCensusDate: "31.12.2023",
+  destatisSurveyPeriod: "VSE 2022 / Verdiensterhebung",
+  regionalFactorsDate: "Stichtag 31.12.2023 (BA Vollzeitentgelte)",
+  dataReferencePeriod: "BA-Stichtag 31.12.2023 / Destatis VSE",
   dataPublishedAt: "Juni 2024 (BA Entgeltatlas) / August 2024 (BT-Drs. 20/12571) / Oktober 2024 (Destatis VSE)",
   dataImportedAt: "2026-09-26",
   contentModifiedAt: "2026-09-26",

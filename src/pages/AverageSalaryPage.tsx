@@ -245,7 +245,7 @@ export default function AverageSalaryPage() {
       <section>
         <CitationBox
           title="Durchschnittsgehalt Deutschland: Amtliche Mediane, Ost-West-Vergleich und Destatis-Statistiken"
-          url="https://lohnvergleichsrechner.de/durchschnittsgehalt"
+          url="https://www.lohnvergleichsrechner.de/durchschnittsgehalt"
         />
       </section>
       </div>

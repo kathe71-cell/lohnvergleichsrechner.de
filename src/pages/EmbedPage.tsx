@@ -9,7 +9,7 @@ export default function EmbedPage() {
         <div className="pt-2 text-center text-xs text-slate-500 font-mono">
           Bereitgestellt von{' '}
           <a
-            href="https://lohnvergleichsrechner.de/"
+            href="https://www.lohnvergleichsrechner.de/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-emerald-700 hover:underline font-bold"

@@ -234,7 +234,7 @@ export default function EmbedSalaryWidget({
                 style={{ color: isDark ? '#ffffff' : '#0f172a' }}
                 className="text-base sm:text-lg font-black leading-tight"
               >
-                Gehaltsvergleich für deine Website
+                Gehaltsvergleich für Ihre Website
               </h2>
               <span
                 style={{ color: isDark ? '#94a3b8' : '#64748b' }}
@@ -414,7 +414,7 @@ export default function EmbedSalaryWidget({
           >
             {Object.entries(EXPERIENCE_FACTORS).map(([key, item]) => (
               <option key={key} value={key} className={isDark ? 'bg-slate-900 text-white' : ''}>
-                {item.label} ({item.factor}x)
+                {item.label} ({item.factor.toLocaleString('de-DE', { minimumFractionDigits: item.factor % 1 === 0 ? 0 : 2 })}×)
               </option>
             ))}
           </select>
@@ -434,7 +434,7 @@ export default function EmbedSalaryWidget({
               style={{ color: isDark ? '#ffffff' : '#0f172a' }}
               className="text-[11px] font-extrabold uppercase tracking-wider"
             >
-              Dein Bruttogehalt (optional)
+              Ihr Bruttogehalt (optional)
             </label>
             <div
               style={{
@@ -547,7 +547,7 @@ export default function EmbedSalaryWidget({
             </span>
           </div>
 
-          {/* Dein Gehalt (oder Bundesmedian als Referenz) */}
+          {/* Ihr Gehalt (oder Bundesmedian als Referenz) */}
           <div
             style={{
               backgroundColor: isDark ? '#1e293b' : '#ffffff',
@@ -561,7 +561,7 @@ export default function EmbedSalaryWidget({
                 style={{ color: isDark ? '#94a3b8' : '#64748b' }}
                 className="text-[10px] font-mono uppercase tracking-wider font-bold"
               >
-                {userYearlyGross > 0 ? 'Dein Gehalt' : 'Amtlicher Bundesmedian'}
+                {userYearlyGross > 0 ? 'Ihr Gehalt' : 'Amtlicher Bundesmedian'}
               </span>
               <span
                 style={{
@@ -686,7 +686,7 @@ export default function EmbedSalaryWidget({
         <div style={{ color: isDark ? '#94a3b8' : '#475569' }}>
           Gehaltsdaten &amp; Berechnung:{' '}
           <a
-            href="https://lohnvergleichsrechner.de/"
+            href="https://www.lohnvergleichsrechner.de/"
             target="_blank"
             rel="noopener noreferrer"
             style={{ color: theme.accent }}
@@ -697,7 +697,7 @@ export default function EmbedSalaryWidget({
         </div>
 
         <a
-          href={`https://lohnvergleichsrechner.de/gehalt/${jobId}`}
+          href={`https://www.lohnvergleichsrechner.de/gehalt/${jobId}`}
           target="_blank"
           rel="noopener noreferrer"
           style={{ color: theme.accent }}

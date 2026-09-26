@@ -252,7 +252,7 @@ export default function Home() {
                 EU-Entgelttransparenz: Pflichtangaben in Stellenanzeigen
               </h4>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Die europäische Richtlinie verpflichtet Unternehmen, künftig bereits vor dem Bewerbungsgespräch Gehaltsbänder transparent offenzulegen. Ein Verbot von Gehaltsgeheimnissen droht.
+                Die EU-Richtlinie sieht vor, dass Arbeitgeber künftig bereits vor dem Bewerbungsgespräch Gehaltsspannen offenlegen müssen. Die Überführung in deutsches Recht steht im Gesetzgebungsverfahren an.
               </p>
               <div className="pt-2 text-xs font-bold text-emerald-700 flex items-center gap-1">
                 Leitfaden lesen <ArrowRight className="w-3.5 h-3.5" />
@@ -336,7 +336,7 @@ export default function Home() {
         <section>
           <CitationBox
             title="Lohnvergleichsrechner Deutschland: Datengestützte Gehaltsanalyse nach Destatis VSE & BA-Entgeltatlas"
-            url="https://lohnvergleichsrechner.de/"
+            url="https://www.lohnvergleichsrechner.de/"
           />
         </section>
 

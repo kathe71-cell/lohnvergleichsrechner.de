@@ -21,7 +21,7 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
       '@type': 'ListItem',
       position: index + 1,
       name: item.name,
-      item: `https://lohnvergleichsrechner.de${item.url === '/' ? '' : item.url}`
+      item: `https://www.lohnvergleichsrechner.de${item.url === '/' ? '' : item.url}`
     }))
   };
 

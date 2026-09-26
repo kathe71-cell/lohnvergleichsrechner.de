@@ -135,7 +135,7 @@ for (const route of allRoutes) {
       rendered = rendered.replace(/<meta name="robots" content=".*?" \/>/, `<meta name="robots" content="noindex, follow" />`);
     }
 
-    const fullUrl = `https://lohnvergleichsrechner.de${route.url === "/" ? "" : route.url}`;
+    const fullUrl = `https://www.lohnvergleichsrechner.de${route.url === "/" ? "/" : route.url}`;
     rendered = rendered.replace(/<link rel="canonical" href=".*?" \/>/, `<link rel="canonical" href="${fullUrl}" />`);
     rendered = rendered.replace(/<meta property="og:url" content=".*?" \/>/, `<meta property="og:url" content="${fullUrl}" />`);
     rendered = rendered.replace(/<meta property="og:title" content=".*?" \/>/, `<meta property="og:title" content="${route.title}" />`);
@@ -169,7 +169,7 @@ ${sitemapRoutes.map(r => {
   else if (r.url === "/impressum" || r.url === "/datenschutz") { priority = "0.3"; changefreq = "yearly"; }
   
   return `  <url>
-    <loc>https://lohnvergleichsrechner.de${r.url === "/" ? "" : r.url}</loc>
+    <loc>https://www.lohnvergleichsrechner.de${r.url === "/" ? "/" : r.url}</loc>
     <lastmod>${sitemapLastmod}</lastmod>
     <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>

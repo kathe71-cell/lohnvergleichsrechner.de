@@ -28,7 +28,7 @@ export default function JobSearchRecommendation({ jobTitle }: JobSearchRecommend
             </h2>
           </div>
           <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-2xl">
-            Du möchtest sehen, welche Stellen für diesen Beruf aktuell angeboten werden? Auf Arbeitsplatz.de findest du passende Stellenangebote.
+            Möchten Sie sehen, welche Stellen für diesen Beruf aktuell angeboten werden? Auf Arbeitsplatz.de finden Sie passende Stellenangebote.
           </p>
         </div>
 

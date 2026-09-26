@@ -166,7 +166,7 @@ export default function GlossaryPage() {
       <section>
         <CitationBox
           title="Glossar Lohnvergleich und Entgeltrecht: Fachbegriffe nach Destatis und Arbeitsrecht"
-          url="https://lohnvergleichsrechner.de/glossar"
+          url="https://www.lohnvergleichsrechner.de/glossar"
         />
       </section>
       </div>

@@ -78,19 +78,19 @@ export default function GuidePage() {
           </h2>
           <div className="text-sm sm:text-base text-slate-700 leading-relaxed space-y-4">
             <p>
-              Mit der <strong>Richtlinie (EU) 2023/970</strong> des Europäischen Parlaments und des Rates zur Stärkung der Anwendung des Grundsatzes des gleichen Entgelts für Männer und Frauen bei gleicher oder gleichwertiger Arbeit wird das deutsche Transparenzrecht grundlegend verschärft. Die Richtlinie muss von den EU-Mitgliedstaaten bis zum <strong>7. Juni 2026</strong> in nationales Recht überführt werden.
+              Mit der <strong>Richtlinie (EU) 2023/970</strong> des Europäischen Parlaments und des Rates zur Stärkung der Anwendung des Grundsatzes des gleichen Entgelts für Männer und Frauen bei gleicher oder gleichwertiger Arbeit werden europaweit verschärfte Transparenzstandards festgelegt. Die unionsrechtliche Umsetzungsfrist endete am <strong>7. Juni 2026</strong>. Da die Bundesregierung erklärt hat, diese Frist nicht einzuhalten, und die nationale Umsetzung im Gesetzgebungsverfahren noch vorbereitet wird, gelten für private Arbeitgeber in Deutschland bis zum Inkrafttreten des nationalen Umsetzungsgesetzes weiterhin die Vorgaben des bestehenden Entgelttransparenzgesetzes.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
               <div className="p-4 bg-emerald-50/60 rounded-xl border border-emerald-200">
-                <h4 className="font-bold text-emerald-950 text-sm mb-1">Gehaltstransparenz vor der Einstellung (Art. 5)</h4>
+                <h4 className="font-bold text-emerald-950 text-sm mb-1">Gehaltstransparenz vor der Einstellung (Art. 5 der Richtlinie)</h4>
                 <p className="text-xs sm:text-sm text-emerald-900/90 leading-relaxed">
-                  Arbeitgeber müssen Stellenbewerbern künftig bereits in der Stellenanzeige oder vor dem ersten Vorstellungsgespräch das Einstiegsgehalt oder die entsprechende Gehaltsspanne unaufgefordert mitteilen. Die Frage nach dem bisherigen Gehalt des Bewerbers wird unionsweit verboten.
+                  Nach der Richtlinie sollen Arbeitgeber künftig verpflichtet werden, Bewerbern bereits vor dem Vorstellungsgespräch eine Gehaltsspanne mitzuteilen. Die Frage nach bisherigen Gehältern soll untersagt werden. Diese Vorgaben werden in Deutschland mit dem kommenden Umsetzungsgesetz wirksam.
                 </p>
               </div>
               <div className="p-4 bg-emerald-50/60 rounded-xl border border-emerald-200">
-                <h4 className="font-bold text-emerald-950 text-sm mb-1">Beweislastumkehr bei Lohndiskriminierung (Art. 18)</h4>
+                <h4 className="font-bold text-emerald-950 text-sm mb-1">Beweislastumkehr bei Lohndiskriminierung (Art. 18 der Richtlinie)</h4>
                 <p className="text-xs sm:text-sm text-emerald-900/90 leading-relaxed">
-                  Macht ein Beschäftigter eine Benachteiligung beim Entgelt glaubhaft, kehrt sich die Beweislast um: Der Arbeitgeber muss beweisen, dass keine Ungleichbehandlung vorliegt. Schweigen oder unzureichende Auskunft gereichen dem Arbeitgeber zum Nachteil.
+                  Macht eine beschäftigte Person eine geschlechtsbezogene Entgeltbenachteiligung glaubhaft, sieht die Richtlinie vor, dass der Arbeitgeber die diskriminierungsfreie Entlohnung beweisen muss. Auch diese Beweislastregelung bedarf der Überführung in deutsches Recht.
                 </p>
               </div>
             </div>
@@ -185,7 +185,7 @@ export default function GuidePage() {
       <section>
         <CitationBox
           title="Entgelttransparenzgesetz und Verhandlungsstrategien: Juristische Grundlagen & Gehaltsbenchmarks"
-          url="https://lohnvergleichsrechner.de/ratgeber"
+          url="https://www.lohnvergleichsrechner.de/ratgeber"
         />
       </section>
       </div>

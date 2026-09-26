@@ -266,7 +266,7 @@ export default function JobStateSalaryPage() {
       <section>
         <CitationBox
           title={`Gehalt als ${shortTitle} in ${state.name}: Regionaler Lohnvergleich und Modellierung`}
-          url={`https://lohnvergleichsrechner.de/gehalt/${job.id}/${state.slug}`}
+          url={`https://www.lohnvergleichsrechner.de/gehalt/${job.id}/${state.slug}`}
         />
       </section>
       </div>

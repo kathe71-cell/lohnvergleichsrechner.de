@@ -36,8 +36,8 @@ const FAQS: FaqItem[] = [
   },
   {
     category: "Recht & Entgelttransparenz",
-    question: "Was ändert sich durch die EU-Entgelttransparenzrichtlinie bis 2026?",
-    answer: "Die Richtlinie (EU) 2023/970 verpflichtet Arbeitgeber ab spätestens Juni 2026, bereits vor dem Bewerbungsgespräch Gehaltsbänder in Stellenanzeigen offenzulegen. Die Frage nach bisherigen Gehältern von Bewerbern wird unionsweit verboten, und bei Ungleichbehandlungsvorwürfen greift eine Beweislastumkehr zugunsten der Arbeitnehmer."
+    question: "Was sieht die EU-Entgelttransparenzrichtlinie vor und wann gilt sie in Deutschland?",
+    answer: "Die europäische Richtlinie (EU) 2023/970 sieht vor, dass Arbeitgeber künftig bereits vor dem ersten Bewerbungsgespräch Gehaltsspannen offenlegen müssen, Fragen nach dem bisherigen Gehalt unzulässig werden und bei Ungleichbehandlungsvorwürfen eine Beweislastumkehr greift. Die europäische Umsetzungsfrist endete am 7. Juni 2026. Da die Bundesregierung erklärt hat, diese Frist nicht einzuhalten, und das Gesetzgebungsverfahren zur nationalen Überführung noch aussteht, entfalten die Vorgaben für private Arbeitgeber in Deutschland erst mit dem Inkrafttreten des deutschen Umsetzungsgesetzes unmittelbare rechtliche Bindung. Bis dahin gilt das bisherige Entgelttransparenzgesetz fort."
   },
   {
     category: "Karriere & Verhandlung",
@@ -106,7 +106,7 @@ export default function FaqPage() {
       <section>
         <CitationBox
           title="Häufige Fragen zum Lohnvergleich: Methodik, Rechtslage und Entgelttransparenz"
-          url="https://lohnvergleichsrechner.de/faq"
+          url="https://www.lohnvergleichsrechner.de/faq"
         />
       </section>
       </div>

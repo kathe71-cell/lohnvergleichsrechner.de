@@ -40,21 +40,21 @@ export default function MethodologyPage() {
             Transparenz- &amp; Datenstatus
           </span>
           <span className="text-xs font-mono font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded">
-            Version {DATA_METADATA.version} · Berichtszeitraum: {DATA_METADATA.dataReferencePeriod}
+            Berechnungsstand: {DATA_METADATA.lastUpdated} · BA-Stichtag: 31.12.2023 · Destatis VSE
           </span>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs text-slate-600 pt-1">
           <div>
             <span className="text-slate-400 block uppercase tracking-wider font-semibold">Destatis</span>
-            <span className="font-bold text-slate-800">Verdienststatistik (Stichprobe nach VStatG)</span>
+            <span className="font-bold text-slate-800">VSE 2022 / Verdiensterhebung (nach VStatG)</span>
           </div>
           <div>
             <span className="text-slate-400 block uppercase tracking-wider font-semibold">BA Entgeltatlas</span>
-            <span className="font-bold text-slate-800">DEÜV-Meldungen Vollzeit (Stichtag 31.12.2023)</span>
+            <span className="font-bold text-slate-800">DEÜV-Vollzeitentgelte (Stichtag 31.12.2023)</span>
           </div>
           <div>
             <span className="text-slate-400 block uppercase tracking-wider font-semibold">Regionale Faktoren</span>
-            <span className="font-bold text-slate-800">Länderfaktoren (Basis 2024)</span>
+            <span className="font-bold text-slate-800">Länderquotienten (BA Stichtag 31.12.2023)</span>
           </div>
           <div>
             <span className="text-slate-400 block uppercase tracking-wider font-semibold">Modellberechnung</span>
@@ -227,7 +227,7 @@ export default function MethodologyPage() {
       <section>
         <CitationBox
           title="Methodik und Datenherkunft: Lohn- und Gehaltsvergleich nach Destatis und KldB 2010"
-          url="https://lohnvergleichsrechner.de/methodik"
+          url="https://www.lohnvergleichsrechner.de/methodik"
         />
       </section>
       </div>

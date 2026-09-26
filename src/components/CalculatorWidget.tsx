@@ -126,7 +126,7 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
     }
   };
 
-  const embedCodeSnippet = `<iframe src="https://lohnvergleichsrechner.de/rechner-embed?beruf=${jobId}&bundesland=${stateCode}" width="100%" height="780" style="border:none;border-radius:12px;overflow:hidden;" title="Lohnvergleichsrechner"></iframe>\n<p style="font-size:12px;color:#64748b;text-align:right;">Bereitgestellt von <a href="https://lohnvergleichsrechner.de/" target="_blank" rel="noopener">lohnvergleichsrechner.de</a></p>`;
+  const embedCodeSnippet = `<iframe src="https://www.lohnvergleichsrechner.de/rechner-embed?beruf=${jobId}&bundesland=${stateCode}" width="100%" height="780" style="border:none;border-radius:12px;overflow:hidden;" title="Lohnvergleichsrechner"></iframe>\n<p style="font-size:12px;color:#64748b;text-align:right;">Bereitgestellt von <a href="https://www.lohnvergleichsrechner.de/" target="_blank" rel="noopener">lohnvergleichsrechner.de</a></p>`;
 
   const copyEmbedCode = () => {
     if (typeof navigator !== 'undefined' && navigator.clipboard) {
@@ -300,11 +300,11 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
             options={Object.entries(COMPANY_SIZE_FACTORS).map(([key, item]) => ({
               value: key,
               label: item.label,
-              sublabel: `Tarifmultiplikator: ${item.factor}x`
+              sublabel: `Tarifmultiplikator: ${item.factor.toLocaleString('de-DE', { minimumFractionDigits: 2 })}×`
             }))}
           />
           <span className="text-xs text-slate-500 block">
-            Tarifbindung &amp; Betriebsgröße-Multiplikator: {result.companySize.factor}x
+            Tarifbindung &amp; Betriebsgröße-Multiplikator: {result.companySize.factor.toLocaleString('de-DE', { minimumFractionDigits: 2 })}×
           </span>
         </div>
 
@@ -320,11 +320,11 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
             options={Object.entries(EDUCATION_FACTORS).map(([key, item]) => ({
               value: key,
               label: item.label,
-              sublabel: `Bildungskoeffizient: ${item.factor}x`
+              sublabel: `Bildungskoeffizient: ${item.factor.toLocaleString('de-DE', { minimumFractionDigits: 2 })}×`
             }))}
           />
           <span className="text-xs text-slate-500 block">
-            Qualifikationskoeffizient: {result.education.factor}x
+            Qualifikationskoeffizient: {result.education.factor.toLocaleString('de-DE', { minimumFractionDigits: 2 })}×
           </span>
         </div>
 
@@ -534,7 +534,7 @@ export default function CalculatorWidget({ isEmbed = false }: CalculatorWidgetPr
                 </h4>
                 <p className="text-xs sm:text-sm opacity-90 mt-0.5">
                   Differenz zum statistischen Vergleichsmedian: <strong>{result.differenceToMedian >= 0 ? '+' : '−'}{Math.abs(result.differenceToMedian).toLocaleString('de-DE')} €</strong> pro Jahr.
-                  Dein Gehalt liegt über dem geschätzten Niveau von ca. <strong>{result.percentileRank || 50} %</strong> der Vergleichsgruppe.
+                  Ihr Gehalt liegt über dem geschätzten Niveau von ca. <strong>{result.percentileRank || 50} %</strong> der Vergleichsgruppe.
                 </p>
               </div>
             </div>

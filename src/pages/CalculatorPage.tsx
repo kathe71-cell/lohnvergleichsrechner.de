@@ -89,7 +89,7 @@ export default function CalculatorPage() {
       <section>
         <CitationBox
           title="Lohnvergleichsrechner: Statistischer Gehalts-Benchmark nach Bundesland, Beruf und Erfahrung"
-          url="https://lohnvergleichsrechner.de/rechner"
+          url="https://www.lohnvergleichsrechner.de/rechner"
         />
       </section>
       </div>

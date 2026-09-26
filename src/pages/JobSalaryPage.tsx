@@ -445,7 +445,7 @@ export default function JobSalaryPage() {
       <section>
         <CitationBox
           title={`Gehaltsvergleich ${job.title}: Statistische Mediane und KldB-Klassifikation`}
-          url={`https://lohnvergleichsrechner.de/gehalt/${job.id}`}
+          url={`https://www.lohnvergleichsrechner.de/gehalt/${job.id}`}
         />
       </section>
       </div>

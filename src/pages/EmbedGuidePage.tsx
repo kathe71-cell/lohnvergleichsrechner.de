@@ -105,7 +105,7 @@ export default function EmbedGuidePage() {
     }
 
     const qs = params.toString();
-    return `https://lohnvergleichsrechner.de/embed/gehaltsvergleich${qs ? `?${qs}` : ''}`;
+    return `https://www.lohnvergleichsrechner.de/embed/gehaltsvergleich${qs ? `?${qs}` : ''}`;
   }, [selectedJob, selectedState, selectedExp, accentColor, effectiveBg, radius, font]);
 
   // Standard Iframe Embed Snippet
@@ -553,7 +553,7 @@ export default function EmbedGuidePage() {
                   rel="noopener noreferrer"
                   className="text-emerald-700 hover:underline inline-flex items-center gap-0.5"
                 >
-                  {embedUrl.replace('https://lohnvergleichsrechner.de', '')} <ExternalLink className="w-2.5 h-2.5" />
+                  {embedUrl.replace('https://www.lohnvergleichsrechner.de', '')} <ExternalLink className="w-2.5 h-2.5" />
                 </a>
               </div>
             </div>
@@ -596,7 +596,7 @@ export default function EmbedGuidePage() {
               </span>
               <pre className="text-xs font-mono text-emerald-200 bg-black/40 p-3 rounded-lg overflow-x-auto leading-normal">
 {`<iframe
-  src="https://lohnvergleichsrechner.de/embed/gehaltsvergleich?beruf=dachdecker"
+  src="https://www.lohnvergleichsrechner.de/embed/gehaltsvergleich?beruf=dachdecker"
   width="100%"
   height="650"
   style="border:none;border-radius:16px;overflow:hidden;"
@@ -695,7 +695,7 @@ export default function EmbedGuidePage() {
 
         <CitationBox
           title="Gehaltsrechner kostenlos auf der eigenen Website einbinden: Web-Widget & Iframe-Integration"
-          url="https://lohnvergleichsrechner.de/gehaltsrechner-einbinden"
+          url="https://www.lohnvergleichsrechner.de/gehaltsrechner-einbinden"
         />
       </div>
     </div>

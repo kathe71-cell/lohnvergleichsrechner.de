@@ -166,7 +166,7 @@ export default function AtlasPage() {
       <section>
         <CitationBox
           title="Entgeltatlas Deutschland: Amtliche Lohn- und Gehaltsstrukturen nach KldB 2010"
-          url="https://lohnvergleichsrechner.de/entgeltatlas"
+          url="https://www.lohnvergleichsrechner.de/entgeltatlas"
         />
       </section>
       </div>
