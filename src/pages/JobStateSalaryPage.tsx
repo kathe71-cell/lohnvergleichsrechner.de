@@ -1,3 +1,4 @@
+import JobSearchRecommendation from '../components/JobSearchRecommendation';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import {
   STATE_FACTORS,
@@ -252,6 +253,9 @@ export default function JobStateSalaryPage() {
           })}
         </div>
       </section>
+
+      {/* Empfehlung Arbeitsplatz.de */}
+      <JobSearchRecommendation jobTitle={`${job.title} (${state.name})`} />
 
       {/* Editorial Trust */}
       <section>

@@ -1,3 +1,4 @@
+import JobSearchRecommendation from '../components/JobSearchRecommendation';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import {
   SALARY_DATABASE,
@@ -345,6 +346,9 @@ export default function JobSalaryPage() {
           </div>
         </div>
       </section>
+
+      {/* Empfehlung Arbeitsplatz.de */}
+      <JobSearchRecommendation jobTitle={job.title} />
 
       {/* Verwandte Berufe (Silo-Verlinkung) */}
       <section className="space-y-4">
